@@ -7,13 +7,12 @@ const app = express();
 app.use(cors({
     origin: "http://localhost:3000"
 }))
-app.use('/login', loginRoutes);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 /*-----------------------------------------------------*/
-const dbUrl = 'mongodb://localhost/yelp-camp';
+const dbUrl = 'mongodb://localhost/Windals-pdi';
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -26,7 +25,7 @@ db.once('open', () => {
 });
 /*-----------------------------------------------------*/
 
-
+app.use('/login', loginRoutes);
 /*-----------------------------------------------------*/
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
