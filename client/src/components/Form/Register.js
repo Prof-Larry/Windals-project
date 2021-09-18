@@ -10,7 +10,7 @@ export default function Register() {
 
     //to send the registration request to the backend
     const register = () => {
-        axios.post('http://localhost:5000/login', user)
+        axios.post('http://localhost:5000/register', user)
             .then(res => {
                 console.log(res)
             })
@@ -34,8 +34,8 @@ export default function Register() {
 
     return (
         <div className="container d-flex align-items-center justify-content-center" style={{ height: "100vh", flexDirection: "column" }}>
-            <h1>Login</h1>
-            <form style={{ display: "flex", flexDirection: "column", width: "35%" }}>
+            <h1>Register</h1>
+            <div style={{ display: "flex", flexDirection: "column", width: "35%" }}>
                 <label style={{ alignSelf: "flex-start" }} htmlFor="username">Username</label>
                 <input id="username" name="username" type="text" value={user.username} onChange={ handleChange } />
                 <label style={{ alignSelf: "flex-start" }} htmlFor="email">Email</label>
@@ -43,7 +43,7 @@ export default function Register() {
                 <label className="mt-2" style={{ alignSelf: "flex-start" }} htmlFor="password">Password</label>
                 <input id="password" type="password" name="password" value={user.password} onChange={ handleChange } />
                 <button onClick={register} className="btn btn-primary mt-3">Register</button>
-            </form>
+            </div>
         </div>
     )
 }

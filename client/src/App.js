@@ -6,20 +6,16 @@ import Home from './components/Home/Home';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 function App() {
-  // const [user, setLoginUser] = useState({});
+  const [user, setLoginUser] = useState({});
 
   return (
     <Router>
       <Switch>
         <Route exact path="/">
-          <div className="App">
-            <Home></Home>
-          </div>
+            {user && user._id ? <Home /> : <Login setLoginUser={ setLoginUser } />}
         </Route>
         <Route exact path="/login">
-          <div className="App">
-            <Login></Login>
-          </div>
+            <Login setLoginUser={ setLoginUser } />
         </Route>
         <Route exact path="/register">
           <div className="App">

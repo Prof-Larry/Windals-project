@@ -5,6 +5,21 @@ export const renderLogin = (req, res) => {
 }
 
 
+export const validateUser = (req, res) => {
+    const { username, password } = req.body;
+    CreateUser.findOne({username: username}, (err, user) => {
+        if(user) {
+            if(password == user.password) {
+                res.send({message: "Login Successfull", user: user});
+            } else {
+                res.send({ message: "Invalid Credentials"});
+            }
+        } else {
+            res.send("User not Registered");
+        }
+    })
+}
+
 
 /*--------------------------Don't uncomment this---------------------------*/
 export const createUser = (req, res) => {
