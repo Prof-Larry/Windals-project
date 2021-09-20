@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './Register.css'
 
 export default function Register() {
     const [user, setUser] = useState({
@@ -46,30 +47,38 @@ export default function Register() {
     }, [user])
 
     return (
-        <div className="container d-flex align-items-center justify-content-center" style={{ height: "100vh", flexDirection: "column" }}>
-            <h1>Register</h1>
-            <div style={{ display: "flex", flexDirection: "column", width: "35%" }}>
-                <label style={{ alignSelf: "flex-start" }} htmlFor="firstname">Firstname</label>
-                <input id="firstname" name="firstname" type="text" value={user.firstname} onChange={handleChange} />
+        <div className="register d-flex align-items-center justify-content-center" style={{ height: "100vh", flexDirection: "column" }}>
+            <div className="register-form">
+                <h1 className="" style={{}}>Employee Registration</h1>
+                <div className="group-1">
+                    <label style={{}} htmlFor="firstname">Firstname</label>
+                    <input className="firstname" id="firstname" name="firstname" type="text" value={user.firstname} onChange={handleChange} />
+                </div>
 
-                <label style={{ alignSelf: "flex-start" }} htmlFor="lastname">Lastname</label>
-                <input id="lastname" name="lastname" type="text" value={user.lastname} onChange={handleChange} />
+                <div className="group-1">
+                    <label style={{}} htmlFor="lastname">Lastname</label>
+                    <input className="lastname" id="lastname" name="lastname" type="text" value={user.lastname} onChange={handleChange} />
+                </div>
 
                 <label style={{ alignSelf: "flex-start" }} htmlFor="email">Email</label>
                 <input id="email" name="email" type="email" value={user.email} onChange={handleChange} />
 
-                <label style={{ alignSelf: "flex-start" }} htmlFor="phone">Phone</label>
-                <input id="phone" name="phone" type="text" value={user.phone} onChange={intChange} />
+                <div className="group-1">
+                    <label style={{ alignSelf: "flex-start" }} htmlFor="phone">Phone</label>
+                    <input id="phone" name="phone" type="text" value={user.phone} onChange={intChange} />
+                </div>
 
-                <label style={{ alignSelf: "flex-start" }} htmlFor="age">age</label>
-                <input id="age" name="age" type="text" value={user.age} onChange={intChange} />
+                <div className="group-1">
+                    <label style={{ alignSelf: "flex-start" }} htmlFor="age">Age</label>
+                    <input id="age" name="age" type="text" value={user.age} onChange={intChange} />
+                </div>
 
                 <label style={{ alignSelf: "flex-start" }} htmlFor="password">Password</label>
                 <input id="password" name="password" type="password" value={user.password} onChange={handleChange} />
 
-                <label className="mt-2" style={{ alignSelf: "flex-start" }} htmlFor="confirmpassword">confirmpassword</label>
+                <label className="mt-2" style={{ alignSelf: "flex-start" }} htmlFor="confirmpassword">Confirmpassword</label>
                 <input id="confirmpassword" type="password" name="confirmpassword" value={user.confirmpassword} onChange={handleChange} />
-                <button onClick={register} className="btn btn-primary mt-3">Register</button>
+                <button onClick={register} className="btn btn-success mt-3 rounded">Register</button>
             </div>
         </div>
     )

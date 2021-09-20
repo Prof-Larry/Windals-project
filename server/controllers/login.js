@@ -6,8 +6,8 @@ export const renderLogin = (req, res) => {
 
 
 export const validateUser = (req, res) => {
-    const { username, password } = req.body;
-    CreateUser.findOne({ username: username }, (err, user) => {
+    const { email, password } = req.body;
+    CreateUser.findOne({ email: email }, (err, user) => {
         if (user) {
             if (password == user.password) {
                 res.send({ message: "Login Successfull", user: user });

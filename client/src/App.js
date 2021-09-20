@@ -22,9 +22,6 @@ function App() {
         </Route>
       </Switch>
     </Router>
-    // <div className="App">
-    //   <Login></Login>
-    // </div>
   );
 }
 

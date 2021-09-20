@@ -1,8 +1,10 @@
 import axios from 'axios';
-import React , { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
+import Icon from "./Icon";
+import "./Login.css";
 
-export default function Login({ setLoginUser}) {
+export default function Login({ setLoginUser }) {
     const [user, setUser] = useState({
         username: "",
         email: "",
@@ -15,7 +17,7 @@ export default function Login({ setLoginUser}) {
         const { name, value } = e.target;
         setUser({
             ...user,
-            [name] : value
+            [name]: value
         });
     }
 
@@ -33,14 +35,17 @@ export default function Login({ setLoginUser}) {
 
 
     return (
-        <div className="container d-flex align-items-center justify-content-center" style={{ height: "100vh", flexDirection: "column" }}>
-            <h1>Login</h1>
-            <div style={{ display: "flex", flexDirection: "column", width: "35%" }}>
-                <label style={{ alignSelf: "flex-start" }} htmlFor="username">Username</label>
-                <input id="username" name="username" type="text" value={user.username} onChange={ handleChange } />
-                <label className="mt-2" style={{ alignSelf: "flex-start" }} htmlFor="password">Password</label>
-                <input id="password" type="password" name="password" value={user.password} onChange={ handleChange } />
-                <button onClick={login} className="btn btn-primary mt-3">Login</button>
+        <div className="d-flex align-items-center justify-content-center login-contain" style={{ height: "100vh", backgroundColor: "rgb(237, 240, 243)" }}>
+            <div className="login d-flex align-items-center justify-content-center" style={{ height: "60%", flexDirection: "column", width: "50%" }}>
+                <Icon />
+                <h1>Admin Login</h1>
+                <div className="login-form px-5 d-flex justify-content-center" style={{ flexDirection: "column", width: "70%" }}>
+                    <label style={{ alignSelf: "flex-start" }} htmlFor="email">Email</label>
+                    <input id="email" name="email" type="email" value={user.email} onChange={handleChange} />
+                    <label className="mt-2" style={{ alignSelf: "flex-start" }} htmlFor="password">Password</label>
+                    <input id="password" type="password" name="password" value={user.password} onChange={handleChange} />
+                    <button onClick={login} className="btn btn-primary mt-3">Login</button>
+                </div>
             </div>
         </div>
     )

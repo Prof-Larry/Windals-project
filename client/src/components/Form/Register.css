@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Roboto:wght@100;400;700&display=swap');
+*, ::after, ::before{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(56, 6, 175);
+}
+
+.register{
+    background-color: rgb(237, 240, 243);
+}
+
+.register-form{
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    height: 60vh;
+    padding: 30px 25px;
+    box-shadow: -3px -3px 15px rgb(250, 250, 250), 3px 3px 20px rgb(161, 156, 156);
+    border-radius: 3%;
+}
+
+.register-form h1{
+    font-weight: bold;
+}
+
+.register-form label{
+    font-size: 0.9rem;
+}
+
+.register-form input{
+    width: 100%;
+    border-radius: 2px;
+    background: transparent;
+    padding: 0 7px;
+    border: none;
+    height: 7%;
+    outline: none;
+    box-shadow: -2px -2px 8px rgb(255, 255, 255) inset, 2px 2px 7px rgb(161, 156, 156) inset;
+}
+
+.register-form .group-1{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+    height: 13%;
+    margin: 12px 0 0 0;
+}
+
+.register-form .group-1 input{
+    height: 100%;
+    padding: 0 7px;
+}
+
+.register-form button{
+    background-color: rgb(255, 31, 31);
+    border: none;
+}
+
