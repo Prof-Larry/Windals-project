@@ -6,25 +6,25 @@ export const renderLogin = (req, res) => {
 
 
 export const validateUser = async (req, res) => {
-    const { empid, password } = req.body;
-    CreateUser.findOne({ empid: empid }, (err, user) => {
-        if (user) {
-            // if (bcrypt.compare(password, user.password)) {
-            //     res.send({ message: "Login Successfull", user: user });
-            // } else {
-            //     res.send({ message: "Invalid Credentials" });
-            // }
-            bcrypt.compare(password, user.password, function(err, response) {
-                if(response) {
-                    res.send({message: "Login Successfull", user: user});
-                } else {
-                    res.send({ message: "Invalid Credentials"});
-                }
-            });
-        } else {
-            res.send("User not Registered");
-        }
-    })
+    try {
+        const { empid, password } = req.body;
+        CreateUser.findOne({ empid: empid }, async (err, user) => {
+            if (user) {
+                await bcrypt.compare(password, user.password, async function(err, response) {
+                    if(response) {
+                        const token = await user.generateAuthToken();
+                        res.send({message: "Login Successfull", user: user});
+                    } else {
+                        res.send({ message: "Invalid Credentials"});
+                    }
+                });
+            } else {
+                res.send("User not Registered");
+            }
+        })    
+    } catch (error) {
+        res.send("There is Technical issue!!");   
+    }
 }
 
 
