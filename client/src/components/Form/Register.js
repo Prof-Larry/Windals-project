@@ -2,10 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Register.css'
 
+
+/* ALERT ---------------------         Still i need to add the Route to Master home page         -----------------------ALERT */
+
 export default function Register() {
     const [user, setUser] = useState({
         firstname: "",
         lastname: "",
+        empid: "",
+        department: "",
         email: "",
         phone: "",
         age: "",
@@ -60,6 +65,16 @@ export default function Register() {
                     <input className="lastname" id="lastname" name="lastname" type="text" value={user.lastname} onChange={handleChange} />
                 </div>
 
+                <div className="group-1">
+                    <label htmlFor="empid">Employee id</label>
+                    <input type="text" className="empid" id="empid" name="empid" value={user.empid} onChange={handleChange} />
+                </div>
+
+                <div className="group-1">
+                    <label htmlFor="department">Department</label>
+                    <input type="text" className="department" id="department" name="department" value={user.department} onChange={handleChange} />
+                </div>
+
                 <label style={{ alignSelf: "flex-start" }} htmlFor="email">Email</label>
                 <input id="email" name="email" type="email" value={user.email} onChange={handleChange} />
 
@@ -73,11 +88,16 @@ export default function Register() {
                     <input id="age" name="age" type="text" value={user.age} onChange={intChange} />
                 </div>
 
-                <label style={{ alignSelf: "flex-start" }} htmlFor="password">Password</label>
-                <input id="password" name="password" type="password" value={user.password} onChange={handleChange} />
+                <div className="group-1">
+                    <label style={{ alignSelf: "flex-start" }} htmlFor="password">Password</label>
+                    <input id="password" name="password" type="password" value={user.password} onChange={handleChange} />
+                </div>
 
-                <label className="mt-2" style={{ alignSelf: "flex-start" }} htmlFor="confirmpassword">Confirmpassword</label>
-                <input id="confirmpassword" type="password" name="confirmpassword" value={user.confirmpassword} onChange={handleChange} />
+                <div className="group-1">            
+                    <label style={{ alignSelf: "flex-start" }} htmlFor="confirmpassword">Confirmpassword</label>
+                    <input id="confirmpassword" type="password" name="confirmpassword" value={user.confirmpassword} onChange={handleChange} />
+                </div>
+
                 <button onClick={register} className="btn btn-success mt-3 rounded">Register</button>
             </div>
         </div>

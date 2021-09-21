@@ -6,8 +6,7 @@ import "./Login.css";
 
 export default function Login({ setLoginUser }) {
     const [user, setUser] = useState({
-        username: "",
-        email: "",
+        empid:"",
         password: ""
     });
 
@@ -40,8 +39,8 @@ export default function Login({ setLoginUser }) {
                 <Icon />
                 <h1>Admin Login</h1>
                 <div className="login-form px-5 d-flex justify-content-center" style={{ flexDirection: "column", width: "70%" }}>
-                    <label style={{ alignSelf: "flex-start" }} htmlFor="email">Email</label>
-                    <input id="email" name="email" type="email" value={user.email} onChange={handleChange} />
+                    <label style={{ alignSelf: "flex-start" }} htmlFor="empid">Id</label>
+                    <input id="empid" name="empid" type="text" value={user.empid} onChange={handleChange} />
                     <label className="mt-2" style={{ alignSelf: "flex-start" }} htmlFor="password">Password</label>
                     <input id="password" type="password" name="password" value={user.password} onChange={handleChange} />
                     <button onClick={login} className="btn btn-primary mt-3">Login</button>

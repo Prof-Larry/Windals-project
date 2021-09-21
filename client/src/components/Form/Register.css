@@ -14,8 +14,8 @@
 .register-form{
     display: flex;
     flex-wrap: wrap;
-    width: 50%;
-    height: 60vh;
+    width: 60%;
+    height: 80vh;
     padding: 30px 25px;
     box-shadow: -3px -3px 15px rgb(250, 250, 250), 3px 3px 20px rgb(161, 156, 156);
     border-radius: 3%;

@@ -1,19 +1,26 @@
 import { CreateUser } from '../models/user.js'
-
+import bcrypt from 'bcryptjs';
 export const renderLogin = (req, res) => {
     res.json("This also Works and this route will render the login form nothing more");
 }
 
 
-export const validateUser = (req, res) => {
-    const { email, password } = req.body;
-    CreateUser.findOne({ email: email }, (err, user) => {
+export const validateUser = async (req, res) => {
+    const { empid, password } = req.body;
+    CreateUser.findOne({ empid: empid }, (err, user) => {
         if (user) {
-            if (password == user.password) {
-                res.send({ message: "Login Successfull", user: user });
-            } else {
-                res.send({ message: "Invalid Credentials" });
-            }
+            // if (bcrypt.compare(password, user.password)) {
+            //     res.send({ message: "Login Successfull", user: user });
+            // } else {
+            //     res.send({ message: "Invalid Credentials" });
+            // }
+            bcrypt.compare(password, user.password, function(err, response) {
+                if(response) {
+                    res.send({message: "Login Successfull", user: user});
+                } else {
+                    res.send({ message: "Invalid Credentials"});
+                }
+            });
         } else {
             res.send("User not Registered");
         }
@@ -21,28 +28,29 @@ export const validateUser = (req, res) => {
 }
 
 
-/*--------------------------Don't uncomment this---------------------------*/
-export const createUser = (req, res) => {
-    const { confirmpassword, password } = req.body;
-
-    if (confirmpassword == password) {
-        const { firstname, lastname, age, phone, email } = req.body;
-        CreateUser.findOne({ email }, (err, user) => {
-            if (user) {
-                res.send({ message: "User with that email already exists" });
-            } else {
-                const newUser = new CreateUser({ firstname, lastname, email, phone, age, password, confirmpassword });
-                try {
+/*--------------------------Don't uncomment/touch below code---------------------------*/
+export const createUser = async (req, res) => {
+    try {
+        const { confirmpassword, password } = req.body;
+        if (confirmpassword == password) {
+            const { firstname, lastname, empid, department, age, phone, email } = req.body;
+            CreateUser.findOne({ email }, (err, user) => {
+                if (user) {
+                    res.send({ message: "User with that Employee id already exists" });
+                } else {
+                    const newUser = new CreateUser({ firstname, lastname, empid, department, email, phone, age, password });
+                    const token = newUser.generateAuthToken();
                     newUser.save();
+                    //remember to remove the ...newUser when this project is complete....else don't touch
                     res.status(201).send({ ...newUser, message: "User created successfully" });
-                } catch (error) {
-                    res.status(409).json({ message: error.message });
                 }
-            }
-        })
-    } else {
-        res.send({ message: "password didn't match" });
+            })
+        } else {
+            res.send({ message: "password didn't match" });
+        }
+    } catch (error) {
+        res.status(409).json({ message: error.message });
     }
 
 }
-/*--------------------------Don't uncomment this---------------------------*/
+/*--------------------------Don't uncomment/touch above code---------------------------*/

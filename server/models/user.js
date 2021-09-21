@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import bcrypt from 'bcryptjs';
+import jwt from "jsonwebtoken";
+
 const Schema = mongoose.Schema;
 
 const UserSchema = Schema({
@@ -7,6 +10,14 @@ const UserSchema = Schema({
         required: true
     },
     lastname: {
+        type: String,
+        required: true
+    },
+    empid: {
+        type: String,
+        required: true
+    },
+    department: {
         type: String,
         required: true
     },
@@ -30,15 +41,31 @@ const UserSchema = Schema({
         type: String,
         required: true
     },
-    confirmpassword: {
-        type: String,
-        required: true
-    }
+    tokens: [{
+        token: {
+            type: String,
+            required: true
+        }
+    }]
 });
 
-// UserSchema.pre("save", function (next) {
-//here we will check if the password is modified
-//this will prevent the bcrypt to hash it again...
-// })
+
+UserSchema.methods.generateAuthToken = async function(){
+    try {
+        const token = jwt.sign({_id: this._id.toString()}, process.env.SECRET_AUTH + "");
+        this.tokens = this.tokens.concat({token});
+        return token;
+    } catch (error) {
+        throw error;
+    }
+}
+
+//converting password into hash
+UserSchema.pre("save", async function(next) {
+    if(this.isModified("password")) {
+        this.password = await bcrypt.hash(this.password, 10);
+    }
+    next();
+});
 
 export const CreateUser = mongoose.model('User', UserSchema);
