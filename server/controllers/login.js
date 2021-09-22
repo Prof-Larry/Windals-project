@@ -13,6 +13,10 @@ export const validateUser = async (req, res) => {
                 await bcrypt.compare(password, user.password, async function(err, response) {
                     if(response) {
                         const token = await user.generateAuthToken();
+                        res.cookie('jwtoken', token, {
+                            expires: new Date(Date.now() + 28800000),
+                            httpOnly: true
+                        })
                         res.send({message: "Login Successfull", user: user});
                     } else {
                         res.send({ message: "Invalid Credentials"});
