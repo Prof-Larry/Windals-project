@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Stick+No+Bills:wght@300;400;700&display=swap');
+
+*, ::after, ::before{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar h2{
+    font-family: 'Stick No Bills', sans-serif;
+    font-weight: bold;
+    margin-left: 5%;
+    margin-bottom: 0;
+}
+
+.navigation{
+    width: 30%;
+    margin: 4px 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.adminlink, .userlink, .masterlink{
+    padding: 10px 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.adminlink:hover{
+    background-color: rgb(205, 205, 248);
+    border-radius: 4px;
+}
+.userlink:hover{
+    background-color: rgb(205, 205, 248);
+    border-radius: 4px;
+}
+.masterlink:hover{
+    background-color: rgb(205, 205, 248);
+    border-radius: 4px;
+}

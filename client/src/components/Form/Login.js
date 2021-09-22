@@ -6,7 +6,7 @@ import "./Login.css";
 
 export default function Login({ setLoginUser }) {
     const [user, setUser] = useState({
-        empid:"",
+        empid: "",
         password: ""
     });
 
