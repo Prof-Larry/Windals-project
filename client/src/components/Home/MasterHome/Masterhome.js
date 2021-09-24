@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import "./Adminhome.css";
 import { useHistory } from 'react-router';
 
-export default function Adminhome() {
+export default function Masterhome() {
     const history = useHistory();
     const checkAuthentication = async () => {
         try {
@@ -24,14 +24,10 @@ export default function Adminhome() {
             console.log(error);
             history.push('/adminlogin');
         }
-
     }
-
-
     useEffect(() => {
         checkAuthentication();
     }, []);
-
 
     return (
         <div className="adminHome">

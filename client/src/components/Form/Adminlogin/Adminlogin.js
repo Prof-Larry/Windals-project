@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import Icon from "./Icon";
 import "./Login.css";
 
-export default function Login() {
+export default function AdminLogin() {
     const [admin, setUser] = useState({
         empid: "",
         password: ""
