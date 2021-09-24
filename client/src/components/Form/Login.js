@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import Icon from "./Icon";
 import "./Login.css";
@@ -21,11 +21,11 @@ export default function Login({ setLoginUser }) {
     }
 
     const login = () => {
-        axios.post('http://localhost:5000/login', user)
+        axios.post('http://localhost:5000/adminlogin', user)
             .then(res => {
                 alert(res.data.message);
                 setLoginUser(res.data.user);
-                history.push("/");
+                history.push("/adminhome");
             })
             .catch(e => {
                 console.log(e);

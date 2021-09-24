@@ -20,7 +20,7 @@ export default function Register() {
 
     //to send the registration request to the backend
     const register = () => {
-        axios.post('http://localhost:5000/register', user)
+        axios.post('http://localhost:5000/adminregister', user)
             .then(res => {
                 alert(res.data.message);
             })

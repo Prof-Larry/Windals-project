@@ -1,11 +1,11 @@
 import './App.css';
-import { useState } from 'react';
 import Register from './components/Form/Register';
 import Login from './components/Form/Login';
-import Home from './components/Home/Home';
+import Home from './components/Home/Adminhome/Adminhome';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Userlogin from './components/Form/Userlogin/Userlogin';
 import Masterlogin from './components/Form/Masterlogin/Masterlogin';
+import Adminhome from './components/Home/Adminhome/Adminhome';
 
 function App() {
   // const [user, setLoginUser] = useState({});
@@ -26,8 +26,12 @@ function App() {
         <Route exact path="/masterlogin">
           <Masterlogin />
         </Route>
-        <Route exact path="/register">
+        <Route exact path="/adminregister">
           <Register></Register>
+        </Route>
+
+        <Route exact path="/adminhome">
+          <Adminhome />
         </Route>
       </Switch>
     </Router>

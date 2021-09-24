@@ -1,28 +1,41 @@
 import { Admin } from '../models/admin.js'
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 
 export const validateAdmin = async (req, res) => {
     try {
         const { empid, password } = req.body;
-        Admin.findOne({ empid: empid }, async (err, admin) => {
-            if (admin) {
-                await bcrypt.compare(password, admin.password, async function (err, response) {
-                    if (response) {
-                        const token = await admin.generateAuthToken();
-                        res.cookie('jwtoken', token, {
-                            expires: new Date(Date.now() + 28800000),
-                            httpOnly: true
-                        })
-                        res.send({ message: "Login Successfull", admin: admin });
-                    } else {
-                        res.send({ message: "Invalid Credentials" });
-                    }
+
+        const admin = await Admin.findOne({empid: empid});
+        if(admin){
+            const verified = await bcrypt.compare(password, admin.password);
+            if(verified){
+                const token = await jwt.sign(admin._id.toString() , process.env.SECRET_AUTH + "");
+                console.log(token);
+                res.cookie('admin', token, {
+                    expires: new Date(Date.now() + 2589200000),
+                    httpOnly: true
                 });
-            } else {
-                res.send("User not Registered");
+                res.send({message: "Login successfull"});
             }
-        })
+        }
+
+        // Admin.findOne({ empid: empid }, async (err, admin) => {
+        //     if (admin) {
+        //         await bcrypt.compare(password, admin.password, async function (err, response) {
+        //             if (response) {
+        //                 const token = await admin.generateAuthToken();
+                    
+        //                 res.send({ message: "Login Successfull", admin: admin });
+        //             } else {
+        //                 res.send({ message: "Invalid Credentials" });
+        //             }
+        //         });
+        //     } else {
+        //         res.send({message: "User not Registered"});
+        //     }
+        // })
     } catch (error) {
         res.send("There is Technical issue!!");
     }
