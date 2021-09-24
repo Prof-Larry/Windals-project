@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 const Schema = mongoose.Schema;
 
-const UserSchema = Schema({
+const AdminSchema = Schema({
     firstname: {
         type: String,
         required: true
@@ -13,7 +13,11 @@ const UserSchema = Schema({
         type: String,
         required: true
     },
-    address: {
+    empid: {
+        type: String,
+        required: true
+    },
+    department: {
         type: String,
         required: true
     },
@@ -46,11 +50,10 @@ const UserSchema = Schema({
 });
 
 
-UserSchema.methods.generateAuthToken = async function () {
+AdminSchema.methods.generateAuthToken = async function () {
     try {
         const token = jwt.sign({ _id: this._id.toString() }, process.env.SECRET_AUTH + "");
         this.tokens = this.tokens.concat({ token });
-        await this.save();
         return token;
     } catch (error) {
         throw error;
@@ -58,11 +61,11 @@ UserSchema.methods.generateAuthToken = async function () {
 }
 
 //converting password into hash
-UserSchema.pre("save", async function (next) {
+AdminSchema.pre("save", async function (next) {
     if (this.isModified("password")) {
         this.password = await bcrypt.hash(this.password, 10);
     }
     next();
 });
 
-export const User = mongoose.model('User', UserSchema);
+export const Admin = mongoose.model('Admin', AdminSchema);

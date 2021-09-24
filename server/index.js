@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import loginRoutes from './routes/login.js'
+import loginRoutes from './routes/adminlogin.js'
 const app = express();
 
 app.use(cors({
