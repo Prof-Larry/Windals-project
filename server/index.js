@@ -2,14 +2,21 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import loginRoutes from './routes/adminlogin.js'
+import cookieParser from "cookie-parser";
 const app = express();
 
-app.use(cors({
-    origin: "http://localhost:3000"
-}))
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    // methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
+    credentials: true
+};
+
+app.use(cors(corsOptions))
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+
 
 /*-----------------------------------------------------*/
 const dbUrl = 'mongodb://localhost/Windals-pdi';

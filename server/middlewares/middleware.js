@@ -1,20 +1,20 @@
-import { jwt } from "jsonwebtoken";
-import { CreateUser } from "../models/user";
+import jwt from "jsonwebtoken";
+import { Admin } from "../models/admin.js";
 
-export const Authenticate = async (req, res, next) => {
+export const adminAuthenticate = async (req, res, next) => {
     try {
-        const token = req.cookies.jwtoken;
+        const token = req.cookies.admin;
         const verifyToken = jwt.verify(token, process.env.SECRET_AUTH + "");
+        const rootUser = await Admin.findOne({ _id: verifyToken });
 
-        const rootUser = await CreateUser.findOne({ _id: verifyToken._id, "tokens.token": token});
-
-        if(!rootUser) { throw new Error("User not found")}
+        if (!rootUser) { throw new Error("User not found") }
 
         req.token = token;
         req.rootUser = rootUser;
         req.userID = rootUser._id;
 
+        next();
     } catch (error) {
-        res.status(401).send('Unauthorized: No Token provided');
+        res.status(401).send("Unauthorized: No Token Provided!");
     }
 }

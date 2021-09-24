@@ -7,37 +7,23 @@ export const validateAdmin = async (req, res) => {
     try {
         const { empid, password } = req.body;
 
-        const admin = await Admin.findOne({empid: empid});
-        if(admin){
+        const admin = await Admin.findOne({ empid: empid });
+        if (admin) {
             const verified = await bcrypt.compare(password, admin.password);
-            if(verified){
-                const token = await jwt.sign(admin._id.toString() , process.env.SECRET_AUTH + "");
+            if (verified) {
+                const token = await jwt.sign(admin._id.toString(), process.env.SECRET_AUTH + "");
                 console.log(token);
                 res.cookie('admin', token, {
-                    expires: new Date(Date.now() + 2589200000),
+                    expires: new Date(Date.now() + 86400000),
                     httpOnly: true
                 });
-                res.send({message: "Login successfull"});
+                res.send({ message: "Login successfull" });
             }
+        } else {
+            res.send({ message: "User not found!!" });
         }
-
-        // Admin.findOne({ empid: empid }, async (err, admin) => {
-        //     if (admin) {
-        //         await bcrypt.compare(password, admin.password, async function (err, response) {
-        //             if (response) {
-        //                 const token = await admin.generateAuthToken();
-                    
-        //                 res.send({ message: "Login Successfull", admin: admin });
-        //             } else {
-        //                 res.send({ message: "Invalid Credentials" });
-        //             }
-        //         });
-        //     } else {
-        //         res.send({message: "User not Registered"});
-        //     }
-        // })
     } catch (error) {
-        res.send("There is Technical issue!!");
+        res.status(401).send(error.message);
     }
 }
 
