@@ -35,7 +35,7 @@ export default function Adminhome() {
 
     return (
         <div className="adminHome">
-            <h1>This will be admin page</h1>
+            <h1>This will be ADMIN PAGE </h1>
         </div>
     )
 }
