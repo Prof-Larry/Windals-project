@@ -1,6 +1,6 @@
 import './App.css';
-import Register from './components/Form/Register';
-import Login from './components/Form/Login';
+import Register from './components/Form/Adminlogin/Register';
+import AdminLogin from './components/Form/Adminlogin/Adminlogin';
 import Home from './components/Home/Home';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Userlogin from './components/Form/Userlogin/Userlogin';
@@ -21,7 +21,7 @@ function App() {
           <Userlogin />
         </Route>
         <Route exact path="/adminlogin">
-          <Login />
+          <AdminLogin />
         </Route>
         <Route exact path="/masterlogin">
           <Masterlogin />
