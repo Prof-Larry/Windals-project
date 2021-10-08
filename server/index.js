@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import mysql from "mysql";
 import cors from "cors";
 import loginRoutes from './routes/adminlogin.js'
 import cookieParser from "cookie-parser";
@@ -18,20 +19,43 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 
-/*-----------------------------------------------------*/
-const dbUrl = 'mongodb://localhost/Windals-pdi';
-mongoose.connect(dbUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+/*----------------------------------------DATABASE CONNECTION-------------*/
+const db = mysql.createConnection({             //--------| MYSQL
+    host: 'localhost',
+    user: 'root',
+    password: 'Viit@123'
 });
 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, "connection error:"));
-db.once('open', () => {
-    console.log('Database Connnected');
+db.connect(err => {
+    if (err)
+        throw err;
+    console.log("Mysql is connected....");
 });
-/*-----------------------------------------------------*/
 
+// const dbUrl = 'mongodb://localhost/Windals-pdi';         //---------| MONGODB
+// mongoose.connect(dbUrl, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// });
+
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, "connection error:"));
+// db.once('open', () => {
+//     console.log('Database Connnected');
+// });
+/*------------------------------------------DATABASE CONNECTION-----------*/
+app.get('/createDatabase', (req, res) => {
+    try {
+        const query = "CREATE DATABASE Windals_pdi";
+        db.query(query, (err, result) => {
+            if (err) throw new Error(err.message);
+            console.log(result);
+            res.send("Wow DB created");
+        });
+    } catch (err) {
+        console.log(err.message);
+    }
+});
 app.use('/', loginRoutes);
 /*-----------------------------------------------------*/
 const PORT = process.env.PORT || 5000;
