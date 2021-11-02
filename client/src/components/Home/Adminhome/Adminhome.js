@@ -28,9 +28,9 @@ export default function Adminhome() {
     }
 
 
-    useEffect(() => {
-        checkAuthentication();
-    }, []);
+    // useEffect(() => {
+    //     checkAuthentication();
+    // }, []);
 
 
     return (

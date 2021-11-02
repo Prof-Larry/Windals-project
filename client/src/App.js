@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react'
 import Register from './components/Form/Adminlogin/Register';
 import AdminLogin from './components/Form/Adminlogin/Adminlogin';
 import Home from './components/Home/Home';
