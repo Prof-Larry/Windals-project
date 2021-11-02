@@ -33,7 +33,7 @@ export const createAdmin = async (req, res) => {
     try {
         const { confirmpassword, password } = req.body;
         if (confirmpassword == password) {
-            const { firstname, lastname, empid, department, age, phone, email } = req.body;
+            const { firstname, lastname, empid, department, phone, email } = req.body;
             Admin.findOne({ empid }, (err, admin) => {
                 if (admin) {
                     res.send({ message: "Admin with that Employee id already exists" });

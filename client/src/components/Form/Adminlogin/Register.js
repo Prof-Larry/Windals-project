@@ -83,10 +83,10 @@ export default function Register() {
                     <input id="phone" name="phone" type="text" value={user.phone} onChange={intChange} />
                 </div>
 
-                <div className="group-1">
+                {/* <div className="group-1">
                     <label style={{ alignSelf: "flex-start" }} htmlFor="age">Age</label>
                     <input id="age" name="age" type="text" value={user.age} onChange={intChange} />
-                </div>
+                </div> */}
 
                 <div className="group-1">
                     <label style={{ alignSelf: "flex-start" }} htmlFor="password">Password</label>

@@ -36,12 +36,7 @@ export const createUser = (req, res) => {
                 password
             });
             const token = newUser.generateAuthToken();
-
-
-
         }
-
-
     } catch (error) {
 
     }
