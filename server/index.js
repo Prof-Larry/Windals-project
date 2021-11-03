@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import { createPool } from "mysql";
+import db from "./Database/db.js";
 import cors from "cors";
 import loginRoutes from './routes/adminlogin.js'
 import cookieParser from "cookie-parser";
@@ -23,14 +24,6 @@ app.use(express.urlencoded({ extended: true }));
 
 
 /*----------------------------------------DATABASE CONNECTION-------------*/
-const db = createPool({             //--------| MYSQL
-    host: process.env.DB_HOST + "",
-    user: process.env.DB_USER + "",
-    password: process.env.DB_PASS + "",
-    connectionLimit: 10,
-    database: 'Windals_pdi'
-});
-
 
 // const dbUrl = 'mongodb://localhost/Windals-pdi';         //---------| MONGODB
 // mongoose.connect(dbUrl, {
@@ -46,25 +39,19 @@ const db = createPool({             //--------| MYSQL
 /*------------------------------------------DATABASE CONNECTION-----------*/
 app.get('/createDatabase', (req, res) => {
     try {
-        // const query = "CREATE DATABASE Windals_pdi";
-        // db.query(query, (err, result) => {
-        //     if (err) throw new Error(err.message);
-        //     console.log(result);
-        //     res.send("Wow DB created");
-        // });
-        const query1 = `CREATE TABLE test2(
-            Employee_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(100),
-        )`;
-        const query2 = `INSERT INTO test2(
-            name
-        ) values(?)`;
+        const query2 = "INSERT INTO Admin(Employee_id,FirstName,LastName,department,email,designation,phone,Join_date,Pass) values(?,?,?,?,?,?,?,?,?)";
         db.query(
-            `INSERT INTO test2(
-                name
-            ) values(?)`,
+            query2,
             [
-                "Ujwal"
+                "EE80445",
+                "Manish",
+                "Patil",
+                "Civil",
+                "manish@gmail.com",
+                'A',
+                272844432,
+                '2000-12-11',
+                "afajbnahhgbjkabtkujabfkjabtgjbadafdsgsa"
             ],
             (error, results, fields) => {
                 if(error) throw new Error(error.message);
