@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button,Container,Row,Col,Form } from 'react-bootstrap'
+import { Button,Container,Row,Col,Form,Nav } from 'react-bootstrap'
 
 
 
@@ -7,6 +7,21 @@ export default function ReworkDetails() {
     return (
         <div className="ReworkDetails">
             <Container>
+            <Nav variant="tabs" defaultActiveKey="/rework">
+                <Nav.Item>
+                    <Nav.Link href="/inspection">Inspection Details</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link href="/rework">Rework Details</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link href="/rejection">Rejection Details</Nav.Link>
+                </Nav.Item>
+            </Nav>
+            </Container>
+        
+            <Container>
+                <br/>
                 
                 <Form>
                     <Form.Text as={Row} className="mb-3" >**Inprocess Rework**</Form.Text>
@@ -187,7 +202,7 @@ export default function ReworkDetails() {
                     </Form.Group>
                     <Button className="mb-5" variant="success">Add Rework</Button>
                     <br/>
-                    <Button variant="danger">Save and Next</Button>
+                    <Button variant="danger" classname="mb-5" onClick={event =>  window.location.href='/rejection'}>Save and Next</Button>
 
 
                 </Form>
