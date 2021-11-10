@@ -2,6 +2,7 @@ import { Admin } from '../models/admin.js'
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import db from '../Database/db.js';
+import moment from 'moment';
 
 
 export const validateAdmin = async (req, res) => {
@@ -68,11 +69,12 @@ export const createAdmin = async (req, res) => {
     try {
         const { confirmpassword, password } = req.body;
         if(confirmpassword == password) {
-            const date = Date.now();
-            const { empid, firstname, lastname, department, designation, phone, email } = req.body;
-            const token = jwt.sign(empid.toString(), process.env.SECRET_AUTH);
-            const adminInfo = [empid, firstname, lastname, department, designation, phone, email, date, password, token];
-            const newAdmin = "Insert into admin( empid, firstname, lastname, department, designation, phone, email, date, pass ) values (?,?,?,?,?,?,?,?,?)";
+            const date = moment(now).format('YYYY-MM-DD');
+            const { empid, firstname, lastname, gender, department, designation, phone, email } = req.body;
+            const token = await jwt.sign(empid.toString(), process.env.SECRET_AUTH);
+            password = await bcrypt.hash(password, 10);
+            const adminInfo = [empid, firstname, lastname, gender, department, designation, phone, email, date, password, token];
+            const newAdmin = "Insert into admin( empid, firstname, lastname, gender, department, designation, phone, email, join_date, pass, token ) values (?,?,?,?,?,?,?,?,?,?,?)";
             db.query(newAdmin, adminInfo, (error, results) => {
                 if(error) res.status(401).json({
                     message: "Some technical Error, please try again later"

@@ -8,7 +8,7 @@ export const adminAuthenticate = async (req, res, next) => {
         const verifyToken = jwt.verify(token, process.env.SECRET_AUTH + "");
         const rootUser = await Admin.findOne({ _id: verifyToken });
 
-        if (!rootUser) { throw new Error("Admin not found") }
+        if (!rootUser) { throw new Error("You need to be logged in to do that!!") }
 
         req.token = token;
         req.rootUser = rootUser;
