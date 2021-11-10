@@ -43,7 +43,7 @@ export default function Adminhome() {
                         
                         {show?<Row><Button variant="secondary" size="lg" onClick={event =>  window.location.href='/viewreport'}>View Report</Button></Row>:null}
                         {show?<Row><Button variant="secondary" size="lg" onClick={event =>  window.location.href='/editreport'}>Edit Report</Button></Row>:null}
-                        {show?<Row><Button variant="secondary" size="lg" onClick={event =>  window.location.href='/submitreport'}>Submit Report</Button></Row>:null}
+                        {show?<Row><Button variant="secondary" size="lg" onClick={event =>  window.location.href='/inspection'}>Submit Report</Button></Row>:null}
                         
                     
                     </Col>

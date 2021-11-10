@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button,Container,Row,Col,Form } from 'react-bootstrap'
+import { Button,Container,Row,Col,Form,Nav } from 'react-bootstrap'
 
 
 
@@ -7,6 +7,20 @@ export default function RejectionDetails() {
     return (
         <div className="RejectionDetails">
             <Container>
+            <Nav variant="tabs" defaultActiveKey="/rejection">
+                <Nav.Item>
+                    <Nav.Link href="/inspection">Inspection Details</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link href="/rework">Rework Details</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link href="/rejection">Rejection Details</Nav.Link>
+                </Nav.Item>
+            </Nav>
+            </Container>
+            <Container>
+                <br/>
                 <Form>
                 <Form.Text as={Row} className="mb-3" >**Inprocess Rejection**</Form.Text>
                     <Form.Group as={Row} className="mb-3">

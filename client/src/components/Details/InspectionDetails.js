@@ -1,11 +1,25 @@
 import React from 'react'
-import { Button, Container, Form,Row,Col} from 'react-bootstrap'
+import { Button, Container, Form,Row,Col,Nav} from 'react-bootstrap'
 
 
 
 export default function InspectionDetails() {
     return (
         <div className="InspectionDetails">
+            <Container>
+            <Nav variant="tabs" defaultActiveKey="/inspection">
+                <Nav.Item>
+                    <Nav.Link href="/inspection">Inspection Details</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link href="/rework">Rework Details</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link href="/rejection">Rejection Details</Nav.Link>
+                </Nav.Item>
+            </Nav>
+        </Container>
+        <br/>
             <Container>
                 <Form>
                     <Form.Group as={Row} className="mb-3">
@@ -43,7 +57,7 @@ export default function InspectionDetails() {
                             </Col>
                     </Form.Group>
 
-                    <Button variant="danger">Save and Next</Button>
+                    <Button variant="danger" onClick={event =>  window.location.href='/rework'}>Save and Next</Button>
 
 
                 </Form>
