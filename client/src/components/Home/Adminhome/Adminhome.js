@@ -1,8 +1,8 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { useEffect } from 'react';
 import "./Adminhome.css";
 import { useHistory } from 'react-router';
-import { Button } from 'react-bootstrap';
+import { Button , Container,Row,Col} from 'react-bootstrap';
 
 export default function Adminhome() {
     const history = useHistory();
@@ -34,10 +34,24 @@ export default function Adminhome() {
     // }, []);
 
 
+    const [show,setShow]=useState(false)
     return (
         <div className="adminHome">
-            <h1>This will be ADMIN PAGE </h1>
-            <Button variant="primary">Primary</Button>
+                <Container>
+                    <Col>
+                        <Row><Button variant="secondary" size="lg"  onClick={()=>setShow(!show)}>PDI Report</Button></Row>
+                        
+                        {show?<Row><Button variant="secondary" size="lg" onClick={event =>  window.location.href='/viewreport'}>View Report</Button></Row>:null}
+                        {show?<Row><Button variant="secondary" size="lg" onClick={event =>  window.location.href='/editreport'}>Edit Report</Button></Row>:null}
+                        {show?<Row><Button variant="secondary" size="lg" onClick={event =>  window.location.href='/submitreport'}>Submit Report</Button></Row>:null}
+                        
+                    
+                    </Col>
+                </Container>
+        
+            
         </div>
+        
+        
     )
 }
