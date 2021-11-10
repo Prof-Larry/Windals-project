@@ -10,6 +10,9 @@ export default function InspectionDetails() {
             <h1>inspection report</h1>
             <h1>inspection report</h1>
             <h1>inspection report</h1>
+            <h1>inspection report</h1>
+            <h1>inspection report</h1>
+
             <ButtonGroup></ButtonGroup>
 
             
