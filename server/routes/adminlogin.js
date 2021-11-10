@@ -1,6 +1,6 @@
 import express from 'express';
 import { createAdmin, validateAdmin } from '../controllers/admin.js';
-import { adminAuthenticate } from "../middlewares/middleware.js"
+import { adminAuthenticate, masterAuthenticate } from "../middlewares/middleware.js"
 
 const router = express.Router();
 

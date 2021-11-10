@@ -10,10 +10,11 @@ export default function Register() {
         firstname: "",
         lastname: "",
         empid: "",
+        gender: "",
+        designation: "",
         department: "",
         email: "",
         phone: "",
-        age: "",
         password: "",
         confirmpassword: ""
     });
@@ -93,7 +94,7 @@ export default function Register() {
                     <input id="password" name="password" type="password" value={user.password} onChange={handleChange} />
                 </div>
 
-                <div className="group-1">            
+                <div className="group-1">
                     <label style={{ alignSelf: "flex-start" }} htmlFor="confirmpassword">Confirmpassword</label>
                     <input id="confirmpassword" type="password" name="confirmpassword" value={user.confirmpassword} onChange={handleChange} />
                 </div>

@@ -5,38 +5,51 @@ import db from '../Database/db.js';
 import moment from 'moment';
 
 
+// export const validateAdmin = async (req, res) => {
+//     try {
+//         const { empid, password } = req.body;
+//         const admin = await Admin.findOne({ empid: empid });
+//         if (admin) {
+//             const verified = await bcrypt.compare(password, admin.password);
+//             if (verified) {
+//                 const token = await jwt.sign(admin._id.toString(), process.env.SECRET_AUTH + "");
+//                 console.log(token);
+//                 res.cookie('admin', token, {
+//                     expires: new Date(Date.now() + 86400000),
+//                     httpOnly: true
+//                 });
+//                 res.send({ message: "Login successfull" });
+//             }
+//         } else {
+//             res.send({ message: "User not found!!" });
+//         }
+//     } catch (error) {
+//         res.status(401).send(error.message);
+//     }
+// }
+
 export const validateAdmin = async (req, res) => {
     try {
         const { empid, password } = req.body;
-        const admin = await Admin.findOne({ empid: empid });
-        if (admin) {
-            const verified = await bcrypt.compare(password, admin.password);
+        const findAdmin = "select * from admin where empid=?";
+        db.query(findAdmin, [empid], (error, results) => {
+            if (error) res.send("User not Found!!");
+
+            const verified = bcrypt.compare(password, results[0].pass);
             if (verified) {
-                const token = await jwt.sign(admin._id.toString(), process.env.SECRET_AUTH + "");
-                console.log(token);
-                res.cookie('admin', token, {
+                const token = jwt.sign(results[0].empid, process.env.SECRET_AUTH + "");
+                res.cookie(results[0].designation == "M" ? 'master' : 'admin', token, {
                     expires: new Date(Date.now() + 86400000),
                     httpOnly: true
                 });
-                res.send({ message: "Login successfull" });
+                res.send({ message: "Login Successful" });
             }
-        } else {
-            res.send({ message: "User not found!!" });
-        }
+        })
     } catch (error) {
         res.status(401).send(error.message);
     }
 }
 
-export const valadmin = async (req, res) => {
-    try {
-        const { empid, password } = req.body;
-        const findAdmin = "SELECT " 
-        db.query()
-    } catch (error) {
-        res.status(401).send(error.message);
-    }
-}
 
 
 /*--------------------------Don't uncomment/touch below code---------------------------*/
@@ -68,7 +81,7 @@ export const valadmin = async (req, res) => {
 export const createAdmin = async (req, res) => {
     try {
         const { confirmpassword, password } = req.body;
-        if(confirmpassword == password) {
+        if (confirmpassword == password) {
             const date = moment(now).format('YYYY-MM-DD');
             const { empid, firstname, lastname, gender, department, designation, phone, email } = req.body;
             const token = await jwt.sign(empid.toString(), process.env.SECRET_AUTH);
@@ -76,13 +89,13 @@ export const createAdmin = async (req, res) => {
             const adminInfo = [empid, firstname, lastname, gender, department, designation, phone, email, date, password, token];
             const newAdmin = "Insert into admin( empid, firstname, lastname, gender, department, designation, phone, email, join_date, pass, token ) values (?,?,?,?,?,?,?,?,?,?,?)";
             db.query(newAdmin, adminInfo, (error, results) => {
-                if(error) res.status(401).json({
+                if (error) res.status(401).json({
                     message: "Some technical Error, please try again later"
                 });
-                res.status(201).send({...results, message: "Admin created Successfully" });
+                res.status(201).send({ ...results[0], message: "Admin created Successfully" });
             });
         } else {
-            res.send({message: "Passwords didn't match!"});
+            res.send({ message: "Passwords didn't match!" });
         }
     } catch (error) {
         res.status(409).send({ message: error.message });
