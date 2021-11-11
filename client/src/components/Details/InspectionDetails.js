@@ -65,9 +65,12 @@ export default function InspectionDetails() {
                         </Form.Group>
                         <br/>
 
-                        <Button variant="danger" onClick={event =>  window.location.href='/rework'}>Save and Next</Button>
-
-
+                        <Row className="justify-content-md-center">
+                        <Col sm="4"/>
+                        <Col sm="3">
+                    <Button variant="danger" size="lg" className="justify-content-md-center" onClick={event =>  window.location.href='/rejection'}>Save and Next</Button>
+                       </Col>
+                    </Row><br/>
                     </Form>
             </Container>
             
