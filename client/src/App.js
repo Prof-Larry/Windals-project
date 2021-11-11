@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react'
+import React, { useState } from 'react'
 import Register from './components/Form/Adminlogin/Register';
 import AdminLogin from './components/Form/Adminlogin/Adminlogin';
 import Home from './components/Home/Home';
@@ -11,13 +11,18 @@ import ViewReport from './components/Report/ViewReport';
 import SubmitReport from './components/Report/SubmitReport';
 import EditReport from './components/Report/EditReport';
 import InspectionDetails from './components/Details/InspectionDetails';
-import ProductionDetails from './components/Details/ProductionDetails';
-import ProductDetails from './components/Details/ProductDetails';
 import ReworkDetails from './components/Details/ReworkDetails';
 import RejectionDetails from './components/Details/RejectionDetails';
 
 function App() {
   // const [user, setLoginUser] = useState({});
+  const [report, setReport] = useState({
+
+  });
+
+  const updateReport = () => {
+
+  }
 
   return (
     <Router>
@@ -46,23 +51,17 @@ function App() {
           <ViewReport />
         </Route>
         <Route exact path="/submitreport">
-          <SubmitReport/>
+          <SubmitReport />
         </Route>
         <Route exact path="/editreport">
           <EditReport />
         </Route>
 
         <Route exact path="/inspection">
-          <InspectionDetails />
-        </Route>
-        <Route exact path="/production">
-          <ProductionDetails />
-        </Route>
-        <Route exact path="/product">
-          <ProductDetails/>
+          <InspectionDetails updateReport={updateReport} />
         </Route>
         <Route exact path="/rework">
-          <ReworkDetails/>
+          <ReworkDetails />
         </Route>
         <Route exact path="/rejection">
           <RejectionDetails />

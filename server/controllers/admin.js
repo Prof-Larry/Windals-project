@@ -86,7 +86,7 @@ export const createAdmin = async (req, res) => {
         if (confirmpassword == password) {
             const date = moment().format('YYYY-MM-DD');
             const { empid, firstname, lastname, gender, department, designation, phone, email } = req.body;
-            const token = jwt.sign(empid.toString(), process.env.SECRET_AUTH);
+            const token = jwt.sign(empid.toString(), process.env.SECRET_AUTH + "");
             const pass = await bcrypt.hash(password, 10);
             const adminInfo = [empid, firstname, lastname, gender, department, designation, phone, email, date, pass, token];
             const newAdmin = "Insert into admin( empid, firstname, lastname, gender, department, designation, phone, email, join_date, pass, token ) values (?,?,?,?,?,?,?,?,?,?,?)";

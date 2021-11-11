@@ -31,12 +31,13 @@ export default function Adminhome() {
     }
 
 
-    useEffect(() => {
-        checkAuthentication();
-    }, []);
+    // useEffect(() => {
+    //     checkAuthentication();
+    // }, []);
 
 
-    const [show, setShow] = useState(false)
+    const [show, setShow] = useState(false);
+
     return (
         <div className="adminHome">
             <Navbar />
