@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Register from './components/Form/Adminlogin/Register';
 import AdminLogin from './components/Form/Adminlogin/Adminlogin';
 import Home from './components/Home/Home';
@@ -15,13 +15,54 @@ import ReworkDetails from './components/Details/ReworkDetails';
 import RejectionDetails from './components/Details/RejectionDetails';
 
 function App() {
-  // const [user, setLoginUser] = useState({});
-  const [report, setReport] = useState({
-
+  const [inspection, setInspection] = useState({
+    plant_code: "",
+    production_line: "",
+    product_number: "",
+    product_name: "",
   });
 
-  const updateReport = () => {
+  const [inprocessRework, setInprocessRework] = useState({
+    inprocess_name: "",
+    inprocess_total_quantity: "",
+    inprocess_total_defective_quantity: "",
+    inprocess_total_defects: []
+  });
 
+  const [inprocess_defects, setInprocessDefects] = useState([]);
+
+  const [defect, setDefect] = useState({
+    inprocess_defect_quantity: "",
+    inprocess_defect: "",
+    inprocess_defect_location: "",
+    inprocess_category_defect: "",
+    inprocess_details: "",
+  });
+
+  useEffect(() => {
+    console.log(inprocess_defects);
+    console.log(inprocessRework);
+    setInprocessRework({ ...inprocessRework, inprocess_total_defects: inprocess_defects });
+  }, [inprocess_defects]);
+
+
+
+  const addDefects = () => {
+    const inprocess_defect_id = Date.now().toString();
+    defect = { ...defect, inprocess_defect_id: inprocess_defect_id };
+    const total_defective_products = inprocessRework.inprocess_total_defective_quantity + defect.inprocess_defect_quantity;
+    setInprocessDefects([...inprocess_defects, defect]);
+    setInprocessRework({ ...inprocessRework, inprocess_total_defective_quantity: total_defective_products });
+  }
+
+  const updateTotalQuantity = (e) => {
+    const { name, value } = e.target;
+    setInprocessRework(...inprocessRework, [name] = parseInt(value));
+  }
+
+  const updateDefectQantity = (e) => {
+    const { name, value } = e.target;
+    setDefect(...defect, [name] = parseInt(value));
   }
 
   return (
@@ -58,7 +99,7 @@ function App() {
         </Route>
 
         <Route exact path="/inspection">
-          <InspectionDetails updateReport={updateReport} />
+          <InspectionDetails />
         </Route>
         <Route exact path="/rework">
           <ReworkDetails />
