@@ -23,8 +23,8 @@ import { User } from "../models/user.js";
 
 export const adminAuthenticate = async (req, res, next) => {
     try {
-        const token = req.cookies.admin;
-        const decodeToken = await jwt.verify(token, process.env.SECRET_AUTH + "");
+        const token = req.cookies.admin || req.cookies.master;
+        const decodeToken = jwt.verify(token, process.env.SECRET_AUTH + "");
         const findAdmin = "Select * from admin where empid=?";
         db.query(findAdmin, [decodeToken], (error, results) => {
             if (error) res.status(401).json({
@@ -45,7 +45,7 @@ export const adminAuthenticate = async (req, res, next) => {
 export const userAuthenticate = async (req, res, next) => {
     try {
         const token = req.cookies.user;
-        const verifyToken = await jwt.verify(token, process.env.SECRET_AUTH + "");
+        const verifyToken = jwt.verify(token, process.env.SECRET_AUTH + "");
         const rootUser = User.findOne({ _id: verifyToken });
 
         if (!rootUser) { throw new Error("User not found") }

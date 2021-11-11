@@ -32,17 +32,19 @@ export const validateAdmin = async (req, res) => {
     try {
         const { empid, password } = req.body;
         const findAdmin = "select * from admin where empid=?";
-        db.query(findAdmin, [empid], (error, results) => {
+        db.query(findAdmin, [empid], async (error, results) => {
             if (error) res.send("User not Found!!");
 
-            const verified = bcrypt.compare(password, results[0].pass);
+            const verified = await bcrypt.compare(password, results[0].pass);
             if (verified) {
                 const token = jwt.sign(results[0].empid, process.env.SECRET_AUTH + "");
-                res.cookie(results[0].designation == "M" ? 'master' : 'admin', token, {
-                    expires: new Date(Date.now() + 86400000),
-                    httpOnly: true
-                });
-                res.send({ message: "Login Successful" });
+                if (results[0].token == token) {
+                    res.cookie(results[0].designation == "M" ? 'master' : 'admin', token, {
+                        expires: new Date(Date.now() + 86400000),
+                        httpOnly: true
+                    });
+                    res.send({ message: "Login Successful" });
+                }
             }
         })
     } catch (error) {
@@ -82,11 +84,11 @@ export const createAdmin = async (req, res) => {
     try {
         const { confirmpassword, password } = req.body;
         if (confirmpassword == password) {
-            const date = moment(now).format('YYYY-MM-DD');
+            const date = moment().format('YYYY-MM-DD');
             const { empid, firstname, lastname, gender, department, designation, phone, email } = req.body;
-            const token = await jwt.sign(empid.toString(), process.env.SECRET_AUTH);
-            password = await bcrypt.hash(password, 10);
-            const adminInfo = [empid, firstname, lastname, gender, department, designation, phone, email, date, password, token];
+            const token = jwt.sign(empid.toString(), process.env.SECRET_AUTH);
+            const pass = await bcrypt.hash(password, 10);
+            const adminInfo = [empid, firstname, lastname, gender, department, designation, phone, email, date, pass, token];
             const newAdmin = "Insert into admin( empid, firstname, lastname, gender, department, designation, phone, email, join_date, pass, token ) values (?,?,?,?,?,?,?,?,?,?,?)";
             db.query(newAdmin, adminInfo, (error, results) => {
                 if (error) res.status(401).json({
