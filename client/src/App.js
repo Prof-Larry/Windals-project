@@ -14,6 +14,25 @@ import InspectionDetails from './components/Details/InspectionDetails';
 import ReworkDetails from './components/Details/ReworkDetails';
 import RejectionDetails from './components/Details/RejectionDetails';
 
+const getLocalItems = () => {
+  let imp_rework = JSON.parse(localStorage.getItem('report'));
+
+  if(imp_rework) {
+    return imp_rework;
+  }
+  return {
+    inprocess_name: "",
+    inprocess_total_quantity: "",
+    inprocess_total_defective_quantity: "",
+    inprocess_total_defects: []
+  };
+}
+
+const getDefects = () => {
+  let imp_defects = JSON.parse(localStorage.getItem('defect'));
+  
+}
+
 function App() {
 // ----------------------------------INPROCESS REWORK VARIABLES----------------------------------//
 
@@ -24,12 +43,7 @@ function App() {
     product_name: "",
   });
 
-  const [inprocessRework, setInprocessRework] = useState({
-    inprocess_name: "",
-    inprocess_total_quantity: "",
-    inprocess_total_defective_quantity: "",
-    inprocess_total_defects: []
-  });
+  const [inprocessRework, setInprocessRework] = useState(getLocalItems);
 
   const [inprocess_defects, setInprocessDefects] = useState([]);
 
@@ -72,7 +86,7 @@ function App() {
     setInpDefect({...inp_defect, [name] : parseInt(value)});
   }
 // ----------------------------------INPROCESS REWORK VARIABLES----------------------------------//
-// ----------------------------------PDI REWORK VARIABLES----------------------------------//
+// ----------------------------------PDI REWORK VARIABLES----------------------------------------//
 
 
   const [pdiRework, setPdiRework] = useState({

@@ -9,17 +9,21 @@ export default function ReworkDetails(props) {
     const updateInprocessRework = (e) => {
         const { name, value } = e.target;
         props.setInprocessRework({...props.inprocessRework, [name] : value});
+        localStorage.setItem('report', JSON.stringify(props.inprocessRework));
     }
+    localStorage.setItem('report', JSON.stringify(props.inprocessRework));
+    let report = JSON.parse(localStorage.getItem('report'));
 
     const updateEachDefect = (e) => {
         const {name, value } = e.target;
         props.setInpDefect({...props.inp_defect, [name] : value});
     }
+
     useEffect(() => {
-        console.log(props.inprocessRework);
-        console.log(props.inp_defect);
+        report = JSON.parse(localStorage.getItem('report'));
     }, [props.inprocessRework, props.inp_defect]);
 
+    
     return (
         <div className="ReworkDetails">
             <Navbar/>
@@ -46,7 +50,7 @@ export default function ReworkDetails(props) {
                     <Form.Group as={Row} className="justify-content-md-center">
                             <Form.Label column sm ="3">Name of Process</Form.Label>
                             <Col sm="4">
-                                <Form.Control name="inprocess_name" value={props.inprocessRework.inprocess_name} onChange={updateInprocessRework} ></Form.Control>
+                                <Form.Control name="inprocess_name" value={report.inprocess_name} onChange={updateInprocessRework} ></Form.Control>
                             </Col>
                     </Form.Group>
                     <br/>
