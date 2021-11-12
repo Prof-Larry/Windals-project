@@ -1,6 +1,4 @@
 import express from "express";
-import mongoose from "mongoose";
-import { createPool } from "mysql";
 import db from "./Database/db.js";
 import cors from "cors";
 import loginRoutes from './routes/adminlogin.js'
@@ -54,7 +52,7 @@ app.get('/createDatabase', (req, res) => {
                 "afajbnahhgbjkabtkujabfkjabtgjbadafdsgsa"
             ],
             (error, results, fields) => {
-                if(error) throw new Error(error.message);
+                if (error) throw new Error(error.message);
                 console.log(results);
                 res.json("Yay added a new entry");
             }
@@ -65,8 +63,8 @@ app.get('/createDatabase', (req, res) => {
 });
 app.use('/', loginRoutes);
 /*-----------------------------------------------------*/
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server is Listening on the port ${PORT}`)
+// const PORT = process.env.PORT || 5000;
+app.listen(5000, () => {
+    console.log(`Server is Listening on the port 5000`)
 })
 /*-----------------------------------------------------*/

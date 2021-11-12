@@ -1,8 +1,10 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import "./Adminhome.css";
 import { useHistory } from 'react-router';
-import { Button , Container,Row,Col} from 'react-bootstrap';
+import { Button, Container, Row, Col } from 'react-bootstrap';
+import Navbar from '../../Navbar/NavbarAdmin'
+
 
 export default function Adminhome() {
     const history = useHistory();
@@ -18,7 +20,7 @@ export default function Adminhome() {
 
             const data = await response.json();
             console.log(data);
-            if (!response.status === 200) {
+            if (response.status !== 200) {
                 throw new Error(response.error);
             }
         } catch (error) {
@@ -34,24 +36,29 @@ export default function Adminhome() {
     // }, []);
 
 
-    const [show,setShow]=useState(false)
+    const [show, setShow] = useState(false);
+
     return (
         <div className="adminHome">
-                <Container>
-                    <Col>
-                        <Row><Button variant="secondary" size="lg"  onClick={()=>setShow(!show)}>PDI Report</Button></Row>
-                        
-                        {show?<Row><Button variant="secondary" size="lg" onClick={event =>  window.location.href='/viewreport'}>View Report</Button></Row>:null}
-                        {show?<Row><Button variant="secondary" size="lg" onClick={event =>  window.location.href='/editreport'}>Edit Report</Button></Row>:null}
-                        {show?<Row><Button variant="secondary" size="lg" onClick={event =>  window.location.href='/submitreport'}>Submit Report</Button></Row>:null}
-                        
-                    
+            <Navbar />
+            <br />
+            <Container>
+                <Row className="justify-content-md-center">
+                    <Col sm="5">
+                        <Row><Button variant="secondary" size="lg" className="mb-3" onClick={() => setShow(!show)}>PDI Report</Button></Row>
+
+                        {show ? <Row><Button variant="secondary" size="lg" className="mb-3" onClick={event => window.location.href = '/viewreport'}>View Report</Button></Row> : null}
+                        {show ? <Row><Button variant="secondary" size="lg" className="mb-3" onClick={event => window.location.href = '/editreport'}>Edit Report</Button></Row> : null}
+                        {show ? <Row><Button variant="secondary" size="lg" className="mb-3" onClick={event => window.location.href = '/inspection'}>Submit Report</Button></Row> : null}
+
+
                     </Col>
-                </Container>
-        
-            
+                </Row>
+            </Container>
+
+
         </div>
-        
-        
+
+
     )
 }

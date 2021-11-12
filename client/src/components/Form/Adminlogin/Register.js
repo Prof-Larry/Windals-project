@@ -10,10 +10,11 @@ export default function Register() {
         firstname: "",
         lastname: "",
         empid: "",
+        gender: "",
+        designation: "",
         department: "",
         email: "",
         phone: "",
-        age: "",
         password: "",
         confirmpassword: ""
     });
@@ -66,6 +67,11 @@ export default function Register() {
                 </div>
 
                 <div className="group-1">
+                    <label htmlFor="gender">Gender</label>
+                    <input type="text" className="gender" id="gender" name="gender" value={user.gender} onChange={handleChange} />
+                </div>
+
+                <div className="group-1">
                     <label htmlFor="empid">Employee id</label>
                     <input type="text" className="empid" id="empid" name="empid" value={user.empid} onChange={handleChange} />
                 </div>
@@ -73,6 +79,11 @@ export default function Register() {
                 <div className="group-1">
                     <label htmlFor="department">Department</label>
                     <input type="text" className="department" id="department" name="department" value={user.department} onChange={handleChange} />
+                </div>
+
+                <div className="group-1">
+                    <label htmlFor="designation">Designation</label>
+                    <input type="text" className="designation" id="designation" name="designation" value={user.designation} onChange={handleChange} />
                 </div>
 
                 <label style={{ alignSelf: "flex-start" }} htmlFor="email">Email</label>
@@ -93,7 +104,7 @@ export default function Register() {
                     <input id="password" name="password" type="password" value={user.password} onChange={handleChange} />
                 </div>
 
-                <div className="group-1">            
+                <div className="group-1">
                     <label style={{ alignSelf: "flex-start" }} htmlFor="confirmpassword">Confirmpassword</label>
                     <input id="confirmpassword" type="password" name="confirmpassword" value={user.confirmpassword} onChange={handleChange} />
                 </div>

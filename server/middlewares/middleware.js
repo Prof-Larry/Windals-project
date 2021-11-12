@@ -1,22 +1,44 @@
 import jwt from "jsonwebtoken";
+import db from "../Database/db.js";
 import { Admin } from "../models/admin.js";
 import { User } from "../models/user.js";
 
+// export const adminAuthenticate = async (req, res, next) => {
+//     try {
+//         const token = req.cookies.admin;
+//         const verifyToken = jwt.verify(token, process.env.SECRET_AUTH + "");
+//         const rootUser = await Admin.findOne({ _id: verifyToken });
+
+//         if (!rootUser) { throw new Error("You need to be logged in to do that!!") }
+
+//         req.token = token;
+//         req.rootUser = rootUser;
+//         req.userID = rootUser._id;
+
+//         next();
+//     } catch (error) {
+//         res.status(401).send("Unauthorized: No Token Provided!");
+//     }
+// }
+
 export const adminAuthenticate = async (req, res, next) => {
     try {
-        const token = req.cookies.admin;
-        const verifyToken = jwt.verify(token, process.env.SECRET_AUTH + "");
-        const rootUser = await Admin.findOne({ _id: verifyToken });
+        const token = req.cookies.admin || req.cookies.master;
+        const decodeToken = jwt.verify(token, process.env.SECRET_AUTH + "");
+        const findAdmin = "Select * from admin where empid=?";
+        db.query(findAdmin, [decodeToken], (error, results) => {
+            if (error) res.status(401).json({
+                message: "Unauthorized access"
+            });
 
-        if (!rootUser) { throw new Error("You need to be logged in to do that!!") }
+            req.token = token;
+            req.rootUser = results[0];
+            req.userID = decodeToken;
 
-        req.token = token;
-        req.rootUser = rootUser;
-        req.userID = rootUser._id;
-
-        next();
+            next();
+        });
     } catch (error) {
-        res.status(401).send("Unauthorized: No Token Provided!");
+        res.status(401).send({ message: error });
     }
 }
 
