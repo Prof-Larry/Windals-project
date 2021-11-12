@@ -91,9 +91,11 @@ export const createAdmin = async (req, res) => {
             const adminInfo = [empid, firstname, lastname, gender, department, designation, phone, email, date, pass, token];
             const newAdmin = "Insert into admin( empid, firstname, lastname, gender, department, designation, phone, email, join_date, pass, token ) values (?,?,?,?,?,?,?,?,?,?,?)";
             db.query(newAdmin, adminInfo, (error, results) => {
-                if (error) res.status(401).json({
-                    message: "Some technical Error, please try again later"
-                });
+                if (error) {
+                    return res.status(401).json({
+                        message: "Some technical Error, please try again later"
+                    });
+                }
                 res.status(201).send({ ...results[0], message: "Admin created Successfully" });
             });
         } else {

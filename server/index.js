@@ -35,32 +35,32 @@ app.use(express.urlencoded({ extended: true }));
 //     console.log('Database Connnected');
 // });
 /*------------------------------------------DATABASE CONNECTION-----------*/
-app.get('/createDatabase', (req, res) => {
-    try {
-        const query2 = "INSERT INTO Admin(Employee_id,FirstName,LastName,department,email,designation,phone,Join_date,Pass) values(?,?,?,?,?,?,?,?,?)";
-        db.query(
-            query2,
-            [
-                "EE80445",
-                "Manish",
-                "Patil",
-                "Civil",
-                "manish@gmail.com",
-                'A',
-                272844432,
-                '2000-12-11',
-                "afajbnahhgbjkabtkujabfkjabtgjbadafdsgsa"
-            ],
-            (error, results, fields) => {
-                if (error) throw new Error(error.message);
-                console.log(results);
-                res.json("Yay added a new entry");
-            }
-        )
-    } catch (err) {
-        console.log(err.message);
-    }
-});
+// app.get('/createDatabase', (req, res) => {
+//     try {
+//         const query2 = "INSERT INTO Admin(Employee_id,FirstName,LastName,department,email,designation,phone,Join_date,Pass) values(?,?,?,?,?,?,?,?,?)";
+//         db.query(
+//             query2,
+//             [
+//                 "EE80445",
+//                 "Manish",
+//                 "Patil",
+//                 "Civil",
+//                 "manish@gmail.com",
+//                 'A',
+//                 272844432,
+//                 '2000-12-11',
+//                 "afajbnahhgbjkabtkujabfkjabtgjbadafdsgsa"
+//             ],
+//             (error, results, fields) => {
+//                 if (error) throw new Error(error.message);
+//                 console.log(results);
+//                 res.json("Yay added a new entry");
+//             }
+//         )
+//     } catch (err) {
+//         console.log(err.message);
+//     }
+// });
 app.use('/', loginRoutes);
 /*-----------------------------------------------------*/
 // const PORT = process.env.PORT || 5000;
