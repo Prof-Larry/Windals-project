@@ -42,17 +42,36 @@ export default function ReworkDetails(props) {
         }])
     }
 
+    const handleRemoveClickPdi = index => {
+        const list = [...props.pdi_defects];
+        list.splice(index, 1);
+        props.setPdiDefects(list);
+    }
+
+    const handleAddClickPdi = () => {
+        props.setPdiDefects([...props.pdi_defects, {
+            pdi_defect_quantity: "",
+            pdi_defect: "",
+            pdi_defect_location: "",
+            pdi_category_defect: "",
+            pdi_defect_details: "",
+            pdi_rework_status: "",
+            pdi_rework_details: "",
+            pdi_defect_handler: ""
+        }])
+    }
+
     const updatePdiRework = (e) => {
         const { name, value } = e.target;
         props.setPdiRework({ ...props.pdiRework, [name]: value });
         localStorage.setItem('pdi_report', JSON.stringify(props.pdiRework));
     }
 
-    const updateEachDefectPdi = (e) => {
-        const { name, value } = e.target;
-        props.setPdDefect({ ...props.pd_defect, [name]: value });
-        localStorage.setItem('pdi_defect', JSON.stringify(props.pd_defect));
-    }
+    // const updateEachDefectPdi = (e) => {
+    //     const { name, value } = e.target;
+    //     props.setPdDefect({ ...props.pd_defect, [name]: value });
+    //     localStorage.setItem('pdi_defect', JSON.stringify(props.pd_defect));
+    // }
 
     useEffect(() => {
 
@@ -115,37 +134,37 @@ export default function ReworkDetails(props) {
                                             <Card.Header className="text-center">CARD</Card.Header>
 
                                             <Row className="justify-content-md-center mt-4">
-                                                <Form.Label column sm="4">defects:</Form.Label>
+                                                <Form.Label column sm="4">defect:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control name="defect" value={x.defect}
+                                                    <Form.Control name="inprocess_defect" value={x.inprocess_defect}
                                                         onChange={e => props.addInpDefects(e, i)}></Form.Control></Col>
                                             </Row>
 
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">No. of defect specific quantity:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control name="no_of" value={x.no_of}
+                                                    <Form.Control name="inprocess_defect_quantity" value={x.inprocess_defect_quantity}
                                                         onChange={e => props.addInpDefects(e, i)}></Form.Control></Col>
                                             </Row>
 
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Location of Defect:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control name="location" value={x.location}
+                                                    <Form.Control name="inprocess_defect_location" value={x.inprocess_defect_location}
                                                         onChange={e => props.addInpDefects(e, i)}></Form.Control></Col>
                                             </Row>
 
                                             <Row className="justify-content-md-center mt-3 mb-1">
                                                 <Form.Label column sm="4">category of defects:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control name="category" value={x.category}
+                                                    <Form.Control name="inprocess_category_defect" value={x.inprocess_category_defect}
                                                         onChange={e => props.addInpDefects(e, i)}></Form.Control></Col>
                                             </Row>
 
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Details:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control name="details" value={x.details}
+                                                    <Form.Control name="inprocess_defect_details" value={x.inprocess_defect_details}
                                                         onChange={e => props.addInpDefects(e, i)}></Form.Control></Col>
                                             </Row>
 
@@ -159,16 +178,18 @@ export default function ReworkDetails(props) {
                                                                 label="Done"
                                                                 type={type}
                                                                 id={`inline-${type}-1`}
-                                                                value={x.rework}
-                                                                name="rework"
+                                                                value="Done"
+                                                                name="inprocess_rework_status"
+                                                                onClick={e => props.addInpDefects(e, i)}
                                                             />
                                                             <Form.Check
                                                                 inline
                                                                 label="Incomplete"
                                                                 type={type}
                                                                 id={`inline-${type}-2`}
-                                                                name="rework"
-
+                                                                name="inprocess_rework_status"
+                                                                value="Incomplete"
+                                                                onClick={e => props.addInpDefects(e, i)}
                                                             />
 
                                                         </div>
@@ -181,14 +202,14 @@ export default function ReworkDetails(props) {
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Rework Details:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control name="rework_details" as="textarea" rows={3} value={x.rework_details}
+                                                    <Form.Control name="inprocess_rework_details" as="textarea" rows={3} value={x.inprocess_rework_details}
                                                         onChange={e => props.addInpDefects(e, i)}></Form.Control></Col>
                                             </Row>
 
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Who will do Rework:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control name="who" value={x.who}
+                                                    <Form.Control name="inprocess_rework_handler" value={x.inprocess_rework_handler}
                                                         onChange={e => props.addInpDefects(e, i)}></Form.Control></Col>
                                             </Row>
 
@@ -201,7 +222,6 @@ export default function ReworkDetails(props) {
                                     </Col>
                                 </Row>
                                 <br />
-                                <div style={{ marginTop: 20 }}>{JSON.stringify(props.inprocess_defects)}</div>
                             </div>
                         );
                     })}
@@ -236,100 +256,108 @@ export default function ReworkDetails(props) {
                     </Form.Group>
                     <br />
 
-                    <Form.Group as={Row} className="justify-content-md-center">
-                        <Form.Label column sm="3">Defect:</Form.Label>
-                        <Col sm="4">
-                            <Form.Control name="pdi_defect" value={props.pd_defect.pdi_defect} onChange={updateEachDefectPdi}></Form.Control>
-                        </Col>
-                    </Form.Group>
-                    <br />
+                    {props.pdi_defects.map((x, i) => {
+                        return (
+                            <div className="box">
+                                <Row className="justify-content-md-center mt-4">
+                                    <Col sm="8">
+                                        <Card >
+                                            <Card.Header className="text-center">CARD</Card.Header>
 
-                    <Form.Group as={Row} className="justify-content-md-center">
-                        <Form.Label column sm="3">No. of defect specific quantity:</Form.Label>
-                        <Col sm="4">
-                            <Form.Control name="pdi_defect_quantity" value={props.pd_defect.pdi_defect_quantity} onChange={props.updatePdiDefectQantity}></Form.Control>
-                        </Col>
-                    </Form.Group>
-                    <br />
+                                            <Row className="justify-content-md-center mt-4">
+                                                <Form.Label column sm="4">defects:</Form.Label>
+                                                <Col sm="6">
+                                                    <Form.Control name="pdi_defect" value={x.pdi_defect}
+                                                        onChange={e => props.addPdiDefects(e, i)}></Form.Control></Col>
+                                            </Row>
 
-                    <Form.Group as={Row} className="justify-content-md-center">
-                        <Form.Label column sm="3">Location of Defect:</Form.Label>
-                        <Col sm="4">
-                            <Form.Control name="pdi_defect_location" value={props.pd_defect.pdi_defect_location} onChange={updateEachDefectPdi}></Form.Control>
-                        </Col>
-                    </Form.Group>
-                    <br />
+                                            <Row className="justify-content-md-center mt-4">
+                                                <Form.Label column sm="4">No. of defect specific quantity:</Form.Label>
+                                                <Col sm="6">
+                                                    <Form.Control name="pdi_defect_quantity" value={x.pdi_defect_quantity}
+                                                        onChange={e => props.addPdiDefects(e, i)}></Form.Control></Col>
+                                            </Row>
 
-                    <Form.Group as={Row} className="justify-content-md-center">
-                        <Form.Label column sm="3">Category of Defect</Form.Label>
-                        <Col sm="4">
-                            <Form.Control name="pdi_category_defect" value={props.pd_defect.pdi_category_defect} onChange={updateEachDefectPdi}></Form.Control>
-                        </Col>
-                    </Form.Group>
-                    <br />
+                                            <Row className="justify-content-md-center mt-4">
+                                                <Form.Label column sm="4">Location of Defect:</Form.Label>
+                                                <Col sm="6">
+                                                    <Form.Control name="pdi_defect_location" value={x.pdi_defect_location}
+                                                        onChange={e => props.addPdiDefects(e, i)}></Form.Control></Col>
+                                            </Row>
 
-                    <Form.Group as={Row} className="justify-content-md-center">
-                        <Form.Label column sm="3">Details</Form.Label>
-                        <Col sm="4">
-                            <Form.Control name="pdi_details" value={props.pd_defect.pdi_details} onChange={updateEachDefectPdi}></Form.Control>
-                        </Col>
-                    </Form.Group>
-                    <br />
+                                            <Row className="justify-content-md-center mt-3 mb-1">
+                                                <Form.Label column sm="4">category of defects:</Form.Label>
+                                                <Col sm="6">
+                                                    <Form.Control name="pdi_category_defect" value={x.pdi_category_defect}
+                                                        onChange={e => props.addPdiDefects(e, i)}></Form.Control></Col>
+                                            </Row>
 
-                    <Form.Group as={Row} className="justify-content-md-center">
-                        <Form.Label column sm="3">Rework</Form.Label>
-                        <Col sm="4">
-                            {['radio'].map((type) => (
-                                <div key={`inline-${type}`} className="mb-3">
-                                    <Form.Check
-                                        inline
-                                        label="Done"
-                                        name="group1"
-                                        type={type}
-                                        id={`inline-${type}-1`}
-                                        name="pdi_rework_status"
-                                        value="Done"
-                                        onChange={updateEachDefectPdi}
-                                    />
-                                    <Form.Check
-                                        inline
-                                        label="Incomplete"
-                                        name="group1"
-                                        type={type}
-                                        id={`inline-${type}-2`}
-                                        name="pdi_rework_status"
-                                        value="Incomplete"
-                                        onChange={updateEachDefectPdi}
-                                    />
-                                </div>
-                            ))}
-                        </Col>
-                    </Form.Group>
-                    <br />
+                                            <Row className="justify-content-md-center mt-4">
+                                                <Form.Label column sm="4">Details:</Form.Label>
+                                                <Col sm="6">
+                                                    <Form.Control name="pdi_defect_details" value={x.pdi_defect_details}
+                                                        onChange={e => props.addPdiDefects(e, i)}></Form.Control></Col>
+                                            </Row>
 
-                    <Form.Group as={Row} className="justify-content-md-center">
-                        <Form.Label column sm="3">Details:</Form.Label>
-                        <Col sm="4">
-                            <Form.Control as="textarea" rows={3} name="pdi_rework_details" value={props.pd_defect.pdi_rework_details} onChange={updateEachDefectPdi}></Form.Control>
-                        </Col>
-                    </Form.Group>
-                    <br />
+                                            <Row className="justify-content-md-center mt-4">
+                                                <Form.Label column sm="4">Rework:</Form.Label>
+                                                <Col sm="6">
+                                                    {['radio'].map((type) => (
+                                                        <div key={`inline-${type}`} className="mb-3">
+                                                            <Form.Check
+                                                                inline
+                                                                label="Done"
+                                                                type={type}
+                                                                id={`inline-${type}-1`}
+                                                                value={x.rework}
+                                                                name="pdi_rework_status"
+                                                                value="Done"
+                                                                onClick={e => props.addPdiDefects(e, i)}
+                                                            />
+                                                            <Form.Check
+                                                                inline
+                                                                label="Incomplete"
+                                                                type={type}
+                                                                id={`inline-${type}-2`}
+                                                                name="pdi_rework_status"
+                                                                value="Incomplete"
+                                                                onClick={e => props.addPdiDefects(e, i)}
+                                                            />
 
-                    <Form.Group as={Row} className="justify-content-md-center">
-                        <Form.Label column sm="3">Who will do Rework:</Form.Label>
-                        <Col sm="4">
-                            <Form.Control name="pdi_defect_handler" value={props.pd_defect.pdi_defect_handler} onChange={updateEachDefectPdi}></Form.Control>
-                        </Col>
-                    </Form.Group>
-                    <br />
+                                                        </div>
+                                                    ))
 
-                    <Row className="justify-content-md-center">
-                        <Col sm="5" />
-                        <Col sm="2">
-                            <Button className="justify-content-md-center" variant="success">Add Rework</Button>
-                        </Col>
-                    </Row>
-                    <br />
+                                                    }
+                                                </Col>
+                                            </Row>
+
+                                            <Row className="justify-content-md-center mt-4">
+                                                <Form.Label column sm="4">Rework Details:</Form.Label>
+                                                <Col sm="6">
+                                                    <Form.Control name="pdi_rework_details" as="textarea" rows={3} value={x.pdi_rework_details}
+                                                        onChange={e => props.addPdiDefects(e, i)}></Form.Control></Col>
+                                            </Row>
+
+                                            <Row className="justify-content-md-center mt-4">
+                                                <Form.Label column sm="4">Who will do Rework:</Form.Label>
+                                                <Col sm="6">
+                                                    <Form.Control name="pdi_defect_handler" value={x.pdi_defect_handler}
+                                                        onChange={e => props.addPdiDefects(e, i)}></Form.Control></Col>
+                                            </Row>
+
+                                            <div className="mt-1 text-center">
+                                                {props.inprocess_defects.length !== 1 && <Button className="mx-1 mt-2 mb-2" variant="danger" onClick={() => handleRemoveClickPdi(i)}>Remove</Button>}
+                                                {props.inprocess_defects.length - 1 === i && <Button className="mx-1 mt-2 mb-2" variant="success" onClick={handleAddClickPdi}>Add</Button>}
+                                            </div>
+
+                                        </Card>
+                                    </Col>
+                                </Row>
+                                <br />
+                                <div style={{ marginTop: 20 }}>{JSON.stringify(props.inprocess_defects)}</div>
+                            </div>
+                        );
+                    })}
 
                     <Row className="justify-content-md-center">
                         <Col sm="4" />

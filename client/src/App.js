@@ -77,7 +77,6 @@ const getPdiItems = () => {
 
 const getPdiDefect = () => {
   let pdi_defect = JSON.parse(localStorage.getItem('pdi_defect'));
-
   if (pdi_defect) {
     return pdi_defect;
   }
@@ -120,7 +119,7 @@ function App() {
   const addInpDefects = (e, index) => {
     const { name, value } = e.target;
     const list = [...inprocess_defects];
-    list[name][index] = value;
+    list[index][name] = value;
     setInprocessDefects(list);
     // inp_defect = { ...inp_defect, inprocess_defect_id: inprocess_defect_id };
     // const total_defective_products = inprocessRework.inprocess_total_defective_quantity + inp_defect.inprocess_defect_quantity;
@@ -131,10 +130,10 @@ function App() {
 
 
 
-  const updateInprocessTotalQuantity = (e) => {
-    const { name, value } = e.target;
-    setInprocessRework({ ...inprocessRework, [name]: parseInt(value) });
-  }
+  // const updateInprocessTotalQuantity = (e) => {
+  //   const { name, value } = e.target;
+  //   setInprocessRework({ ...inprocessRework, [name]: parseInt(value) });
+  // }
 
   // const updateInprocessDefectQantity = (e) => {
   //   const { name, value } = e.target;
@@ -154,7 +153,7 @@ function App() {
   const addPdiDefects = (e, index) => {
     const { name, value } = e.target;
     const list = [...pdi_defects];
-    list[name][index] = value;
+    list[index][name] = value;
     setPdiDefects(list);
     //   const pdi_defect_id = Date.now().toString();
     //   pd_defect = { ...pd_defect, pdi_defect_id: pdi_defect_id };
@@ -163,10 +162,10 @@ function App() {
     //   setPdiRework({ ...pdiRework, pdi_total_defective_quantity: total_defective_products, pdi_total_defects: pdi_defects });
   }
 
-  const updatePdiTotalQuantity = (e) => {
-    const { name, value } = e.target;
-    setPdiRework({ ...pdiRework, [name]: parseInt(value) });
-  }
+  // const updatePdiTotalQuantity = (e) => {
+  //   const { name, value } = e.target;
+  //   setPdiRework({ ...pdiRework, [name]: parseInt(value) });
+  // }
 
   // const updatePdiDefectQantity = (e) => {
   //   const { name, value } = e.target;
@@ -218,13 +217,11 @@ function App() {
             inprocess_defects={inprocess_defects}
             setInprocessDefects={setInprocessDefects}
             addInpDefects={addInpDefects}
-            updateInprocessTotalQuantity={updateInprocessTotalQuantity}
             pdiRework={pdiRework}
             setPdiRework={setPdiRework}
             pdi_defects={pdi_defects}
             setPdiDefects={setPdiDefects}
-            addPdiDefects={addPdiDefects}
-            updatePdiTotalQuantity={updatePdiTotalQuantity} />
+            addPdiDefects={addPdiDefects} />
         </Route>
         <Route exact path="/rejection">
           <RejectionDetails />
