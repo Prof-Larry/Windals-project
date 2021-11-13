@@ -31,9 +31,9 @@ export default function Adminhome() {
     }
 
 
-    useEffect(() => {
-        checkAuthentication();
-    }, []);
+//    useEffect(() => {
+//        checkAuthentication();
+//    }, []);
 
 
     const [show, setShow] = useState(false);
