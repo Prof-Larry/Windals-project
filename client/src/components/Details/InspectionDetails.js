@@ -26,14 +26,6 @@ export default function InspectionDetails({ report, updateReport }) {
             <Container >
                 <Form>
                     <Form.Group as={Row} className="justify-content-md-center">
-                        <Form.Label column sm="3">Date of Inspection</Form.Label>
-                        <Col sm="4">
-                            <Form.Control type="date" placeholder="dd/mm/yy" name="date"></Form.Control>
-                        </Col>
-                    </Form.Group>
-                    <br />
-
-                    <Form.Group as={Row} className="justify-content-md-center">
                         <Form.Label column sm="3">Plant Code</Form.Label>
                         <Col sm="4">
                             <Form.Control></Form.Control>
