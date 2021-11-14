@@ -76,29 +76,12 @@ export default function SubmitReport() {
                                     <Row className="justify-content-md-center mt-4">
                                         <Form.Label column sm="4">Rework:</Form.Label>
                                         <Col sm="6">
-                                            {['radio'].map((type) => (
-                                                <div key={`inline-${type}`} className="mb-3">
-                                                    <Form.Check
-                                                        inline
-                                                        label="Done"
-                                                        type={type}
-                                                        id={`inline-${type}-1`}
-                                                        value={x.rework}
-                                                        name="rework"
-                                                    />
-                                                    <Form.Check
-                                                        inline
-                                                        label="Incomplete"
-                                                        type={type}
-                                                        id={`inline-${type}-2`}
-                                                        name="rework"
-
-                                                    />
-
-                                                </div>
-                                            ))
-
-                                            }
+                                            <Form.Check type="radio" name="rework" label="done" value="done"
+                                                onChange={e => handleInputChange(e, i)}
+                                            />
+                                            <Form.Check type="radio" name="rework" label="incomplete" value="incomlete" 
+                                                onChange={e => handleInputChange(e, i)}
+                                            />
                                         </Col>
                                     </Row>
 
