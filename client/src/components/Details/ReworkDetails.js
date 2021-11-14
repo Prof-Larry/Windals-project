@@ -346,15 +346,14 @@ export default function ReworkDetails(props) {
                                             </Row>
 
                                             <div className="mt-1 text-center">
-                                                {props.inprocess_defects.length !== 1 && <Button className="mx-1 mt-2 mb-2" variant="danger" onClick={() => handleRemoveClickPdi(i)}>Remove</Button>}
-                                                {props.inprocess_defects.length - 1 === i && <Button className="mx-1 mt-2 mb-2" variant="success" onClick={handleAddClickPdi}>Add</Button>}
+                                                {props.pdi_defects.length !== 1 && <Button className="mx-1 mt-2 mb-2" variant="danger" onClick={() => handleRemoveClickPdi(i)}>Remove</Button>}
+                                                {props.pdi_defects.length - 1 === i && <Button className="mx-1 mt-2 mb-2" variant="success" onClick={handleAddClickPdi}>Add</Button>}
                                             </div>
 
                                         </Card>
                                     </Col>
                                 </Row>
                                 <br />
-                                <div style={{ marginTop: 20 }}>{JSON.stringify(props.inprocess_defects)}</div>
                             </div>
                         );
                     })}
