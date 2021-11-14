@@ -14,14 +14,8 @@ export default function ReworkDetails(props) {
     const updateInprocessRework = (e) => {
         const { name, value } = e.target;
         props.setInprocessRework({ ...props.inprocessRework, [name]: value });
-        localStorage.setItem('inp_report', JSON.stringify(props.inprocessRework));
+        // localStorage.setItem('inp_report', JSON.stringify(props.inprocessRework));
     }
-
-    // const updateEachDefect = (e) => {
-    //     const { name, value } = e.target;
-    //     props.setInpDefect({ ...props.inp_defect, [name]: value });
-    //     localStorage.setItem('inpro_defect', JSON.stringify(props.inp_defect));
-    // }
 
     const handleRemoveClick = index => {
         const list = [...props.inprocess_defects];
@@ -64,7 +58,7 @@ export default function ReworkDetails(props) {
     const updatePdiRework = (e) => {
         const { name, value } = e.target;
         props.setPdiRework({ ...props.pdiRework, [name]: value });
-        localStorage.setItem('pdi_report', JSON.stringify(props.pdiRework));
+        // localStorage.setItem('pdi_report', JSON.stringify(props.pdiRework));
     }
 
     // const updateEachDefectPdi = (e) => {
@@ -73,9 +67,6 @@ export default function ReworkDetails(props) {
     //     localStorage.setItem('pdi_defect', JSON.stringify(props.pd_defect));
     // }
 
-    useEffect(() => {
-
-    }, [props.inprocessRework, props.inp_defect]);
 
 
     return (
@@ -112,7 +103,7 @@ export default function ReworkDetails(props) {
                     <Form.Group as={Row} className="justify-content-md-center">
                         <Form.Label column sm="3">No. of quantity:</Form.Label>
                         <Col sm="4">
-                            <Form.Control name="inprocess_total_quantity" value={props.inprocessRework.inprocess_total_quantity} onChange={props.updateInprocessTotalQuantity} ></Form.Control>
+                            <Form.Control name="inprocess_total_quantity" value={props.inprocessRework.inprocess_total_quantity} onChange={updateInprocessRework} ></Form.Control>
                         </Col>
                     </Form.Group>
                     <br />

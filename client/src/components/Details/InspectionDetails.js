@@ -4,7 +4,14 @@ import Navbar from '../Navbar/NavbarAdmin'
 
 
 
-export default function InspectionDetails({ report, updateReport }) {
+export default function InspectionDetails(props) {
+    localStorage.setItem('inspection', JSON.stringify(props.inspection));
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        props.setInspection({ ...props.inspection, [name]: value });
+    }
+
     return (
         <div className="InspectionDetails">
             <Navbar />
@@ -28,7 +35,7 @@ export default function InspectionDetails({ report, updateReport }) {
                     <Form.Group as={Row} className="justify-content-md-center">
                         <Form.Label column sm="3">Plant Code</Form.Label>
                         <Col sm="4">
-                            <Form.Control></Form.Control>
+                            <Form.Control name="plant_code" value={props.inspection.plant_code} onChange={handleChange}></Form.Control>
                         </Col>
                     </Form.Group>
                     <br />
@@ -36,7 +43,7 @@ export default function InspectionDetails({ report, updateReport }) {
                     <Form.Group as={Row} className="justify-content-md-center">
                         <Form.Label column sm="3">Production Line</Form.Label>
                         <Col sm="4">
-                            <Form.Control ></Form.Control>
+                            <Form.Control name="production_line" value={props.inspection.production_line} onChange={handleChange}></Form.Control>
                         </Col>
                     </Form.Group>
                     <br />
@@ -44,7 +51,7 @@ export default function InspectionDetails({ report, updateReport }) {
                     <Form.Group as={Row} className="justify-content-md-center">
                         <Form.Label column sm="3">Product no</Form.Label>
                         <Col sm="4">
-                            <Form.Control ></Form.Control>
+                            <Form.Control name="product_number" value={props.inspection.product_number} onChange={handleChange}></Form.Control>
                         </Col>
                     </Form.Group>
                     <br />
@@ -52,7 +59,7 @@ export default function InspectionDetails({ report, updateReport }) {
                     <Form.Group as={Row} className="justify-content-md-center">
                         <Form.Label column sm="3">Product Name</Form.Label>
                         <Col sm="4">
-                            <Form.Control ></Form.Control>
+                            <Form.Control name="product_name" value={props.inspection.product_name} onChange={handleChange}></Form.Control>
                         </Col>
                     </Form.Group>
                     <br />

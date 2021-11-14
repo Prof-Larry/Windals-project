@@ -16,7 +16,7 @@ import RejectionDetails from './components/Details/RejectionDetails';
 
 
 const getInspectionDetails = () => {
-  let ins_details = JSON.parse(localStorage.getItem('Inspection'));
+  let ins_details = JSON.parse(localStorage.getItem('inspection'));
 
   if (ins_details) {
     return ins_details;
@@ -44,6 +44,34 @@ const getInprocessItems = () => {
   };
 }
 
+const getPdiItems = () => {
+  let pdi_details = JSON.parse(localStorage.getItem('pdi_report'));
+
+  if (pdi_details) {
+    return pdi_details;
+  }
+  return {
+    pdi_name: "",
+    pdi_total_quantity: "",
+    pdi_total_defective_quantity: "",
+    pdi_total_defects: []
+  }
+}
+
+const getInpRejectionItems = () => {
+  let rej_report = JSON.parse(localStorage.getItem('rej_report'));
+
+  if (rej_report) {
+    return rej_report;
+  }
+  return {
+    rejection_name: "",
+    rejection_total_quantity: "",
+    rejection_total_defective_quantity: "",
+    rejection_total_defects: []
+  }
+}
+
 const getInpDefect = () => {
   let inpro_defect = JSON.parse(localStorage.getItem('inpro_defect'));
   if (inpro_defect) {
@@ -59,20 +87,6 @@ const getInpDefect = () => {
     inprocess_rework_details: "",
     inprocess_defect_handler: ""
   }];
-}
-
-const getPdiItems = () => {
-  let pdi_details = JSON.parse(localStorage.getItem('pdi_report'));
-
-  if (pdi_details) {
-    return pdi_details;
-  }
-  return {
-    pdi_name: "",
-    pdi_total_quantity: "",
-    pdi_total_defective_quantity: "",
-    pdi_total_defects: []
-  }
 }
 
 const getPdiDefect = () => {
@@ -92,6 +106,23 @@ const getPdiDefect = () => {
   }];
 }
 
+const getInpRejectionDefect = () => {
+  let rej_defect = JSON.parse(localStorage.getItem('rej_defect'));
+  if (rej_defect) {
+    return rej_defect;
+  }
+  return [{
+    rej_defect_quantity: "",
+    rej_defect: "",
+    rej_defect_location: "",
+    rej_category_defect: "",
+    rej_details: "",
+    rej_rework_status: "",
+    rej_rework_details: "",
+    rej_defect_handler: ""
+  }];
+}
+
 function App() {
   // ----------------------------------INPROCESS REWORK VARIABLES----------------------------------//
 
@@ -101,18 +132,19 @@ function App() {
 
   let [inprocess_defects, setInprocessDefects] = useState(getInpDefect());
 
-  // let [inp_defect, setInpDefect] = useState(getInpDefect());
-
   let [pdiRework, setPdiRework] = useState(getPdiItems());
 
   let [pdi_defects, setPdiDefects] = useState(getPdiDefect());
 
-  // let [pd_defect, setPdDefect] = useState(getPdiDefect());
+  let [rejectionRework, setRejectionRework] = useState(getInpRejectionItems());
+
+  let [rej_defects, setRejDefects] = useState(getInpRejectionDefect());
+
 
   useEffect(() => {
     console.log(inprocess_defects);
     console.log(inprocessRework);
-  }, [inprocess_defects]);
+  }, [inprocess_defects, inprocess_defects]);
 
 
 
@@ -121,57 +153,28 @@ function App() {
     const list = [...inprocess_defects];
     list[index][name] = value;
     setInprocessDefects(list);
-    // inp_defect = { ...inp_defect, inprocess_defect_id: inprocess_defect_id };
-    // const total_defective_products = inprocessRework.inprocess_total_defective_quantity + inp_defect.inprocess_defect_quantity;
-    // setInprocessDefects([...inprocess_defects, inp_defect]);
-    // setInprocessRework({ ...inprocessRework, inprocess_total_defective_quantity: total_defective_products, inprocess_total_defects: [...inprocess_defects] });
-    // console.log(inprocessRework)
   }
 
-
-
-  // const updateInprocessTotalQuantity = (e) => {
-  //   const { name, value } = e.target;
-  //   setInprocessRework({ ...inprocessRework, [name]: parseInt(value) });
-  // }
-
-  // const updateInprocessDefectQantity = (e) => {
-  //   const { name, value } = e.target;
-  //   setInpDefect({ ...inp_defect, [name]: parseInt(value) });
-  // }
   // ----------------------------------INPROCESS REWORK VARIABLES----------------------------------//
   // ----------------------------------PDI REWORK VARIABLES----------------------------------------//
-
-  useEffect(() => {
-    console.log(pdi_defects);
-    console.log(pdiRework);
-    setPdiRework({ ...pdiRework, pdi_total_defects: pdi_defects });
-  }, [pdi_defects]);
-
-
 
   const addPdiDefects = (e, index) => {
     const { name, value } = e.target;
     const list = [...pdi_defects];
     list[index][name] = value;
     setPdiDefects(list);
-    //   const pdi_defect_id = Date.now().toString();
-    //   pd_defect = { ...pd_defect, pdi_defect_id: pdi_defect_id };
-    //   const total_defective_products = pdiRework.pdi_total_defective_quantity + pd_defect.pdi_defect_quantity;
-    //   setPdiDefects([...pdi_defects, pd_defect]);
-    //   setPdiRework({ ...pdiRework, pdi_total_defective_quantity: total_defective_products, pdi_total_defects: pdi_defects });
   }
 
-  // const updatePdiTotalQuantity = (e) => {
-  //   const { name, value } = e.target;
-  //   setPdiRework({ ...pdiRework, [name]: parseInt(value) });
-  // }
-
-  // const updatePdiDefectQantity = (e) => {
-  //   const { name, value } = e.target;
-  //   setPdDefect({ ...pd_defect, [name]: parseInt(value) });
-  // }
   // ----------------------------------PDI REWORK VARIABLES----------------------------------//
+
+  const addRejDefects = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...rej_defects];
+    list[index][name] = value;
+    setRejDefects(list);
+  }
+
+
 
 
   return (
@@ -224,7 +227,13 @@ function App() {
             addPdiDefects={addPdiDefects} />
         </Route>
         <Route exact path="/rejection">
-          <RejectionDetails />
+          <RejectionDetails
+            rejectionRework={rejectionRework}
+            setRejectionRework={setRejectionRework}
+            rej_defects={rej_defects}
+            setRejDefects={setRejDefects}
+            addRejDefects={addRejDefects}
+          />
         </Route>
 
 
