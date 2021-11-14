@@ -124,31 +124,10 @@ export default function RejectionDetails(props) {
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Rework:</Form.Label>
                                                 <Col sm="6">
-                                                    {['radio'].map((type) => (
-                                                        <div key={`inline-${type}`} className="mb-3">
-                                                            <Form.Check
-                                                                inline
-                                                                label="Done"
-                                                                type={type}
-                                                                id={`inline-${type}-1`}
-                                                                name="rej_rework_status"
-                                                                value="scrap"
-                                                                onClick={e => props.addRejDefects(e, i)}
-                                                            />
-                                                            <Form.Check
-                                                                inline
-                                                                label="Incomplete"
-                                                                type={type}
-                                                                id={`inline-${type}-2`}
-                                                                name="rej_rework_status"
-                                                                value="used under deviation"
-                                                                onClick={e => props.addRejDefects(e, i)}
-                                                            />
-
-                                                        </div>
-                                                    ))
-
-                                                    }
+                                                    <Form.Check type="radio" name="rej_rework_status" label="Scrap" value="scrap"
+                                                        onChange={e => props.addRejDefects(e, i)}                                                            />
+                                                    <Form.Check type="radio" name="rej_rework_status" label="Used Under Deviation" value="used under deviation" 
+                                                        onChange={e => props.addRejDefects(e, i)}                                                            />                                                    
                                                 </Col>
                                             </Row>
 
