@@ -162,31 +162,10 @@ export default function ReworkDetails(props) {
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Rework:</Form.Label>
                                                 <Col sm="6">
-                                                    {['radio'].map((type) => (
-                                                        <div key={`inline-${type}`} className="mb-3">
-                                                            <Form.Check
-                                                                inline
-                                                                label="Done"
-                                                                type={type}
-                                                                id={`inline-${type}-1`}
-                                                                value="Done"
-                                                                name="inprocess_rework_status"
-                                                                onClick={e => props.addInpDefects(e, i)}
-                                                            />
-                                                            <Form.Check
-                                                                inline
-                                                                label="Incomplete"
-                                                                type={type}
-                                                                id={`inline-${type}-2`}
-                                                                name="inprocess_rework_status"
-                                                                value="Incomplete"
-                                                                onClick={e => props.addInpDefects(e, i)}
-                                                            />
-
-                                                        </div>
-                                                    ))
-
-                                                    }
+                                                    <Form.Check type="radio" name="inprocess_rework_status" label="done" value="done"
+                                                        onChange={e => props.addInpDefects(e, i)}                                                            />
+                                                    <Form.Check type="radio" name="inprocess_rework_status" label="incomplete" value="incomlete" 
+                                                        onChange={e => props.addInpDefects(e, i)}                                                            />                                                    
                                                 </Col>
                                             </Row>
 
@@ -213,6 +192,7 @@ export default function ReworkDetails(props) {
                                     </Col>
                                 </Row>
                                 <br />
+
                             </div>
                         );
                     })}
@@ -293,32 +273,10 @@ export default function ReworkDetails(props) {
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Rework:</Form.Label>
                                                 <Col sm="6">
-                                                    {['radio'].map((type) => (
-                                                        <div key={`inline-${type}`} className="mb-3">
-                                                            <Form.Check
-                                                                inline
-                                                                label="Done"
-                                                                type={type}
-                                                                id={`inline-${type}-1`}
-                                                                value={x.rework}
-                                                                name="pdi_rework_status"
-                                                                value="Done"
-                                                                onClick={e => props.addPdiDefects(e, i)}
-                                                            />
-                                                            <Form.Check
-                                                                inline
-                                                                label="Incomplete"
-                                                                type={type}
-                                                                id={`inline-${type}-2`}
-                                                                name="pdi_rework_status"
-                                                                value="Incomplete"
-                                                                onClick={e => props.addPdiDefects(e, i)}
-                                                            />
-
-                                                        </div>
-                                                    ))
-
-                                                    }
+                                                    <Form.Check type="radio" name="pdi_rework_status" label="done" value="done"
+                                                        onChange={e => props.addPdiDefects(e, i)}                                                            />
+                                                    <Form.Check type="radio" name="pdi_rework_status" label="incomplete" value="incomlete" 
+                                                        onChange={e => props.addPdiDefects(e, i)}                                                            />                                                    
                                                 </Col>
                                             </Row>
 
