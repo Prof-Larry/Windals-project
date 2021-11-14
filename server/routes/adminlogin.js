@@ -1,6 +1,6 @@
 import express from 'express';
 import { createAdmin, validateAdmin } from '../controllers/admin.js';
-import { adminAuthenticate, masterAuthenticate } from "../middlewares/middleware.js"
+import { adminAuthenticate } from "../middlewares/middleware.js"
 
 const router = express.Router();
 
@@ -17,7 +17,12 @@ router.get('/adminhome', adminAuthenticate, (req, res) => {
     res.send(req.rootUser);
 })
 
-router.get('/viewreport', adminAuthenticate, (req, res) => {
-    res.send(req.allReports);
-})
+// router.get('/viewreport', adminAuthenticate, (req, res) => {
+//     res.send(req.allReports);
+// })
+
+router.post('/submitReport', adminAuthenticate, (req, res) => {
+    res.send(req.data);
+});
+
 export default router;

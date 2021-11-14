@@ -1,10 +1,14 @@
+import axios from 'axios';
 import React from 'react'
 import { Button, Container, Row, Col, Form, Nav, Card } from 'react-bootstrap'
-import Navbar from '../Navbar/NavbarAdmin'
+import { useHistory } from 'react-router';
+import Navbar from '../Navbar/NavbarAdmin';
+
 
 
 
 export default function RejectionDetails(props) {
+    const history = useHistory();
 
     localStorage.setItem('rej_report', JSON.stringify(props.rejectionRework));
     localStorage.setItem('rej_defect', JSON.stringify(props.rej_defects));
@@ -31,6 +35,33 @@ export default function RejectionDetails(props) {
             rej_rework_details: "",
             rej_defect_handler: ""
         }])
+    }
+
+    const handleSubmit = () => {
+        const inspection = JSON.parse(localStorage.getItem('inspection'));
+        const inp_report = JSON.parse(localStorage.getItem('inp_report'));
+        const pdi_report = JSON.parse(localStorage.getItem('pdi_report'));
+        const rej_report = JSON.parse(localStorage.getItem('rej_report'));
+        const inpro_defect = JSON.parse(localStorage.getItem('inpro_defect'));
+        const pdi_defect = JSON.parse(localStorage.getItem('pdi_defect'));
+        const rej_defect = JSON.parse(localStorage.getItem('rej_defect'));
+        const report = { inspection, inp_report, pdi_report, rej_report, inpro_defect, pdi_defect, rej_defect };
+
+        axios.post('http://localhost:5050/submitReport', report)
+            .then(res => {
+                // localStorage.removeItem('inspection');
+                // localStorage.removeItem('inp_report');
+                // localStorage.removeItem('pdi_report');
+                // localStorage.removeItem('rej_report');
+                // localStorage.removeItem('inpro_defect');
+                // localStorage.removeItem('pdi_defect');
+                // localStorage.removeItem('rej_defect');
+                alert(res.data.message);
+                history.push('/inspection')
+            })
+            .catch(e => {
+                console.log(e);
+            });
     }
 
     return (
@@ -181,7 +212,7 @@ export default function RejectionDetails(props) {
                     <Row className="justify-content-md-center">
                         <Col sm="5"></Col>
                         <Col sm="2">
-                            <Button variant="danger">Submit</Button>
+                            <Button variant="danger" onClick={handleSubmit}>Submit</Button>
                         </Col>
                     </Row>
                 </Form>
