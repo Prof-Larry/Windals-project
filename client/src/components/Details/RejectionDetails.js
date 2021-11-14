@@ -154,8 +154,6 @@ export default function RejectionDetails(props) {
                                     </Col>
                                 </Row>
                                 <br />
-                                <div style={{ marginTop: 20 }}>{JSON.stringify(props.rej_defects)}</div>
-
                             </div>
                         );
                     })}
