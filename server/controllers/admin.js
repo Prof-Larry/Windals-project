@@ -33,8 +33,9 @@ export const validateAdmin = async (req, res) => {
         const { empid, password } = req.body;
         const findAdmin = "select * from admin where empid=?";
         db.query(findAdmin, [empid], async (error, results) => {
-            if (error) res.send("User not Found!!");
+            if (error) return res.send("User not Found!!");
 
+            console.log(results);
             const verified = await bcrypt.compare(password, results[0].pass);
             if (verified) {
                 const token = jwt.sign(results[0].empid, process.env.SECRET_AUTH + "");
@@ -43,7 +44,7 @@ export const validateAdmin = async (req, res) => {
                         expires: new Date(Date.now() + 86400000),
                         httpOnly: true
                     });
-                    res.send({ message: "Login Successful" });
+                    return res.send({ ...results, message: "Login Successful" });
                 }
             }
         })
@@ -90,13 +91,14 @@ export const createAdmin = async (req, res) => {
             const pass = await bcrypt.hash(password, 10);
             const adminInfo = [empid, firstname, lastname, gender, department, designation, phone, email, date, pass, token];
             const newAdmin = "Insert into admin( empid, firstname, lastname, gender, department, designation, phone, email, join_date, pass, token ) values (?,?,?,?,?,?,?,?,?,?,?)";
-            db.query(newAdmin, adminInfo, (error, results) => {
+            db.query(newAdmin, adminInfo, (error, result, fields) => {
                 if (error) {
-                    return res.status(401).json({
-                        message: "Some technical Error, please try again later"
+                    return res.send({
+                        message: "Admin with that employee id already exist"
                     });
                 }
-                res.status(201).send({ ...results[0], message: "Admin created Successfully" });
+                console.log(result);
+                res.status(201).send({ ...result, message: "Admin created Successfully" });
             });
         } else {
             res.send({ message: "Passwords didn't match!" });

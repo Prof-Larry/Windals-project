@@ -10,7 +10,7 @@ export default function Adminhome() {
     const history = useHistory();
     const checkAuthentication = async () => {
         try {
-            const response = await fetch('http://localhost:5000/adminhome', {
+            const response = await fetch('http://localhost:5050/adminhome', {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json"
@@ -31,9 +31,9 @@ export default function Adminhome() {
     }
 
 
-//    useEffect(() => {
-//        checkAuthentication();
-//    }, []);
+   useEffect(() => {
+       checkAuthentication();
+   }, []);
 
 
     const [show, setShow] = useState(false);

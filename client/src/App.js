@@ -39,8 +39,7 @@ const getInprocessItems = () => {
   return {
     inprocess_name: "",
     inprocess_total_quantity: "",
-    inprocess_total_defective_quantity: "",
-    inprocess_total_defects: []
+    inprocess_total_defective_quantity: ""
   };
 }
 
@@ -53,8 +52,7 @@ const getPdiItems = () => {
   return {
     pdi_name: "",
     pdi_total_quantity: "",
-    pdi_total_defective_quantity: "",
-    pdi_total_defects: []
+    pdi_total_defective_quantity: ""
   }
 }
 
@@ -67,8 +65,7 @@ const getInpRejectionItems = () => {
   return {
     rejection_name: "",
     rejection_total_quantity: "",
-    rejection_total_defective_quantity: "",
-    rejection_total_defects: []
+    rejection_total_defective_quantity: ""
   }
 }
 
@@ -124,7 +121,6 @@ const getInpRejectionDefect = () => {
 }
 
 function App() {
-  // ----------------------------------INPROCESS REWORK VARIABLES----------------------------------//
 
   let [inspection, setInspection] = useState(getInspectionDetails());
 
@@ -155,17 +151,12 @@ function App() {
     setInprocessDefects(list);
   }
 
-  // ----------------------------------INPROCESS REWORK VARIABLES----------------------------------//
-  // ----------------------------------PDI REWORK VARIABLES----------------------------------------//
-
   const addPdiDefects = (e, index) => {
     const { name, value } = e.target;
     const list = [...pdi_defects];
     list[index][name] = value;
     setPdiDefects(list);
   }
-
-  // ----------------------------------PDI REWORK VARIABLES----------------------------------//
 
   const addRejDefects = (e, index) => {
     const { name, value } = e.target;

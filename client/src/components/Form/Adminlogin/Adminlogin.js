@@ -21,7 +21,7 @@ export default function AdminLogin() {
     }
 
     const login = () => {
-        axios.post('http://localhost:5000/adminlogin', admin, {
+        axios.post('http://localhost:5050/adminlogin', admin, {
             headers: {
                 'Content-Type': 'application/json'
             },
