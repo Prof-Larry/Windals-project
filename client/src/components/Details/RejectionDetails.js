@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Container, Row, Col, Form, Nav, Card } from 'react-bootstrap'
 import { useHistory } from 'react-router';
 import Navbar from '../Navbar/NavbarAdmin';
@@ -9,6 +9,32 @@ import Navbar from '../Navbar/NavbarAdmin';
 
 export default function RejectionDetails(props) {
     const history = useHistory();
+
+    const checkAuthorization = async () => {
+        try {
+            const response = await fetch('http://localhost:5050/report/reportAuthorization', {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include"
+            });
+
+            const data = await response.json();
+            console.log(data);
+            if (response.status !== 200) {
+                throw new Error(response.error);
+            }
+        } catch (error) {
+            console.log(error);
+            history.push('/adminlogin');
+        }
+    }
+
+    useEffect(() => {
+        checkAuthorization();
+    }, []);
+
 
     localStorage.setItem('rej_report', JSON.stringify(props.rejectionRework));
     localStorage.setItem('rej_defect', JSON.stringify(props.rej_defects));
@@ -47,20 +73,29 @@ export default function RejectionDetails(props) {
         const rej_defect = JSON.parse(localStorage.getItem('rej_defect'));
         const report = { inspection, inp_report, pdi_report, rej_report, inpro_defect, pdi_defect, rej_defect };
 
-        axios.post('http://localhost:5050/submitReport', report)
+        axios.post('http://localhost:5050/report/submitReport', report, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'JWT fefege...'
+            },
+            withCredentials: true
+        })
             .then(res => {
-                // localStorage.removeItem('inspection');
-                // localStorage.removeItem('inp_report');
-                // localStorage.removeItem('pdi_report');
-                // localStorage.removeItem('rej_report');
-                // localStorage.removeItem('inpro_defect');
-                // localStorage.removeItem('pdi_defect');
-                // localStorage.removeItem('rej_defect');
+                localStorage.removeItem('inp_report');
+                localStorage.removeItem('pdi_report');
+                localStorage.removeItem('rej_report');
+                localStorage.removeItem('inpro_defect');
+                localStorage.removeItem('pdi_defect');
+                localStorage.removeItem('rej_defect');
+
+                if (res.status == 401) {
+                    throw new Error();
+                }
                 alert(res.data.message);
-                history.push('/inspection')
+                history.push('/inspection');
             })
             .catch(e => {
-                console.log(e);
+                alert("Some technical Error, please try again later");
             });
     }
 
@@ -156,9 +191,9 @@ export default function RejectionDetails(props) {
                                                 <Form.Label column sm="4">Rework:</Form.Label>
                                                 <Col sm="6">
                                                     <Form.Check type="radio" name="rej_rework_status" label="Scrap" value="scrap"
-                                                        onChange={e => props.addRejDefects(e, i)}                                                            />
-                                                    <Form.Check type="radio" name="rej_rework_status" label="Used Under Deviation" value="used under deviation" 
-                                                        onChange={e => props.addRejDefects(e, i)}                                                            />                                                    
+                                                        onChange={e => props.addRejDefects(e, i)} />
+                                                    <Form.Check type="radio" name="rej_rework_status" label="Used Under Deviation" value="used under deviation"
+                                                        onChange={e => props.addRejDefects(e, i)} />
                                                 </Col>
                                             </Row>
 

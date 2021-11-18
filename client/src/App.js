@@ -96,7 +96,7 @@ const getPdiDefect = () => {
     pdi_defect: "",
     pdi_defect_location: "",
     pdi_category_defect: "",
-    pdi_details: "",
+    pdi_defect_details: "",
     pdi_rework_status: "",
     pdi_rework_details: "",
     pdi_defect_handler: ""
@@ -113,7 +113,7 @@ const getInpRejectionDefect = () => {
     rej_defect: "",
     rej_defect_location: "",
     rej_category_defect: "",
-    rej_details: "",
+    rej_defect_details: "",
     rej_rework_status: "",
     rej_rework_details: "",
     rej_defect_handler: ""

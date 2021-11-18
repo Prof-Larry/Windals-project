@@ -17,12 +17,4 @@ router.get('/adminhome', adminAuthenticate, (req, res) => {
     res.send(req.rootUser);
 })
 
-// router.get('/viewreport', adminAuthenticate, (req, res) => {
-//     res.send(req.allReports);
-// })
-
-router.post('/submitReport', adminAuthenticate, (req, res) => {
-    res.send(req.data);
-});
-
 export default router;

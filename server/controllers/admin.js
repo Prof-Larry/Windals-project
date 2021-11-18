@@ -35,7 +35,6 @@ export const validateAdmin = async (req, res) => {
         db.query(findAdmin, [empid], async (error, results) => {
             if (error) return res.send("User not Found!!");
 
-            console.log(results);
             const verified = await bcrypt.compare(password, results[0].pass);
             if (verified) {
                 const token = jwt.sign(results[0].empid, process.env.SECRET_AUTH + "");

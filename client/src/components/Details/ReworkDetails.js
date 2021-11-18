@@ -1,10 +1,37 @@
 import React, { useEffect } from 'react'
 import { Button, Container, Row, Col, Form, Nav, Card } from 'react-bootstrap'
 import Navbar from '../Navbar/NavbarAdmin'
-
+import { useHistory } from 'react-router';
 
 
 export default function ReworkDetails(props) {
+
+    const history = useHistory();
+
+    const checkAuthorization = async () => {
+        try {
+            const response = await fetch('http://localhost:5050/report/reportAuthorization', {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include"
+            });
+
+            const data = await response.json();
+            console.log(data);
+            if (response.status !== 200) {
+                throw new Error(response.error);
+            }
+        } catch (error) {
+            console.log(error);
+            history.push('/adminlogin');
+        }
+    }
+
+    useEffect(() => {
+        checkAuthorization();
+    }, []);
 
     localStorage.setItem('inp_report', JSON.stringify(props.inprocessRework));
     localStorage.setItem('inpro_defect', JSON.stringify(props.inprocess_defects));
@@ -52,21 +79,13 @@ export default function ReworkDetails(props) {
             pdi_rework_status: "",
             pdi_rework_details: "",
             pdi_defect_handler: ""
-        }])
+        }]);
     }
 
     const updatePdiRework = (e) => {
         const { name, value } = e.target;
         props.setPdiRework({ ...props.pdiRework, [name]: value });
-        // localStorage.setItem('pdi_report', JSON.stringify(props.pdiRework));
     }
-
-    // const updateEachDefectPdi = (e) => {
-    //     const { name, value } = e.target;
-    //     props.setPdDefect({ ...props.pd_defect, [name]: value });
-    //     localStorage.setItem('pdi_defect', JSON.stringify(props.pd_defect));
-    // }
-
 
 
     return (
@@ -179,7 +198,7 @@ export default function ReworkDetails(props) {
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Who will do Rework:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control name="inprocess_rework_handler" value={x.inprocess_rework_handler}
+                                                    <Form.Control name="inprocess_defect_handler" value={x.inprocess_defect_handler}
                                                         onChange={e => props.addInpDefects(e, i)}></Form.Control></Col>
                                             </Row>
 
