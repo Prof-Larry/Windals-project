@@ -82,7 +82,7 @@ const getInpDefect = () => {
     inprocess_defect_details: "",
     inprocess_rework_status: "",
     inprocess_rework_details: "",
-    inprocess_defect_handler: ""
+    inprocess_rework_handler: ""
   }];
 }
 
@@ -99,7 +99,7 @@ const getPdiDefect = () => {
     pdi_defect_details: "",
     pdi_rework_status: "",
     pdi_rework_details: "",
-    pdi_defect_handler: ""
+    pdi_rework_handler: ""
   }];
 }
 
@@ -116,7 +116,7 @@ const getInpRejectionDefect = () => {
     rej_defect_details: "",
     rej_rework_status: "",
     rej_rework_details: "",
-    rej_defect_handler: ""
+    rej_rework_handler: ""
   }];
 }
 

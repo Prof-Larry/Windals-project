@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Container, Row, Col, Form, Nav, Card } from 'react-bootstrap'
 import { useHistory } from 'react-router';
 import Navbar from '../Navbar/NavbarAdmin';
@@ -35,9 +35,9 @@ export default function RejectionDetails(props) {
         checkAuthorization();
     }, []);
 
-const [validated, setValidated] = useState(false);
+    const [validated, setValidated] = useState(false);
 
-        const handleValidate = (event) => {
+    const handleValidate = (event) => {
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
@@ -45,7 +45,7 @@ const [validated, setValidated] = useState(false);
         }
 
         setValidated(true);
-        };
+    };
 
 
 
@@ -77,11 +77,11 @@ const [validated, setValidated] = useState(false);
             rej_defect_details: "",
             rej_rework_status: "",
             rej_rework_details: "",
-            rej_defect_handler: ""
+            rej_rework_handler: ""
         }])
     }
 
-    
+
     const handleSubmit = () => {
         const inspection = JSON.parse(localStorage.getItem('inspection'));
         const inp_report = JSON.parse(localStorage.getItem('inp_report'));
@@ -117,7 +117,7 @@ const [validated, setValidated] = useState(false);
                 alert("Some technical Error, please try again later");
             });
     }
-    
+
 
     return (
         <div className="RejectionDetails">
@@ -242,7 +242,7 @@ const [validated, setValidated] = useState(false);
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Who will do Rework:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control required name="rej_defect_handler" value={x.rej_defect_handler}
+                                                    <Form.Control required name="rej_rework_handler" value={x.rej_rework_handler}
                                                         onChange={e => props.addRejDefects(e, i)}></Form.Control>
                                                     <Form.Control.Feedback type="invalid">Please provide Who will do Rework</Form.Control.Feedback>
                                                 </Col>

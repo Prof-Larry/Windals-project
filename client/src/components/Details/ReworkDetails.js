@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Container, Row, Col, Form, Nav, Card } from 'react-bootstrap'
 import Navbar from '../Navbar/NavbarAdmin'
 import { useHistory } from 'react-router';
@@ -36,13 +36,13 @@ export default function ReworkDetails(props) {
     const [validated, setValidated] = useState(false);
 
     const handleValidate = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-        event.preventDefault();
-        event.stopPropagation();
-    }
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
 
-    setValidated(true);
+        setValidated(true);
     };
 
 
@@ -76,7 +76,7 @@ export default function ReworkDetails(props) {
             inprocess_defect_details: "",
             inprocess_rework_status: "",
             inprocess_rework_details: "",
-            inprocess_defect_handler: ""
+            inprocess_rework_handler: ""
         }])
     }
 
@@ -95,7 +95,7 @@ export default function ReworkDetails(props) {
             pdi_defect_details: "",
             pdi_rework_status: "",
             pdi_rework_details: "",
-            pdi_defect_handler: ""
+            pdi_rework_handler: ""
         }]);
     }
 
@@ -177,7 +177,7 @@ export default function ReworkDetails(props) {
                                                 <Col sm="6">
                                                     <Form.Control required name="inprocess_defect_quantity" value={x.inprocess_defect_quantity}
                                                         onChange={e => props.addInpDefects(e, i)}></Form.Control>
-                                                    <Form.Control.Feedback type="invalid">Please provide No. of defect specific quantity.</Form.Control.Feedback>    
+                                                    <Form.Control.Feedback type="invalid">Please provide No. of defect specific quantity.</Form.Control.Feedback>
                                                 </Col>
                                             </Row>
 
@@ -230,7 +230,7 @@ export default function ReworkDetails(props) {
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Who will do Rework:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control required name="inprocess_defect_handler" value={x.inprocess_defect_handler}
+                                                    <Form.Control required name="inprocess_rework_handler" value={x.inprocess_rework_handler}
                                                         onChange={e => props.addInpDefects(e, i)}></Form.Control>
                                                     <Form.Control.Feedback type="invalid">Please provide Who will do Rework.</Form.Control.Feedback>
                                                 </Col>
@@ -305,7 +305,7 @@ export default function ReworkDetails(props) {
                                                 <Col sm="6">
                                                     <Form.Control required name="pdi_defect_quantity" value={x.pdi_defect_quantity}
                                                         onChange={e => props.addPdiDefects(e, i)}></Form.Control>
-                                                    <Form.Control.Feedback type="invalid">Please provide No. of defect specific quantity</Form.Control.Feedback>        
+                                                    <Form.Control.Feedback type="invalid">Please provide No. of defect specific quantity</Form.Control.Feedback>
                                                 </Col>
                                             </Row>
 
@@ -314,7 +314,7 @@ export default function ReworkDetails(props) {
                                                 <Col sm="6">
                                                     <Form.Control required name="pdi_defect_location" value={x.pdi_defect_location}
                                                         onChange={e => props.addPdiDefects(e, i)}></Form.Control>
-                                                    <Form.Control.Feedback type="invalid">Please provide Location of Defect</Form.Control.Feedback>        
+                                                    <Form.Control.Feedback type="invalid">Please provide Location of Defect</Form.Control.Feedback>
                                                 </Col>
                                             </Row>
 
@@ -323,7 +323,7 @@ export default function ReworkDetails(props) {
                                                 <Col sm="6">
                                                     <Form.Control required name="pdi_category_defect" value={x.pdi_category_defect}
                                                         onChange={e => props.addPdiDefects(e, i)}></Form.Control>
-                                                    <Form.Control.Feedback type="invalid">Please provide category of defects</Form.Control.Feedback>        
+                                                    <Form.Control.Feedback type="invalid">Please provide category of defects</Form.Control.Feedback>
                                                 </Col>
                                             </Row>
 
@@ -332,7 +332,7 @@ export default function ReworkDetails(props) {
                                                 <Col sm="6">
                                                     <Form.Control required name="pdi_defect_details" value={x.pdi_defect_details}
                                                         onChange={e => props.addPdiDefects(e, i)}></Form.Control>
-                                                    <Form.Control.Feedback type="invalid">Please provide Details</Form.Control.Feedback>        
+                                                    <Form.Control.Feedback type="invalid">Please provide Details</Form.Control.Feedback>
                                                 </Col>
                                             </Row>
 
@@ -351,16 +351,16 @@ export default function ReworkDetails(props) {
                                                 <Col sm="6">
                                                     <Form.Control required name="pdi_rework_details" as="textarea" rows={3} value={x.pdi_rework_details}
                                                         onChange={e => props.addPdiDefects(e, i)}></Form.Control>
-                                                    <Form.Control.Feedback type="invalid">Please provide Rework Details</Form.Control.Feedback>        
+                                                    <Form.Control.Feedback type="invalid">Please provide Rework Details</Form.Control.Feedback>
                                                 </Col>
                                             </Row>
 
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Who will do Rework:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control required name="pdi_defect_handler" value={x.pdi_defect_handler}
+                                                    <Form.Control required name="pdi_rework_handler" value={x.pdi_rework_handler}
                                                         onChange={e => props.addPdiDefects(e, i)}></Form.Control>
-                                                    <Form.Control.Feedback type="invalid">Please provide Who will do Rework</Form.Control.Feedback>        
+                                                    <Form.Control.Feedback type="invalid">Please provide Who will do Rework</Form.Control.Feedback>
                                                 </Col>
                                             </Row>
 
@@ -378,10 +378,10 @@ export default function ReworkDetails(props) {
                     })}
 
                     <Row className="justify-content-md-end">
-                            <Col sm="7">
-                                <Button type="submit" variant="success" size="lg" className="mx-2" >SAVE</Button>
-                                <Button variant="danger" size="lg" className="mx-2" onClick={event => window.location.href = '/rejection'}>NEXT</Button>
-                            </Col>
+                        <Col sm="7">
+                            <Button type="submit" variant="success" size="lg" className="mx-2" >SAVE</Button>
+                            <Button variant="danger" size="lg" className="mx-2" onClick={event => window.location.href = '/rejection'}>NEXT</Button>
+                        </Col>
                     </Row><br />
 
 
