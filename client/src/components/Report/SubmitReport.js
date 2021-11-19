@@ -1,117 +1,100 @@
 import React, { useState } from 'react'
-import { Navbar, Container, Nav, Button, ButtonGroup, Form, Card, Row, Col } from 'react-bootstrap'
+import { Navbar, Container, Nav, Button, ButtonGroup, Form, Card, Row, Col ,InputGroup} from 'react-bootstrap'
 import { Link, } from 'react-router-dom'
 
 
 
 export default function SubmitReport() {
 
-    const [inputList, setInputList] = useState([{ defect: "", no_of: "", location: "", category: "", details: "", rework: "", rework_details: "", who: "" }]);
+    const [validated, setValidated] = useState(false);
 
-    // handle input change
-    const handleInputChange = (e, index) => {
-        const { name, value } = e.target;
-        const list = [...inputList];
-        list[index][name] = value;
-        setInputList(list);
-    };
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
 
-    // handle click event of the Remove button
-    const handleRemoveClick = index => {
-        const list = [...inputList];
-        list.splice(index, 1);
-        setInputList(list);
-    };
-
-    // handle click event of the Add button
-    const handleAddClick = () => {
-        setInputList([...inputList, { defect: "", no_of: "", location: "", category: "", details: "", rework: "", rework_details: "", who: "" }]);
-    };
+    setValidated(true);
+  };
 
     return (
         <div className="App">
-            {inputList.map((x, i) => {
-                return (
-                    <div className="box">
-                        <Row className="justify-content-md-center mt-4">
-                            <Col sm="8">
-                                <Card >
-                                    <Card.Header className="text-center">CARD</Card.Header>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Row className="mb-3">
+                    <Form.Group as={Col} md="4" controlId="validationCustom01">
+                    <Form.Label>First name</Form.Label>
+                    <Form.Control
+                        required
+                        type="text"
+                        placeholder="First name"
+                        defaultValue="Mark"
+                    />
+                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group as={Col} md="4" controlId="validationCustom02">
+                    <Form.Label>Last name</Form.Label>
+                    <Form.Control
+                        required
+                        type="text"
+                        placeholder="Last name"
+                        defaultValue="Otto"
+                    />
+                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    </Form.Group>
 
-                                    <Row className="justify-content-md-center mt-4">
-                                        <Form.Label column sm="4">defects:</Form.Label>
-                                        <Col sm="6">
-                                            <Form.Control name="defect" value={x.defect}
-                                                onChange={e => handleInputChange(e, i)}></Form.Control></Col>
-                                    </Row>
+                    <Form.Group as={Col} md="4" controlId="validationCustomUsername">
+                    <Form.Label>Username</Form.Label>
+                    <InputGroup hasValidation>
+                        <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                        <Form.Control
+                        type="text"
+                        placeholder="Username"
+                        aria-describedby="inputGroupPrepend"
+                        required
+                        />
+                        <Form.Control.Feedback type="invalid">
+                        Please choose a username.
+                        </Form.Control.Feedback>
+                    </InputGroup>
+                    </Form.Group>
+                </Row>
+                <Row className="mb-3">
+                    <Form.Group as={Col} md="6" controlId="validationCustom03">
+                    <Form.Label>City</Form.Label>
+                    <Form.Control type="text" placeholder="City" required />
+                    <Form.Control.Feedback type="invalid">
+                        Please provide a valid city.
+                    </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group as={Col} md="3" controlId="validationCustom04">
+                    <Form.Label>State</Form.Label>
+                    <Form.Control type="text" placeholder="State" required />
+                    <Form.Control.Feedback type="invalid">
+                        Please provide a valid state.
+                    </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group as={Col} md="3" controlId="validationCustom05">
+                    <Form.Label>Zip</Form.Label>
+                    <Form.Control type="text" placeholder="Zip" required />
+                    <Form.Control.Feedback type="invalid">
+                        Please provide a valid zip.
+                    </Form.Control.Feedback>
+                    </Form.Group>
+                </Row>
+                
+                <Form.Group className="mb-3">
+                    <Form.Check
+                    required
+                    label="Agree to terms and conditions"
+                    feedback="You must agree before submitting."
+                    feedbackType="invalid"
+                    />
+                </Form.Group>
 
-                                    <Row className="justify-content-md-center mt-4">
-                                        <Form.Label column sm="4">No. of defect specific quantity:</Form.Label>
-                                        <Col sm="6">
-                                            <Form.Control name="no_of" value={x.no_of}
-                                                onChange={e => handleInputChange(e, i)}></Form.Control></Col>
-                                    </Row>
-
-                                    <Row className="justify-content-md-center mt-4">
-                                        <Form.Label column sm="4">Location of Defect:</Form.Label>
-                                        <Col sm="6">
-                                            <Form.Control name="location" value={x.location}
-                                                onChange={e => handleInputChange(e, i)}></Form.Control></Col>
-                                    </Row>
-
-                                    <Row className="justify-content-md-center mt-3 mb-1">
-                                        <Form.Label column sm="4">category of defects:</Form.Label>
-                                        <Col sm="6">
-                                            <Form.Control name="category" value={x.category}
-                                                onChange={e => handleInputChange(e, i)}></Form.Control></Col>
-                                    </Row>
-
-                                    <Row className="justify-content-md-center mt-4">
-                                        <Form.Label column sm="4">Details:</Form.Label>
-                                        <Col sm="6">
-                                            <Form.Control name="details" value={x.details}
-                                                onChange={e => handleInputChange(e, i)}></Form.Control></Col>
-                                    </Row>
-
-                                    <Row className="justify-content-md-center mt-4">
-                                        <Form.Label column sm="4">Rework:</Form.Label>
-                                        <Col sm="6">
-                                            <Form.Check type="radio" name="rework" label="done" value="done"
-                                                onChange={e => handleInputChange(e, i)}
-                                            />
-                                            <Form.Check type="radio" name="rework" label="incomplete" value="incomlete" 
-                                                onChange={e => handleInputChange(e, i)}
-                                            />
-                                        </Col>
-                                    </Row>
-
-                                    <Row className="justify-content-md-center mt-4">
-                                        <Form.Label column sm="4">Rework Details:</Form.Label>
-                                        <Col sm="6">
-                                            <Form.Control name="rework_details" as="textarea" rows={3} value={x.rework_details}
-                                                onChange={e => handleInputChange(e, i)}></Form.Control></Col>
-                                    </Row>
-
-                                    <Row className="justify-content-md-center mt-4">
-                                        <Form.Label column sm="4">Who will do Rework:</Form.Label>
-                                        <Col sm="6">
-                                            <Form.Control name="who" value={x.who}
-                                                onChange={e => handleInputChange(e, i)}></Form.Control></Col>
-                                    </Row>
-
-                                    <div className="mt-1 text-center">
-                                        {inputList.length !== 1 && <Button className="mx-1 mt-2 mb-2" variant="danger" onClick={() => handleRemoveClick(i)}>Remove</Button>}
-                                        {inputList.length - 1 === i && <Button className="mx-1 mt-2 mb-2" variant="success" onClick={handleAddClick}>Add</Button>}
-                                    </div>
-
-                                </Card>
-                            </Col>
-                        </Row>
-                        <br />
-                        <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
-                    </div>
-                );
-            })}
+                <Button type="submit">Submit form</Button>
+            </Form>
+        
         </div>
     );
 }

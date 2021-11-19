@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import { Button, Container, Row, Col, Form, Nav, Card } from 'react-bootstrap'
 import { useHistory } from 'react-router';
 import Navbar from '../Navbar/NavbarAdmin';
@@ -35,6 +35,24 @@ export default function RejectionDetails(props) {
         checkAuthorization();
     }, []);
 
+const [validated, setValidated] = useState(false);
+
+        const handleValidate = (event) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        setValidated(true);
+        };
+
+
+
+
+
+
+
 
     localStorage.setItem('rej_report', JSON.stringify(props.rejectionRework));
     localStorage.setItem('rej_defect', JSON.stringify(props.rej_defects));
@@ -63,6 +81,7 @@ export default function RejectionDetails(props) {
         }])
     }
 
+    
     const handleSubmit = () => {
         const inspection = JSON.parse(localStorage.getItem('inspection'));
         const inp_report = JSON.parse(localStorage.getItem('inp_report'));
@@ -98,6 +117,7 @@ export default function RejectionDetails(props) {
                 alert("Some technical Error, please try again later");
             });
     }
+    
 
     return (
         <div className="RejectionDetails">
@@ -117,13 +137,14 @@ export default function RejectionDetails(props) {
             </Container>
             <Container>
                 <br />
-                <Form>
+                <Form noValidate validated={validated} onSubmit={handleValidate}>
                     <Form.Text as={Row} className="justify-content-md-center" >**Inprocess Rejection**</Form.Text>
                     <br />
                     <Form.Group as={Row} className="justify-content-md-center">
                         <Form.Label column sm="3">Name of Process</Form.Label>
                         <Col sm="4">
-                            <Form.Control name="rejection_name" value={props.rejectionRework.rejection_name} onChange={handleChange}></Form.Control>
+                            <Form.Control required name="rejection_name" value={props.rejectionRework.rejection_name} onChange={handleChange}></Form.Control>
+                            <Form.Control.Feedback type="invalid">Please provide Name of Process</Form.Control.Feedback>
                         </Col>
                     </Form.Group>
                     <br />
@@ -131,7 +152,8 @@ export default function RejectionDetails(props) {
                     <Form.Group as={Row} className="justify-content-md-center">
                         <Form.Label column sm="3">No. of quantity:</Form.Label>
                         <Col sm="4">
-                            <Form.Control name="rejection_total_quantity" value={props.rejectionRework.rejection_total_quantity} onChange={handleChange}></Form.Control>
+                            <Form.Control required name="rejection_total_quantity" value={props.rejectionRework.rejection_total_quantity} onChange={handleChange}></Form.Control>
+                            <Form.Control.Feedback type="invalid">Please provide No. of quantity</Form.Control.Feedback>
                         </Col>
                     </Form.Group>
                     <br />
@@ -139,7 +161,8 @@ export default function RejectionDetails(props) {
                     <Form.Group as={Row} className="justify-content-md-center">
                         <Form.Label column sm="3">No. of defective quantity:</Form.Label>
                         <Col sm="4">
-                            <Form.Control name="rejection_total_defective_quantity" value={props.rejectionRework.rejection_total_defective_quantity} readOnly></Form.Control>
+                            <Form.Control required name="rejection_total_defective_quantity" value={props.rejectionRework.rejection_total_defective_quantity} readOnly></Form.Control>
+                            <Form.Control.Feedback type="invalid">Please provide No. of defective quantity</Form.Control.Feedback>
                         </Col>
                     </Form.Group>
                     <br />
@@ -155,36 +178,46 @@ export default function RejectionDetails(props) {
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">defect:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control name="rej_defect" value={x.rej_defect}
-                                                        onChange={e => props.addRejDefects(e, i)}></Form.Control></Col>
+                                                    <Form.Control required name="rej_defect" value={x.rej_defect}
+                                                        onChange={e => props.addRejDefects(e, i)}></Form.Control>
+                                                    <Form.Control.Feedback type="invalid">Please provide defect</Form.Control.Feedback>
+                                                </Col>
                                             </Row>
 
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">No. of defect specific quantity:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control name="rej_defect_quantity" value={x.rej_defect_quantity}
-                                                        onChange={e => props.addRejDefects(e, i)}></Form.Control></Col>
+                                                    <Form.Control required name="rej_defect_quantity" value={x.rej_defect_quantity}
+                                                        onChange={e => props.addRejDefects(e, i)}></Form.Control>
+                                                    <Form.Control.Feedback type="invalid">Please provide No. of defect specific quantity</Form.Control.Feedback>
+                                                </Col>
                                             </Row>
 
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Location of Defect:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control name="rej_defect_location" value={x.rej_defect_location}
-                                                        onChange={e => props.addRejDefects(e, i)}></Form.Control></Col>
+                                                    <Form.Control required name="rej_defect_location" value={x.rej_defect_location}
+                                                        onChange={e => props.addRejDefects(e, i)}></Form.Control>
+                                                    <Form.Control.Feedback type="invalid">Please provide Location of Defect</Form.Control.Feedback>
+                                                </Col>
                                             </Row>
 
                                             <Row className="justify-content-md-center mt-3 mb-1">
                                                 <Form.Label column sm="4">category of defects:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control name="rej_category_defect" value={x.rej_category_defect}
-                                                        onChange={e => props.addRejDefects(e, i)}></Form.Control></Col>
+                                                    <Form.Control required name="rej_category_defect" value={x.rej_category_defect}
+                                                        onChange={e => props.addRejDefects(e, i)}></Form.Control>
+                                                    <Form.Control.Feedback type="invalid">Please provide category of defects</Form.Control.Feedback>
+                                                </Col>
                                             </Row>
 
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Details:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control name="rej_defect_details" value={x.rej_defect_details}
-                                                        onChange={e => props.addRejDefects(e, i)}></Form.Control></Col>
+                                                    <Form.Control required name="rej_defect_details" value={x.rej_defect_details}
+                                                        onChange={e => props.addRejDefects(e, i)}></Form.Control>
+                                                    <Form.Control.Feedback type="invalid">Please provide Details</Form.Control.Feedback>
+                                                </Col>
                                             </Row>
 
                                             <Row className="justify-content-md-center mt-4">
@@ -200,15 +233,19 @@ export default function RejectionDetails(props) {
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Rework Details:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control name="rej_rework_details" as="textarea" rows={3} value={x.rej_rework_details}
-                                                        onChange={e => props.addRejDefects(e, i)}></Form.Control></Col>
+                                                    <Form.Control required name="rej_rework_details" as="textarea" rows={3} value={x.rej_rework_details}
+                                                        onChange={e => props.addRejDefects(e, i)}></Form.Control>
+                                                    <Form.Control.Feedback type="invalid">Please provide Rework Details</Form.Control.Feedback>
+                                                </Col>
                                             </Row>
 
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Who will do Rework:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control name="rej_defect_handler" value={x.rej_defect_handler}
-                                                        onChange={e => props.addRejDefects(e, i)}></Form.Control></Col>
+                                                    <Form.Control required name="rej_defect_handler" value={x.rej_defect_handler}
+                                                        onChange={e => props.addRejDefects(e, i)}></Form.Control>
+                                                    <Form.Control.Feedback type="invalid">Please provide Who will do Rework</Form.Control.Feedback>
+                                                </Col>
                                             </Row>
 
                                             <div className="mt-1 text-center">
@@ -226,7 +263,7 @@ export default function RejectionDetails(props) {
                     <Row className="justify-content-md-center">
                         <Col sm="5"></Col>
                         <Col sm="2">
-                            <Button variant="danger" onClick={handleSubmit}>Submit</Button>
+                            <Button type="submit" variant="danger" onClick={handleSubmit}>Submit</Button>
                         </Col>
                     </Row>
                 </Form>
@@ -237,3 +274,6 @@ export default function RejectionDetails(props) {
         </div>
     )
 }
+/*
+onClick={handleSubmit}
+*/
