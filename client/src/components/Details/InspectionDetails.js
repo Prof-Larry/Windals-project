@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import { Button, Container, Form, Row, Col, Nav } from 'react-bootstrap'
 import { useHistory } from 'react-router'
 import Navbar from '../Navbar/NavbarAdmin'
@@ -33,6 +33,21 @@ export default function InspectionDetails(props) {
         checkAuthorization();
     }, []);
 
+        const [validated, setValidated] = useState(false);
+
+        const handleValidate = (event) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        setValidated(true);
+        };
+
+
+
+
     localStorage.setItem('inspection', JSON.stringify(props.inspection));
 
     const handleChange = (e) => {
@@ -59,44 +74,48 @@ export default function InspectionDetails(props) {
             </Container>
             <br />
             <Container >
-                <Form>
-                    <Form.Group as={Row} className="justify-content-md-center">
+                <Form noValidate validated={validated} onSubmit={handleValidate}>
+                    <Form.Group as={Row} className="justify-content-md-center" controlId="validationCustom01">
                         <Form.Label column sm="3">Plant Code</Form.Label>
                         <Col sm="4">
-                            <Form.Control name="plant_code" value={props.inspection.plant_code} onChange={handleChange}></Form.Control>
+                            <Form.Control required name="plant_code" value={props.inspection.plant_code} onChange={handleChange}></Form.Control>
+                            <Form.Control.Feedback type="invalid">Please provide plant code.</Form.Control.Feedback>
                         </Col>
                     </Form.Group>
                     <br />
 
-                    <Form.Group as={Row} className="justify-content-md-center">
+                    <Form.Group as={Row} className="justify-content-md-center" controlId="validationCustom02">
                         <Form.Label column sm="3">Production Line</Form.Label>
                         <Col sm="4">
-                            <Form.Control name="production_line" value={props.inspection.production_line} onChange={handleChange}></Form.Control>
+                            <Form.Control required name="production_line" value={props.inspection.production_line} onChange={handleChange}></Form.Control>
+                            <Form.Control.Feedback type="invalid">Please provide production line.</Form.Control.Feedback>
                         </Col>
                     </Form.Group>
                     <br />
 
-                    <Form.Group as={Row} className="justify-content-md-center">
+                    <Form.Group as={Row} className="justify-content-md-center" controlId="validationCustom03">
                         <Form.Label column sm="3">Product no</Form.Label>
                         <Col sm="4">
-                            <Form.Control name="product_number" value={props.inspection.product_number} onChange={handleChange}></Form.Control>
+                            <Form.Control required name="product_number" value={props.inspection.product_number} onChange={handleChange}></Form.Control>
+                            <Form.Control.Feedback type="invalid">Please provide product no.</Form.Control.Feedback>
                         </Col>
                     </Form.Group>
                     <br />
 
-                    <Form.Group as={Row} className="justify-content-md-center">
+                    <Form.Group as={Row} className="justify-content-md-center" controlId="validationCustom04">
                         <Form.Label column sm="3">Product Name</Form.Label>
                         <Col sm="4">
-                            <Form.Control name="product_name" value={props.inspection.product_name} onChange={handleChange}></Form.Control>
+                            <Form.Control required name="product_name" value={props.inspection.product_name} onChange={handleChange}></Form.Control>
+                            <Form.Control.Feedback type="invalid">Please provide product name.</Form.Control.Feedback>
                         </Col>
                     </Form.Group>
                     <br />
 
-                    <Row className="justify-content-md-center">
-                        <Col sm="4" />
-                        <Col sm="3">
-                            <Button variant="danger" size="lg" className="justify-content-md-center" onClick={event => window.location.href = '/rejection'}>Save and Next</Button>
-                        </Col>
+                    <Row className="justify-content-md-end">
+                            <Col sm="7">
+                                <Button type="submit" variant="success" size="lg" className="mx-2" >SAVE</Button>
+                                <Button variant="danger" size="lg" className="mx-2" onClick={event => window.location.href = '/rework'}>NEXT</Button>
+                            </Col>
                     </Row><br />
                 </Form>
             </Container>
@@ -104,3 +123,8 @@ export default function InspectionDetails(props) {
         </div>
     )
 }
+/*
+
+onClick={event => window.location.href = '/rejection'}
+
+*/
