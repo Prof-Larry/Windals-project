@@ -100,18 +100,19 @@ export default function RejectionDetails(props) {
             withCredentials: true
         })
             .then(res => {
-                localStorage.removeItem('inp_report');
-                localStorage.removeItem('pdi_report');
-                localStorage.removeItem('rej_report');
-                localStorage.removeItem('inpro_defect');
-                localStorage.removeItem('pdi_defect');
-                localStorage.removeItem('rej_defect');
+                // localStorage.removeItem('inp_report');
+                // localStorage.removeItem('pdi_report');
+                // localStorage.removeItem('rej_report');
+                // localStorage.removeItem('inpro_defect');
+                // localStorage.removeItem('pdi_defect');
+                // localStorage.removeItem('rej_defect');
+                localStorage.removeItem('inspection');
 
                 if (res.status == 401) {
                     throw new Error();
                 }
                 alert(res.data.message);
-                history.push('/inspection');
+                // history.push('/inspection');
             })
             .catch(e => {
                 alert("Some technical Error, please try again later");

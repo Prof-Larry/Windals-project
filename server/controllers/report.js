@@ -8,11 +8,10 @@ export const saveReport = (req, res) => {
         const report_date = moment().format('YYYY-MM-DD');
         const token = req.cookies.admin || req.cookies.master;
         const decoded_admin = jwt.verify(token, process.env.SECRET_AUTH + "");
-        console.log(decoded_admin);
         // ------------Temporary assignment for debugging----------
         inp_report.inprocess_total_defective_quantity = "30"
-        pdi_report.inprocess_total_defective_quantity = "30"
-        rej_report.inprocess_total_defective_quantity = "30"
+        pdi_report.pdi_total_defective_quantity = "30"
+        rej_report.rejection_total_defective_quantity = "30"
         // ------------Temporary assignment for debugging----------
 
 
