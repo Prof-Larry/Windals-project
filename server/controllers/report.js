@@ -22,21 +22,21 @@ export const saveReport = (req, res) => {
 
             inpro_defect.forEach(defect => {
                 const inprocess_defects_values = [parseInt(defect.inprocess_defect_quantity), defect.inprocess_defect, defect.inprocess_defect_location, defect.inprocess_category_defect, defect.inprocess_defect_details, defect.inprocess_rework_status, defect.inprocess_rework_details, defect.inprocess_rework_handler, results.insertId];
-                const add_inprocess_Defect = "insert into inprocess_defects(inprocess_defect_quantity,inprocess_defect,inprocess_defect_location,inprocess_category_defect,inprocess_rework_status,inprocess_rework_details,inprocess_rework_handler,report_id) values (?,?,?,?,?,?,?,?,?)";
+                const add_inprocess_Defect = "insert into inprocess_defects(inprocess_defect_quantity,inprocess_defect,inprocess_defect_location,inprocess_category_defect,inprocess_defect_details,inprocess_rework_status,inprocess_rework_details,inprocess_rework_handler,report_id) values (?,?,?,?,?,?,?,?,?)";
                 db.query(add_inprocess_Defect, inprocess_defects_values, (error, results) => {
                     if (error) throw new Error();
                 });
             });
             pdi_defect.forEach(defect => {
                 const pdi_defects_values = [parseInt(defect.pdi_defect_quantity), defect.pdi_defect, defect.pdi_defect_location, defect.pdi_category_defect, defect.pdi_defect_details, defect.pdi_rework_status, defect.pdi_rework_details, defect.pdi_rework_handler, results.insertId];
-                const add_pdi_Defect = "insert into pdi_defects(pdi_defect_quantity,pdi_defect,pdi_defect_location,pdi_category_defect,pdi_rework_status,pdi_rework_details,pdi_rework_handler,report_id) values (?,?,?,?,?,?,?,?,?)";
+                const add_pdi_Defect = "insert into pdi_defects(pdi_defect_quantity,pdi_defect,pdi_defect_location,pdi_category_defect,pdi_defect_details,pdi_rework_status,pdi_rework_details,pdi_rework_handler,report_id) values (?,?,?,?,?,?,?,?,?)";
                 db.query(add_pdi_Defect, pdi_defects_values, (error, results) => {
                     if (error) throw new Error();
                 });
             });
             rej_defect.forEach(defect => {
-                const rejection_defects_values = [parseInt(defect.rejection_defect_quantity), defect.rejection_defect, defect.rejection_defect_location, defect.rejection_category_defect, defect.rejection_defect_details, defect.rejection_rework_status, defect.rejection_rework_details, defect.rejection_rework_handler, results.insertId];
-                const add_rejection_Defect = "insert into rejection_defects(rejection_defect_quantity,rejection_defect,rejection_defect_location,rejection_category_defect,rejection_rework_status,rejection_rework_details,rejection_rework_handler,report_id) values (?,?,?,?,?,?,?,?,?)";
+                const rejection_defects_values = [parseInt(defect.rej_defect_quantity), defect.rej_defect, defect.rej_defect_location, defect.rej_category_defect, defect.rej_defect_details, defect.rej_rework_status, defect.rej_rework_details, defect.rej_rework_handler, results.insertId];
+                const add_rejection_Defect = "insert into rejection_defects(rejection_defect_quantity,rejection_defect,rejection_defect_location,rejection_category_defect,rejection_defect_details,rejection_rework_status,rejection_rework_details,rejection_rework_handler,report_id) values (?,?,?,?,?,?,?,?,?)";
                 db.query(add_rejection_Defect, rejection_defects_values, (error, results) => {
                     if (error) throw new Error();
                 });

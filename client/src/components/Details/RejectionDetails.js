@@ -106,7 +106,7 @@ export default function RejectionDetails(props) {
                 // localStorage.removeItem('inpro_defect');
                 // localStorage.removeItem('pdi_defect');
                 // localStorage.removeItem('rej_defect');
-                localStorage.removeItem('inspection');
+                // localStorage.removeItem('inspection');
 
                 if (res.status == 401) {
                     throw new Error();
