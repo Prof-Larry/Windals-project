@@ -9,13 +9,22 @@ export const saveReport = (req, res) => {
         const token = req.cookies.admin || req.cookies.master;
         const decoded_admin = jwt.verify(token, process.env.SECRET_AUTH + "");
         // ------------Temporary assignment for debugging----------
-        inp_report.inprocess_total_defective_quantity = "30"
-        pdi_report.pdi_total_defective_quantity = "30"
-        rej_report.rejection_total_defective_quantity = "30"
+        inp_report.inprocess_total_defective_quantity = 0;
+        inpro_defect.forEach(defect => {
+            inp_report.inprocess_total_defective_quantity += parseInt(defect.inprocess_defect_quantity);
+        });
+        pdi_report.pdi_total_defective_quantity = 0;
+        pdi_defect.forEach(defect => {
+            pdi_report.pdi_total_defective_quantity += parseInt(defect.pdi_defect_quantity);
+        });
+        rej_report.rejection_total_defective_quantity = 0;
+        rej_defect.forEach(defect => {
+            rej_report.rejection_total_defective_quantity += parseInt(defect.rej_defect_quantity);
+        });
         // ------------Temporary assignment for debugging----------
 
 
-        const report_values = [report_date, decoded_admin, inspection.plant_code, inspection.production_line, inspection.product_number, inspection.product_name, inp_report.inprocess_name, parseInt(inp_report.inprocess_total_quantity), parseInt(inp_report.inprocess_total_defective_quantity), pdi_report.pdi_name, parseInt(pdi_report.pdi_total_quantity), parseInt(pdi_report.pdi_total_defective_quantity), rej_report.rejection_name, parseInt(rej_report.rejection_total_quantity), parseInt(rej_report.rejection_total_defective_quantity)];
+        const report_values = [report_date, decoded_admin, inspection.plant_code, inspection.production_line, inspection.product_number, inspection.product_name, inp_report.inprocess_name, parseInt(inp_report.inprocess_total_quantity), inp_report.inprocess_total_defective_quantity, pdi_report.pdi_name, parseInt(pdi_report.pdi_total_quantity), pdi_report.pdi_total_defective_quantity, rej_report.rejection_name, parseInt(rej_report.rejection_total_quantity), rej_report.rejection_total_defective_quantity];
         const add_report = "Insert Into report(report_date,admin_id,plant_code,production_line,product_number,product_name,inprocess_name,inprocess_total_quantity,inprocess_total_defective_quantity,pdi_name,pdi_total_quantity,pdi_total_defective_quantity,rejection_name,rejection_total_quantity,rejection_total_defective_quantity) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         db.query(add_report, report_values, (error, results) => {
             if (error) throw new Error();

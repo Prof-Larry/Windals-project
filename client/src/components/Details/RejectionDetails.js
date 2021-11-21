@@ -159,22 +159,13 @@ export default function RejectionDetails(props) {
                     </Form.Group>
                     <br />
 
-                    <Form.Group as={Row} className="justify-content-md-center">
-                        <Form.Label column sm="3">No. of defective quantity:</Form.Label>
-                        <Col sm="4">
-                            <Form.Control required name="rejection_total_defective_quantity" value={props.rejectionRework.rejection_total_defective_quantity} readOnly></Form.Control>
-                            <Form.Control.Feedback type="invalid">Please provide No. of defective quantity</Form.Control.Feedback>
-                        </Col>
-                    </Form.Group>
-                    <br />
-
                     {props.rej_defects.map((x, i) => {
                         return (
                             <div className="box">
                                 <Row className="justify-content-md-center mt-4">
                                     <Col sm="8">
                                         <Card >
-                                            <Card.Header className="text-center">CARD</Card.Header>
+                                            <Card.Header className="text-center">DEFECT LIST</Card.Header>
 
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">defect:</Form.Label>
