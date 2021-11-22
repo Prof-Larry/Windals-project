@@ -168,7 +168,6 @@ export default function SearchByDate() {
                     </tbody>
                   );
                 })}
-                ;
               </Table>
             </Col>
           </Row>

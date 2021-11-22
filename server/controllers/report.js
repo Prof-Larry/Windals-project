@@ -128,8 +128,8 @@ export const saveReport = (req, res) => {
 
 export const sendReport = (req, res) => {
   const { from, to } = req.body;
-  const findReports = "select * from report where report_date=?";
-  db.query(findReports, [from], (error, results) => {
+  const findReports = "select * from report where report_date BETWEEN ? AND ?";
+  db.query(findReports, [from, to], (error, results) => {
     if (error) return res.send({ message: "Some Technical Error" });
     console.log(results[0]);
     return res.send(results);
