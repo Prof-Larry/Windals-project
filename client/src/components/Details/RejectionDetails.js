@@ -47,13 +47,6 @@ export default function RejectionDetails(props) {
         setValidated(true);
     };
 
-
-
-
-
-
-
-
     localStorage.setItem('rej_report', JSON.stringify(props.rejectionRework));
     localStorage.setItem('rej_defect', JSON.stringify(props.rej_defects));
 
