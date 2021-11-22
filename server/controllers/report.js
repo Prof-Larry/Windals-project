@@ -16,7 +16,6 @@ export const saveReport = (req, res) => {
     const report_date = moment().format("YYYY-MM-DD");
     const token = req.cookies.admin || req.cookies.master;
     const decoded_admin = jwt.verify(token, process.env.SECRET_AUTH + "");
-    // ------------Temporary assignment for debugging----------
     inp_report.inprocess_total_defective_quantity = 0;
     inpro_defect.forEach((defect) => {
       inp_report.inprocess_total_defective_quantity += parseInt(
@@ -35,7 +34,6 @@ export const saveReport = (req, res) => {
         defect.rej_defect_quantity
       );
     });
-    // ------------Temporary assignment for debugging----------
 
     const report_values = [
       report_date,
@@ -130,9 +128,10 @@ export const saveReport = (req, res) => {
 
 export const sendReport = (req, res) => {
   const { from, to } = req.body;
-  const findReports = "select * from report where report_date between ? and ?";
-  db.query(findReports, [from, to], (error, results) => {
+  const findReports = "select * from report where report_date=?";
+  db.query(findReports, [from], (error, results) => {
     if (error) return res.send({ message: "Some Technical Error" });
+    console.log(results[0]);
     return res.send(results);
   });
 };

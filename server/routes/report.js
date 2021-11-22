@@ -14,8 +14,8 @@ router.get("/reportAuthorization", adminAuthenticate, (req, res) => {
 
 router.post("/submitReport", adminAuthenticate, saveReport);
 
-router.get("/viewReport", adminAuthenticate, sendReport);
+router.post("/viewReport", adminAuthenticate, sendReport);
 
-router.get("/viewReport/:id", adminAuthenticate, sendCompleteReport);
+// router.get("/viewReport/:id", adminAuthenticate, sendCompleteReport);
 
 export default router;
