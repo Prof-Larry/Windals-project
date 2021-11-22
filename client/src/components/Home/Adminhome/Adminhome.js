@@ -55,7 +55,7 @@ export default function Adminhome() {
                         {show ? <Row><Button variant="secondary" size="lg" className="mb-3" onClick={event => window.location.href = '/viewreport'}>View Report</Button></Row> : null}
                         {show ? show1 ? <Row><Button variant="secondary" size="lg" className="mb-3" onClick={event => window.location.href = '/editreport'}>Edit Report</Button></Row> : null :null}
                         {show ? <Row><Button variant="secondary" size="lg" className="mb-3" onClick={event => window.location.href = '/inspection'}>Submit Report</Button></Row> : null}
-
+                        <Row><Button variant="secondary" size="lg" className="mb-3" onClick={event => window.location.href = '/myrework'}>My Rework</Button></Row>
 
                     </Col>
                 </Row>
