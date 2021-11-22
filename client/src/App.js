@@ -7,7 +7,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Userlogin from './components/Form/Userlogin/Userlogin';
 import Masterlogin from './components/Form/Masterlogin/Masterlogin';
 import Adminhome from './components/Home/Adminhome/Adminhome';
-import ViewReport from './components/Report/ViewReport';
 import SubmitReport from './components/Report/SubmitReport';
 import EditReport from './components/Report/EditReport';
 import InspectionDetails from './components/Details/InspectionDetails';
@@ -17,6 +16,7 @@ import MyRework from './components/Details/MyRework';
 import SearchByDate from './components/Report/ViewReport/SearchBydate';
 import ReportsTable from './components/Report/ViewReport/Reportstable';
 import ShowReport from './components/Report/ViewReport/ShowReport';
+import ReworkToDo from './components/Details/ReworkToDo';
 
 
 const getInspectionDetails = () => {
@@ -195,9 +195,7 @@ function App() {
           <Adminhome />
         </Route>
 
-        <Route exact path="/viewreport">
-          <ViewReport />
-        </Route>
+        
         <Route exact path="/submitreport">
           <SubmitReport />
         </Route>
@@ -241,6 +239,9 @@ function App() {
         </Route>
         <Route exact path="/showreport">
           <ShowReport/>
+        </Route>
+        <Route exact path="/reworktode">
+          <ReworkToDo/>
         </Route>
 
 
