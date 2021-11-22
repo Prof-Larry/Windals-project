@@ -160,6 +160,8 @@ export const sendCompleteReport = (req, res) => {
     [id],
     (error, results) => {
       if (error) return res({ message: "No pdi_defects" });
+
+      complete_report = { ...complete_report, results };
     }
   );
   db.query(
@@ -167,6 +169,10 @@ export const sendCompleteReport = (req, res) => {
     [id],
     (error, results) => {
       if (error) return res({ message: "No rejection_defects" });
+
+      complete_report = { ...complete_report, results };
     }
   );
+
+  return res.send(complete_report);
 };
