@@ -13,6 +13,10 @@ import EditReport from './components/Report/EditReport';
 import InspectionDetails from './components/Details/InspectionDetails';
 import ReworkDetails from './components/Details/ReworkDetails';
 import RejectionDetails from './components/Details/RejectionDetails';
+import MyRework from './components/Details/MyRework';
+import SearchByDate from './components/Report/ViewReport/SearchBydate';
+import ReportsTable from './components/Report/ViewReport/Reportstable';
+import ShowReport from './components/Report/ViewReport/ShowReport';
 
 
 const getInspectionDetails = () => {
@@ -225,6 +229,18 @@ function App() {
             setRejDefects={setRejDefects}
             addRejDefects={addRejDefects}
           />
+        </Route>
+        <Route exact path="/myrework">
+          <MyRework/>
+        </Route>
+        <Route exact path="/searchbydate">
+          <SearchByDate/>
+        </Route>
+        <Route exact path="/reportstable">
+          <ReportsTable/>
+        </Route>
+        <Route exact path="/showreport">
+          <ShowReport/>
         </Route>
 
 
