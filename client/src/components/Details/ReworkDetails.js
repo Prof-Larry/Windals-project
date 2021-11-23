@@ -204,7 +204,7 @@ export default function ReworkDetails(props) {
                                                 <Col sm="6">
                                                     <Form.Check type="radio" name="inprocess_rework_status" label="done" value="done"
                                                         onChange={e => props.addInpDefects(e, i)} />
-                                                    <Form.Check type="radio" name="inprocess_rework_status" label="incomplete" value="incomlete"
+                                                    <Form.Check type="radio" name="inprocess_rework_status" label="incomplete" value="incomplete"
                                                         onChange={e => props.addInpDefects(e, i)} />
                                                 </Col>
                                             </Row>

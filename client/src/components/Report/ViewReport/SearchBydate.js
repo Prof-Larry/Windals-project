@@ -70,7 +70,6 @@ export default function SearchByDate() {
         if (res.status == 401) {
           throw new Error();
         }
-        console.log(res.data);
         setReports(res.data);
         setShow(true);
       })
@@ -78,6 +77,11 @@ export default function SearchByDate() {
         alert("Some technical Error, please try again later");
       });
   };
+
+  const handleClickView = (e) => {
+    const { value } = e.target;
+    history.push("/showreport", { id: value });
+  }
 
   return (
     <div style={{ justifyContent: "center", alignItems: "center" }}>
@@ -151,7 +155,7 @@ export default function SearchByDate() {
                 {reports.map((report) => {
                   const d = new Date(`${report.report_date}`);
                   return (
-                    <tbody className="text-dark">
+                    <tbody className="text-dark" key={report.report_id}>
                       <tr key={report.report_id}>
                         <td>{report.report_id}</td>
                         <td>
@@ -162,7 +166,14 @@ export default function SearchByDate() {
                         <td>{report.product_name}</td>
                         <td>{report.admin_id}</td>
                         <td>
-                          <Link to="/showreport">View</Link>
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            value={report.report_id}
+                            onClick={handleClickView}
+                          >
+                            View
+                          </Button>
                         </td>
                       </tr>
                     </tbody>

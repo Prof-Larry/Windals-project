@@ -1,5 +1,5 @@
 import express from 'express';
-import { createAdmin, validateAdmin } from '../controllers/admin.js';
+import { createAdmin, sendReworkDetails, validateAdmin } from '../controllers/admin.js';
 import { adminAuthenticate } from "../middlewares/middleware.js"
 
 const router = express.Router();
@@ -15,6 +15,8 @@ router.post('/adminregister', createAdmin);
 
 router.get('/adminhome', adminAuthenticate, (req, res) => {
     res.send(req.rootUser);
-})
+});
+
+router.get('/myrework', adminAuthenticate, sendReworkDetails);
 
 export default router;

@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import loginRoutes from './routes/adminlogin.js'
+import loginRoutes from './routes/admin.js'
 import reportRoutes from './routes/report.js'
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";

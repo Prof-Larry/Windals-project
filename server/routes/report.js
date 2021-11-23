@@ -16,6 +16,8 @@ router.post("/submitReport", adminAuthenticate, saveReport);
 
 router.post("/viewReport", adminAuthenticate, sendReport);
 
+router.post("/viewCompleteReport", adminAuthenticate, sendCompleteReport);
+
 // router.get("/viewReport/:id", adminAuthenticate, sendCompleteReport);
 
 export default router;

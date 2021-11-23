@@ -131,27 +131,25 @@ export const sendReport = (req, res) => {
   const findReports = "select * from report where report_date BETWEEN ? AND ?";
   db.query(findReports, [from, to], (error, results) => {
     if (error) return res.send({ message: "Some Technical Error" });
-    console.log(results[0]);
     return res.send(results);
   });
 };
 
-export const sendCompleteReport = (req, res) => {
-  const { id } = req.params;
-  const complete_report = {};
-  db.query("select * from report where report_id=?", [id], (error, results) => {
+export const sendCompleteReport = async (req, res) => {
+  const { id } = req.body;
+  let complete_report = {};
+  db.query("select * from report where report_id=?", [parseInt(id)], (error, results) => {
     if (error) return res.send({ message: "No report has been found!!!" });
-
     const report = results[0];
-    complete_report = { report };
+    complete_report = { report: report };
   });
   db.query(
-    "select * from inprocess_defects where report_id=?",
+    "select * from inprocess_defects WHERE report_id=?",
     [id],
     (error, results) => {
       if (error) return res({ message: "No inprocess_defects" });
 
-      complete_report = { ...complete_report, results };
+      complete_report = { ...complete_report, inprocess_defects: results };
     }
   );
   db.query(
@@ -160,7 +158,7 @@ export const sendCompleteReport = (req, res) => {
     (error, results) => {
       if (error) return res({ message: "No pdi_defects" });
 
-      complete_report = { ...complete_report, results };
+      complete_report = { ...complete_report, pdi_defects: results };
     }
   );
   db.query(
@@ -169,9 +167,8 @@ export const sendCompleteReport = (req, res) => {
     (error, results) => {
       if (error) return res({ message: "No rejection_defects" });
 
-      complete_report = { ...complete_report, results };
+      complete_report = { ...complete_report, rejection_defects: results };
+      res.send(complete_report);
     }
   );
-
-  return res.send(complete_report);
 };
