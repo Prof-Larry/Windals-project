@@ -69,7 +69,7 @@ export default function SearchByDate() {
         if (res.status == 401) {
           throw new Error();
         }
-        localStorage.setItem('reports', JSON.stringify(res.data));
+        localStorage.setItem("reports", JSON.stringify(res.data));
         setReports(res.data);
         setShow(true);
       })
