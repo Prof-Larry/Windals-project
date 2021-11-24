@@ -83,18 +83,18 @@ export const createAdmin = async (req, res) => {
   }
 };
 
-export const sendReworkDetails = (req, res) => {
+export const sendReworkDetails = async (req, res) => {
   let complete_reworks = {};
   db.query("Select * from inprocess_defects where inprocess_rework_handler=? and inprocess_rework_status=?", [req.userID, "incomplete"], (error, results) => {
     if (error) return res.status(401).send({ message: "Something is Wrong in inprocess_defects" });
-
-    complete_reworks = { inprocess_defets: results };
+    console.log(results);
+    complete_reworks = { inprocess_defects: results };
   });
   db.query("Select * from pdi_defects where pdi_rework_handler=? and pdi_rework_status=?", [req.userID, "incomplete"], (error, results) => {
     if (error) return res.status(401).send({ message: "Something is Wrong in pdi_defects" });
-
-    complete_reworks = { ...complete_reworks, pdi_defets: results };
-    res.status(201).send(complete_reworks);
+    console.log(results);
+    complete_reworks = { ...complete_reworks, pdi_defects: results };
   });
+  res.status(201).send(complete_reworks);
 }
 /*--------------------------Don't uncomment/touch above code---------------------------*/

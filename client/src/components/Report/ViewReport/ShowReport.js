@@ -79,11 +79,11 @@ export default function ShowReport() {
 
 
   const handleClick = () => {
-    history.push("/searchbydate");
-    // console.log(completeReport);
-    // console.log(i_defects);
-    // console.log(p_defects);
-    // console.log(r_defects);
+    // history.push("/searchbydate");
+    console.log(completeReport);
+    console.log(i_defects);
+    console.log(p_defects);
+    console.log(r_defects);
   };
 
   return (

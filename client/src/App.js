@@ -141,12 +141,6 @@ function App() {
   let [rej_defects, setRejDefects] = useState(getInpRejectionDefect());
 
 
-  useEffect(() => {
-    console.log(inprocess_defects);
-    console.log(inprocessRework);
-  }, [inprocess_defects, inprocess_defects]);
-
-
 
   const addInpDefects = (e, index) => {
     const { name, value } = e.target;
@@ -195,7 +189,7 @@ function App() {
           <Adminhome />
         </Route>
 
-        
+
         <Route exact path="/submitreport">
           <SubmitReport />
         </Route>
@@ -229,19 +223,19 @@ function App() {
           />
         </Route>
         <Route exact path="/myrework">
-          <MyRework/>
+          <MyRework />
         </Route>
         <Route exact path="/searchbydate">
-          <SearchByDate/>
+          <SearchByDate />
         </Route>
         <Route exact path="/reportstable">
-          <ReportsTable/>
+          <ReportsTable />
         </Route>
         <Route exact path="/showreport">
-          <ShowReport/>
+          <ShowReport />
         </Route>
         <Route exact path="/reworktode">
-          <ReworkToDo/>
+          <ReworkToDo />
         </Route>
 
 

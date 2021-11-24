@@ -9,6 +9,10 @@ import axios from 'axios'
 export default function MyRework() {
 
     const history = useHistory();
+    const [show, setShow] = useState(false);
+    const [p_defects, setPdiDefects] = useState();
+    const [i_defects, setInpDefects] = useState();
+
 
     const checkAuthorization = () => {
         axios.get("http://localhost:5050/myrework", {
@@ -21,7 +25,13 @@ export default function MyRework() {
             .then(res => {
                 if (res.status == 401) throw new Error();
 
-
+                console.log(res.data);
+                const { inprocess_defects, pdi_defects } = res.data;
+                // sessionStorage.setItem("i_defects", JSON.stringify(inprocess_defects));
+                // sessionStorage.setItem("p_defects", JSON.stringify(pdi_defects));
+                setInpDefects(inprocess_defects);
+                setPdiDefects(pdi_defects);
+                setShow(true);
             })
             .catch(e => {
                 history.push("/adminlogin");
@@ -31,7 +41,7 @@ export default function MyRework() {
 
     useEffect(() => {
         checkAuthorization();
-    }, [])
+    }, []);
 
     return (
         <div style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -45,36 +55,98 @@ export default function MyRework() {
                 <Row className=" justify-content-md-center">
                     <Col sm="8">
                         <Table bordered className="mt-4">
-                            <thead className="text-dark">
-                                <tr className="text-dark">
-                                    <th className="text-dark">Sr.No</th>
-                                    <th className="text-dark">Date</th>
-                                    <th className="text-dark">Plant code</th>
-                                    <th className="text-dark">Production Line</th>
-                                    <th className="text-dark">Product Name</th>
-                                    <th className="text-dark">Link</th>
-                                </tr>
-                            </thead>
-                            <tbody className="text-dark">
-                                <tr>
-                                    <td>1</td>
-                                    <td>dd/mm/yyyy</td>
-                                    <td>xxxxx 1</td>
-                                    <td>yyyyy 1</td>
-                                    <td>zzzzz 1</td>
-                                    <td><Link to="/reworktodo">View</Link></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>dd/mm/yyyy</td>
-                                    <td>xxxxx 2</td>
-                                    <td>yyyyy 2</td>
-                                    <td>zzzzz 2</td>
-                                    <td><Link to="/reworktodo">View</Link></td>
-                                </tr>
+                            {show ? (
+                                <thead className="text-dark">
+                                    <tr className="text-dark">
+                                        <th className="text-dark">defect_id</th>
+                                        <th className="text-dark">inprocess_defect_quantity</th>
+                                        <th className="text-dark">inprocess_defect</th>
+                                        <th className="text-dark">inprocess_defect_location</th>
+                                        <th className="text-dark">inprocess_category_defect</th>
+                                        <th className="text-dark">inprocess_defect_details</th>
+                                        <th className="text-dark">inprocess_rework_status</th>
+                                        <th className="text-dark">inprocess_rework_details</th>
+                                        <th className="text-dark">inprocess_rework_handler</th>
+                                    </tr>
+                                </thead>
+                            ) : null}
+                            {i_defects ? i_defects.map((defect) => {
+                                return (
+                                    <tbody className="text-dark" key={defect.defect_id}>
+                                        <tr key={defect.defect_id}>
+                                            <td>{defect.defect_id}</td>
+                                            <td>{defect.inprocess_defect_quantity}</td>
+                                            <td>{defect.inprocess_defect}</td>
+                                            <td>{defect.inprocess_defect_location}</td>
+                                            <td>{defect.inprocess_category_defect}</td>
+                                            <td>{defect.inprocess_defect_details}</td>
+                                            <td>{defect.inprocess_rework_status}</td>
+                                            <td>{defect.inprocess_rework_details}</td>
+                                            <td>{defect.inprocess_rework_handler}</td>
+                                            {/* <td>
+                                                <Button
+                                                    variant="danger"
+                                                    size="sm"
+                                                    value={defect.defect_id}
+                                                    onClick={handleClickView}
+                                                >
+                                                    View
+                                                </Button>
+                                            </td> */}
+                                        </tr>
+                                    </tbody>
+                                );
+                            }) : null}
+                        </Table>
 
-
-                            </tbody>
+                    </Col>
+                </Row>
+                <Row className=" justify-content-md-center">
+                    <Col sm="8">
+                        <Table bordered className="mt-4">
+                            {show ? (
+                                <thead className="text-dark">
+                                    <tr className="text-dark">
+                                        <th className="text-dark">defect_id</th>
+                                        <th className="text-dark">pdi_defect_quantity</th>
+                                        <th className="text-dark">pdi_defect</th>
+                                        <th className="text-dark">pdi_defect_location</th>
+                                        <th className="text-dark">pdi_category_defect</th>
+                                        <th className="text-dark">pdi_defect_details</th>
+                                        <th className="text-dark">pdi_rework_status</th>
+                                        <th className="text-dark">pdi_rework_details</th>
+                                        <th className="text-dark">pdi_rework_handler</th>
+                                    </tr>
+                                </thead>
+                            ) : null}
+                            {p_defects ? p_defects.map((defect) => {
+                                const d = new Date(`${defect.report_date}`);
+                                return (
+                                    <tbody className="text-dark" key={defect.defect_id}>
+                                        <tr key={defect.defect_id}>
+                                            <td>{defect.defect_id}</td>
+                                            <td>{defect.pdi_defect_quantity}</td>
+                                            <td>{defect.pdi_defect}</td>
+                                            <td>{defect.pdi_defect_location}</td>
+                                            <td>{defect.pdi_category_defect}</td>
+                                            <td>{defect.pdi_defect_details}</td>
+                                            <td>{defect.pdi_rework_status}</td>
+                                            <td>{defect.pdi_rework_details}</td>
+                                            <td>{defect.pdi_rework_handler}</td>
+                                            {/* <td>
+                                                <Button
+                                                    variant="danger"
+                                                    size="sm"
+                                                    value={defect.defect_id}
+                                                    onClick={handleClickView}
+                                                >
+                                                    View
+                                                </Button>
+                                            </td> */}
+                                        </tr>
+                                    </tbody>
+                                );
+                            }) : null}
                         </Table>
 
                     </Col>

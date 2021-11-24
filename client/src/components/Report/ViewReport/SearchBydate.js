@@ -21,7 +21,7 @@ export default function SearchByDate() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [show, setShow] = useState(false);
-  const [reports, setReports] = useState([]);
+  const [reports, setReports] = useState(JSON.parse(localStorage.getItem("reports")));
 
   const history = useHistory();
 
@@ -39,7 +39,6 @@ export default function SearchByDate() {
       );
 
       const data = await response.json();
-      console.log(data);
       if (response.status !== 200) {
         throw new Error(response.error);
       }
@@ -70,6 +69,7 @@ export default function SearchByDate() {
         if (res.status == 401) {
           throw new Error();
         }
+        localStorage.setItem('reports', JSON.stringify(res.data));
         setReports(res.data);
         setShow(true);
       })
