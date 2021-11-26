@@ -1,27 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Container,
-  Nav,
-  Button,
-  ButtonGroup,
-  Form,
-  Card,
-  Row,
-  Col,
-  InputGroup,
-  Table,
-} from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Container, Button, Form, Row, Col, Table } from "react-bootstrap";
 import Navbar from "../../Navbar/NavbarAdmin";
 import { useHistory } from "react-router";
-import ReportsTable from "./Reportstable";
 
 export default function SearchByDate() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [show, setShow] = useState(false);
-  const [reports, setReports] = useState(JSON.parse(localStorage.getItem("reports")));
+  const [reports, setReports] = useState(
+    JSON.parse(localStorage.getItem("reports"))
+  );
 
   const history = useHistory();
 
@@ -38,7 +27,6 @@ export default function SearchByDate() {
         }
       );
 
-      const data = await response.json();
       if (response.status !== 200) {
         throw new Error(response.error);
       }
@@ -66,7 +54,7 @@ export default function SearchByDate() {
         }
       )
       .then((res) => {
-        if (res.status == 401) {
+        if (res.status === 401) {
           throw new Error();
         }
         localStorage.setItem("reports", JSON.stringify(res.data));
@@ -81,7 +69,7 @@ export default function SearchByDate() {
   const handleClickView = (e) => {
     const { value } = e.target;
     history.push("/showreport", { id: value });
-  }
+  };
 
   return (
     <div style={{ justifyContent: "center", alignItems: "center" }}>

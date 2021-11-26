@@ -12,7 +12,6 @@ import {
   Col,
   InputGroup,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import Navbar from "../../Navbar/NavbarAdmin";
 import axios from "axios";
 
@@ -48,42 +47,45 @@ export default function ShowReport() {
   };
 
   const getReportData = () => {
-    axios.post("http://localhost:5050/report/viewCompleteReport", { id: location.state.id }, {
-      headers: {
-        "Content-type": "application/json",
-        Authorization: "JWT fefege...",
-      },
-      withCredentials: true,
-    })
-      .then(res => {
+    axios
+      .post(
+        "http://localhost:5050/report/viewCompleteReport",
+        { id: location.state.id },
+        {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: "JWT fefege...",
+          },
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
         if (res.status == 401) {
           throw new Error();
         }
-        const { report, inprocess_defects, pdi_defects, rejection_defects } = res.data;
+        const { report, inprocess_defects, pdi_defects, rejection_defects } =
+          res.data;
         setCompleteReport(report);
         setInpDefects(inprocess_defects);
         setPdiDefects(pdi_defects);
         setRejDefects(rejection_defects);
       })
-      .catch(e => {
+      .catch((e) => {
         alert("Some technical Error, Please Try again later");
       });
   };
-
-
 
   useEffect(() => {
     checkAuthorization();
     getReportData();
   }, []);
 
-
   const handleClick = () => {
-    // history.push("/searchbydate");
-    console.log(completeReport);
-    console.log(i_defects);
-    console.log(p_defects);
-    console.log(r_defects);
+    history.push("/searchbydate");
+    // console.log(completeReport);
+    // console.log(i_defects);
+    // console.log(p_defects);
+    // console.log(r_defects);
   };
 
   return (

@@ -138,11 +138,15 @@ export const sendReport = (req, res) => {
 export const sendCompleteReport = async (req, res) => {
   const { id } = req.body;
   let complete_report = {};
-  db.query("select * from report where report_id=?", [parseInt(id)], (error, results) => {
-    if (error) return res.send({ message: "No report has been found!!!" });
-    const report = results[0];
-    complete_report = { report: report };
-  });
+  db.query(
+    "select * from report where report_id=?",
+    [parseInt(id)],
+    (error, results) => {
+      if (error) return res.send({ message: "No report has been found!!!" });
+      const report = results[0];
+      complete_report = { report: report };
+    }
+  );
   db.query(
     "select * from inprocess_defects WHERE report_id=?",
     [id],

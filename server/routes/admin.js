@@ -1,22 +1,28 @@
-import express from 'express';
-import { createAdmin, sendReworkDetails, validateAdmin } from '../controllers/admin.js';
-import { adminAuthenticate } from "../middlewares/middleware.js"
+import express from "express";
+import {
+  createAdmin,
+  sendReworkDetails,
+  validateAdmin,
+} from "../controllers/admin.js";
+import { adminAuthenticate } from "../middlewares/middleware.js";
 
 const router = express.Router();
 
-router.post('/adminlogin', validateAdmin);
+router.post("/adminlogin", validateAdmin);
 /*-----------------------------------------------------*/
 //here no one can create user
 //for this we need to use middleware to check
-//to see if it is the master login who is requesting 
+//to see if it is the master login who is requesting
 //for the new registration of an employee   ******This is Important******
-router.post('/adminregister', createAdmin);
+router.post("/adminregister", createAdmin);
 /*-----------------------------------------------------*/
 
-router.get('/adminhome', adminAuthenticate, (req, res) => {
-    res.send(req.rootUser);
+router.get("/adminhome", adminAuthenticate, (req, res) => {
+  res.send(req.rootUser);
 });
 
-router.get('/myrework', adminAuthenticate, sendReworkDetails);
+router.get("/myrework", adminAuthenticate, sendReworkDetails, (req, res) => {
+  res.send(req.complete_reworks);
+});
 
 export default router;
