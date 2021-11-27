@@ -10,25 +10,30 @@ export const validateAdmin = (req, res) => {
     const findAdmin = "select * from admin where empid=?";
     db.query(findAdmin, [empid], async (error, results) => {
       if (error) return res.send({ message: "User not Found!!" });
-
-      const verified = await bcrypt.compare(password, results[0].pass);
-      if (verified) {
-        const token = jwt.sign(results[0].empid, process.env.SECRET_AUTH + "");
-        if (results[0].token == token) {
-          res.cookie(
-            results[0].designation == "M" ? "master" : "admin",
-            token,
-            {
-              expires: new Date(Date.now() + 86400000),
-              httpOnly: true,
-            }
-          );
-          return res.send({ ...results, message: "Login Successful" });
+      if (results[0] != null) {
+        const verified = await bcrypt.compare(password, results[0].pass);
+        if (verified) {
+          const token = jwt.sign(results[0].empid, process.env.SECRET_AUTH + "");
+          if (results[0].token == token) {
+            res.cookie(
+              results[0].designation == "M" ? "master" : "admin",
+              token,
+              {
+                expires: new Date(Date.now() + 86400000),
+                httpOnly: true,
+              }
+            );
+            return res.send({ ...results, message: "Login Successful" });
+          }
+        } else {
+          res.send({ message: "ID or password is incorrect" });
         }
+      } else {
+        res.send({ message: "Admin Doesn't exist" });
       }
     });
   } catch (error) {
-    res.status(401).send(error.message);
+    console.log(error)
   }
 };
 
