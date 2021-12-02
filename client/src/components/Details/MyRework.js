@@ -56,7 +56,7 @@ export default function MyRework() {
           </Col>
         </Row>
         <Row className=" justify-content-md-center">
-          <Col sm="8">
+          <Col>
             <Table bordered className="mt-4">
               {show ? (
                 <thead className="text-dark">
@@ -106,7 +106,7 @@ export default function MyRework() {
           </Col>
         </Row>
         <Row className=" justify-content-md-center">
-          <Col sm="8">
+          <Col >
             <Table bordered className="mt-4">
               {show ? (
                 <thead className="text-dark">

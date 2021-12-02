@@ -8,7 +8,6 @@ export default function Navbar() {
             <div className="navigation">
                 <Link to="/userlogin" className="userlink">User</Link>
                 <Link to="/adminlogin" className="adminlink">Admin</Link>
-                <Link to="/masterlogin" className="masterlink">Master</Link>
             </div>
         </div>
     )
