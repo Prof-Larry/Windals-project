@@ -10,7 +10,7 @@ import {
   Card,
   Row,
   Col,
-  InputGroup,
+  Table,
 } from "react-bootstrap";
 import Navbar from "../../Navbar/NavbarAdmin";
 import axios from "axios";
@@ -92,8 +92,178 @@ export default function ShowReport() {
     <div style={{ justifyContent: "center", alignItems: "center" }}>
       <Navbar />
       <Container>
-        <h1>show report</h1>
-        <Button
+        <Form>
+          <Form.Text
+            as={Row}
+            className=" justify-content-md-center mt-4 text-danger"
+          >
+            ** The following report is view only and cannot be edited **
+          </Form.Text>
+
+          <Row className=" justify-content-md-start mt-4">
+            <Col sm="4">
+            <strong>
+              <Form.Label className="text-dark">
+                * Report_1
+              </Form.Label>
+            </strong>
+            </Col>
+
+            <Col>
+            <strong>
+            <Form.Label as={Row} className="justify-content-md-end text-dark">
+              Date: DD/MM/YYYY
+            </Form.Label>
+            </strong>
+            </Col>
+          </Row>
+
+          <Row className=" justify-content-md-start mt-1">
+            <Col sm="4">
+            <strong>
+            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              Date of Inspection:
+            </Form.Label>
+            </strong>
+            </Col>
+            <Col>
+            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              **Input Here**
+            </Form.Label>
+            </Col>
+          </Row>
+
+          <Row className=" justify-content-md-start mt-1">
+            <Col sm="4">
+            <strong>
+            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              Plant Code:
+            </Form.Label>
+            </strong>
+            </Col>
+            <Col>
+            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              **Input Here**
+            </Form.Label>
+            </Col>
+          </Row>
+
+          <Row className=" justify-content-md-start mt-1">
+            <Col sm="4">
+            <strong>
+            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              Production line:
+            </Form.Label>
+            </strong>
+            </Col>
+            <Col>
+            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              **Input Here**
+            </Form.Label>
+            </Col>
+          </Row>
+
+          <Row className=" justify-content-md-start mt-1">
+            <Col sm="4">
+            <strong>
+            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              Product No:
+            </Form.Label>
+            </strong>
+            </Col>
+            <Col>
+            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              **Input Here**
+            </Form.Label>
+            </Col>
+          </Row>
+
+          <Row className=" justify-content-md-start mt-1">
+            <Col sm="4">
+            <strong>
+            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              Product Name:
+            </Form.Label>
+            </strong>
+            </Col>
+            <Col>
+            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              **Input Here**
+            </Form.Label>
+            </Col>
+          </Row>
+
+            <strong>
+            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              * Inprocess Rework
+            </Form.Label>
+            </strong>
+
+          <Row className=" justify-content-md-center">
+            <Col >
+              <Table bordered className="mt-4">
+                <thead className="text-dark">
+                    <tr className="text-dark">
+                      <th className="text-dark">Sr.No</th>
+                      <th className="text-dark">Name of the Process</th>
+                      <th className="text-dark">No. of defective quantity</th>
+                      <th className="text-dark">Defect</th>
+                      <th className="text-dark">Category of Defect</th>
+                      <th className="text-dark">Rework Status</th>
+                      <th className="text-dark">Email</th>
+                    </tr>
+                </thead>
+                <tbody className="text-dark" >
+                      <tr>
+                        <td>xxx</td>
+                        <td>xxx</td>
+                        <td>xxx</td>
+                        <td>xxx</td>
+                        <td>xxx</td>
+                        <td>xxx</td>
+                        <td>xxx</td>
+                      </tr>
+                </tbody>
+                </Table>
+            </Col>
+          </Row>
+
+          <strong>
+          <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+            * PDI Rework
+          </Form.Label>
+          </strong>
+
+          <Row className=" justify-content-md-center">
+            <Col >
+              <Table bordered className="mt-4">
+                <thead className="text-dark">
+                    <tr className="text-dark">
+                      <th className="text-dark">Sr.No</th>
+                      <th className="text-dark">Name of the Process</th>
+                      <th className="text-dark">No. of defective quantity</th>
+                      <th className="text-dark">Defect</th>
+                      <th className="text-dark">Category of Defect</th>
+                      <th className="text-dark">Rework Status</th>
+                      <th className="text-dark">Email</th>
+                    </tr>
+                </thead>
+                <tbody className="text-dark" >
+                      <tr>
+                        <td>xxx</td>
+                        <td>xxx</td>
+                        <td>xxx</td>
+                        <td>xxx</td>
+                        <td>xxx</td>
+                        <td>xxx</td>
+                        <td>xxx</td>
+                      </tr>
+                </tbody>
+                </Table>
+            </Col>
+          </Row>
+
+          <Button
           variant="danger"
           size="lg"
           className="mb-3"
@@ -101,6 +271,7 @@ export default function ShowReport() {
         >
           Back
         </Button>
+      </Form>
       </Container>
     </div>
   );

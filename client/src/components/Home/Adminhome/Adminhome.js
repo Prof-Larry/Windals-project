@@ -124,7 +124,7 @@ export default function Adminhome() {
             {show ? (
               <Row>
                 <Button
-                  variant="outline-primary"
+                  variant="outline-secondary"
                   size="lg"
                   className="mb-3"
                   onClick={goToSearchbydate}
@@ -137,7 +137,7 @@ export default function Adminhome() {
               show1 ? (
                 <Row>
                   <Button
-                    variant="outline-primary"
+                    variant="outline-secondary"
                     size="lg"
                     className="mb-3"
                     onClick={(event) => (window.location.href = "/editreport")}
@@ -150,7 +150,7 @@ export default function Adminhome() {
             {show ? (
               <Row>
                 <Button
-                  variant="outline-primary"
+                  variant="outline-secondary"
                   size="lg"
                   className="mb-3"
                   onClick={(event) => (window.location.href = "/inspection")}
@@ -171,6 +171,8 @@ export default function Adminhome() {
             </Row>
           </Col>
         </Row>
+        <br/>
+        <br/>
 
         <ResponsiveContainer aspect={4 / 2}>
           <LineChart
