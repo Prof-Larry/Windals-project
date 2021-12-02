@@ -61,15 +61,15 @@ export default function MyRework() {
               {show ? (
                 <thead className="text-dark">
                   <tr className="text-dark">
-                    <th className="text-dark">defect_id</th>
-                    <th className="text-dark">inprocess_defect_quantity</th>
-                    <th className="text-dark">inprocess_defect</th>
-                    <th className="text-dark">inprocess_defect_location</th>
-                    <th className="text-dark">inprocess_category_defect</th>
-                    <th className="text-dark">inprocess_defect_details</th>
-                    <th className="text-dark">inprocess_rework_status</th>
-                    <th className="text-dark">inprocess_rework_details</th>
-                    <th className="text-dark">inprocess_rework_handler</th>
+                    <th className="text-dark">defect id</th>
+                    <th className="text-dark" >inprocess defect quantity</th>
+                    <th className="text-dark">inprocess defect</th>
+                    <th className="text-dark">inprocess defect location</th>
+                    <th className="text-dark">inprocess category defect</th>
+                    <th className="text-dark">inprocess defect details</th>
+                    <th className="text-dark">inprocess rework status</th>
+                    <th className="text-dark">inprocess rework details</th>
+                    <th className="text-dark">inprocess rework handler</th>
                   </tr>
                 </thead>
               ) : null}
@@ -111,15 +111,15 @@ export default function MyRework() {
               {show ? (
                 <thead className="text-dark">
                   <tr className="text-dark">
-                    <th className="text-dark">defect_id</th>
-                    <th className="text-dark">pdi_defect_quantity</th>
-                    <th className="text-dark">pdi_defect</th>
-                    <th className="text-dark">pdi_defect_location</th>
-                    <th className="text-dark">pdi_category_defect</th>
-                    <th className="text-dark">pdi_defect_details</th>
-                    <th className="text-dark">pdi_rework_status</th>
-                    <th className="text-dark">pdi_rework_details</th>
-                    <th className="text-dark">pdi_rework_handler</th>
+                    <th className="text-dark">defect id</th>
+                    <th className="text-dark">pdi defect quantity</th>
+                    <th className="text-dark">pdi defect</th>
+                    <th className="text-dark">pdi defect location</th>
+                    <th className="text-dark">pdi category defect</th>
+                    <th className="text-dark">pdi defect details</th>
+                    <th className="text-dark">pdi rework status</th>
+                    <th className="text-dark">pdi rework details</th>
+                    <th className="text-dark">pdi rework handler</th>
                   </tr>
                 </thead>
               ) : null}
