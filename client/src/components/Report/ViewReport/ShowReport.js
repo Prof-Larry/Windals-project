@@ -3,11 +3,8 @@ import { useHistory } from "react-router";
 import { useLocation } from "react-router-dom";
 import {
   Container,
-  Nav,
   Button,
-  ButtonGroup,
   Form,
-  Card,
   Row,
   Col,
   Table,
@@ -17,9 +14,9 @@ import axios from "axios";
 
 export default function ShowReport() {
   const [completeReport, setCompleteReport] = useState("");
-  const [i_defects, setInpDefects] = useState("");
-  const [p_defects, setPdiDefects] = useState("");
-  const [r_defects, setRejDefects] = useState("");
+  const [i_defects, setInpDefects] = useState(JSON.parse(localStorage.getItem("i_defects")));
+  const [p_defects, setPdiDefects] = useState(JSON.parse(localStorage.getItem("p_defects")));
+  const [r_defects, setRejDefects] = useState(JSON.parse(localStorage.getItem("r_defects")));
   const history = useHistory();
   const location = useLocation();
 
@@ -63,8 +60,10 @@ export default function ShowReport() {
         if (res.status == 401) {
           throw new Error();
         }
-        const { report, inprocess_defects, pdi_defects, rejection_defects } =
-          res.data;
+        const d = new Date(`${res.data.report.report_date}`)
+        res.data.report.report_date = `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`;
+        const { report, inprocess_defects, pdi_defects, rejection_defects } = res.data;
+        console.log(res.data);
         setCompleteReport(report);
         setInpDefects(inprocess_defects);
         setPdiDefects(pdi_defects);
@@ -82,10 +81,6 @@ export default function ShowReport() {
 
   const handleClick = () => {
     history.push("/searchbydate");
-    // console.log(completeReport);
-    // console.log(i_defects);
-    // console.log(p_defects);
-    // console.log(r_defects);
   };
 
   return (
@@ -102,176 +97,223 @@ export default function ShowReport() {
 
           <Row className=" justify-content-md-start mt-4">
             <Col sm="4">
-            <strong>
-              <Form.Label className="text-dark">
-                * Report_1
+              <strong>
+                <Form.Label className="text-dark">
+                  * Report_{completeReport.report_id}
+                </Form.Label>
+              </strong>
+            </Col>
+
+            <Col>
+              <strong>
+                <Form.Label as={Row} className="justify-content-md-end text-dark">
+                  Date: {completeReport.report_date}
+                </Form.Label>
+              </strong>
+            </Col>
+          </Row>
+
+          <Row className=" justify-content-md-start mt-1">
+            <Col sm="4">
+              <strong>
+                <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+                  Date of Inspection:
+                </Form.Label>
+              </strong>
+            </Col>
+            <Col>
+              <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+                {completeReport.report_date}
               </Form.Label>
-            </strong>
-            </Col>
-
-            <Col>
-            <strong>
-            <Form.Label as={Row} className="justify-content-md-end text-dark">
-              Date: DD/MM/YYYY
-            </Form.Label>
-            </strong>
             </Col>
           </Row>
 
           <Row className=" justify-content-md-start mt-1">
             <Col sm="4">
-            <strong>
-            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
-              Date of Inspection:
-            </Form.Label>
-            </strong>
+              <strong>
+                <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+                  Plant Code:
+                </Form.Label>
+              </strong>
             </Col>
             <Col>
-            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
-              **Input Here**
-            </Form.Label>
+              <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+                {completeReport.plant_code}
+              </Form.Label>
             </Col>
           </Row>
 
           <Row className=" justify-content-md-start mt-1">
             <Col sm="4">
-            <strong>
-            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
-              Plant Code:
-            </Form.Label>
-            </strong>
+              <strong>
+                <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+                  Production line:
+                </Form.Label>
+              </strong>
             </Col>
             <Col>
-            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
-              **Input Here**
-            </Form.Label>
+              <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+                {completeReport.production_line}
+              </Form.Label>
             </Col>
           </Row>
 
           <Row className=" justify-content-md-start mt-1">
             <Col sm="4">
-            <strong>
-            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
-              Production line:
-            </Form.Label>
-            </strong>
+              <strong>
+                <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+                  Product No:
+                </Form.Label>
+              </strong>
             </Col>
             <Col>
-            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
-              **Input Here**
-            </Form.Label>
+              <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+                {completeReport.product_number}
+              </Form.Label>
             </Col>
           </Row>
 
           <Row className=" justify-content-md-start mt-1">
             <Col sm="4">
-            <strong>
-            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
-              Product No:
-            </Form.Label>
-            </strong>
+              <strong>
+                <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+                  Product Name:
+                </Form.Label>
+              </strong>
             </Col>
             <Col>
-            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
-              **Input Here**
-            </Form.Label>
-            </Col>
-          </Row>
-
-          <Row className=" justify-content-md-start mt-1">
-            <Col sm="4">
-            <strong>
-            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
-              Product Name:
-            </Form.Label>
-            </strong>
-            </Col>
-            <Col>
-            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
-              **Input Here**
-            </Form.Label>
-            </Col>
-          </Row>
-
-            <strong>
-            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
-              * Inprocess Rework
-            </Form.Label>
-            </strong>
-
-          <Row className=" justify-content-md-center">
-            <Col >
-              <Table bordered className="mt-4">
-                <thead className="text-dark">
-                    <tr className="text-dark">
-                      <th className="text-dark">Sr.No</th>
-                      <th className="text-dark">Name of the Process</th>
-                      <th className="text-dark">No. of defective quantity</th>
-                      <th className="text-dark">Defect</th>
-                      <th className="text-dark">Category of Defect</th>
-                      <th className="text-dark">Rework Status</th>
-                      <th className="text-dark">Email</th>
-                    </tr>
-                </thead>
-                <tbody className="text-dark" >
-                      <tr>
-                        <td>xxx</td>
-                        <td>xxx</td>
-                        <td>xxx</td>
-                        <td>xxx</td>
-                        <td>xxx</td>
-                        <td>xxx</td>
-                        <td>xxx</td>
-                      </tr>
-                </tbody>
-                </Table>
+              <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+                {completeReport.product_name}
+              </Form.Label>
             </Col>
           </Row>
 
           <strong>
-          <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
-            * PDI Rework
-          </Form.Label>
+            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              * Inprocess Rework
+            </Form.Label>
           </strong>
 
           <Row className=" justify-content-md-center">
             <Col >
               <Table bordered className="mt-4">
                 <thead className="text-dark">
-                    <tr className="text-dark">
-                      <th className="text-dark">Sr.No</th>
-                      <th className="text-dark">Name of the Process</th>
-                      <th className="text-dark">No. of defective quantity</th>
-                      <th className="text-dark">Defect</th>
-                      <th className="text-dark">Category of Defect</th>
-                      <th className="text-dark">Rework Status</th>
-                      <th className="text-dark">Email</th>
-                    </tr>
+                  <tr className="text-dark">
+                    <th className="text-dark">Sr.No</th>
+                    <th className="text-dark">Name of the Process</th>
+                    <th className="text-dark">No. of defective quantity</th>
+                    <th className="text-dark">Defect</th>
+                    <th className="text-dark">Category of Defect</th>
+                    <th className="text-dark">Rework Status</th>
+                    <th className="text-dark">Email</th>
+                  </tr>
                 </thead>
                 <tbody className="text-dark" >
+                  {i_defects.map(def => {
+                    return (
                       <tr>
-                        <td>xxx</td>
-                        <td>xxx</td>
-                        <td>xxx</td>
-                        <td>xxx</td>
-                        <td>xxx</td>
-                        <td>xxx</td>
-                        <td>xxx</td>
+                        <td>{def.defect_id}</td>
+                        <td>{completeReport.inprocess_name}</td>
+                        <td>{def.inprocess_defect_quantity}</td>
+                        <td>{def.inprocess_defect}</td>
+                        <td>{def.inprocess_category_defect}</td>
+                        <td>{def.inprocess_rework_status}</td>
+                        <td>{completeReport.admin_id}</td>
                       </tr>
+                    )
+                  })}
                 </tbody>
-                </Table>
+              </Table>
+            </Col>
+          </Row>
+
+          <strong>
+            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              * PDI Rework
+            </Form.Label>
+          </strong>
+
+          <Row className=" justify-content-md-center">
+            <Col >
+              <Table bordered className="mt-4">
+                <thead className="text-dark">
+                  <tr className="text-dark">
+                    <th className="text-dark">Sr.No</th>
+                    <th className="text-dark">Name of the Process</th>
+                    <th className="text-dark">No. of defective quantity</th>
+                    <th className="text-dark">Defect</th>
+                    <th className="text-dark">Category of Defect</th>
+                    <th className="text-dark">Rework Status</th>
+                    <th className="text-dark">Email</th>
+                  </tr>
+                </thead>
+                <tbody className="text-dark" >
+                  {p_defects.map(def => {
+                    return (
+                      <tr>
+                        <td>{def.defect_id}</td>
+                        <td>{completeReport.pdi_name}</td>
+                        <td>{def.pdi_defect_quantity}</td>
+                        <td>{def.pdi_defect}</td>
+                        <td>{def.pdi_category_defect}</td>
+                        <td>{def.pdi_rework_status}</td>
+                        <td>{completeReport.admin_id}</td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
+
+          <strong>
+            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              * REJECTION Rework
+            </Form.Label>
+          </strong>
+
+          <Row className=" justify-content-md-center">
+            <Col >
+              <Table bordered className="mt-4">
+                <thead className="text-dark">
+                  <tr className="text-dark">
+                    <th className="text-dark">Sr.No</th>
+                    <th className="text-dark">Name of the Process</th>
+                    <th className="text-dark">No. of defective quantity</th>
+                    <th className="text-dark">Defect</th>
+                    <th className="text-dark">Category of Defect</th>
+                    <th className="text-dark">Rework Status</th>
+                    <th className="text-dark">Email</th>
+                  </tr>
+                </thead>
+                <tbody className="text-dark" >
+                  {r_defects.map(def => {
+                    return (
+                      <tr>
+                        <td>{def.defect_id}</td>
+                        <td>{completeReport.rejection_name}</td>
+                        <td>{def.rejection_defect_quantity}</td>
+                        <td>{def.rejection_defect}</td>
+                        <td>{def.rejection_category_defect}</td>
+                        <td>{def.rejection_rework_status}</td>
+                        <td>{completeReport.admin_id}</td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </Table>
             </Col>
           </Row>
 
           <Button
-          variant="danger"
-          size="lg"
-          className="mb-3"
-          onClick={handleClick}
-        >
-          Back
-        </Button>
-      </Form>
+            variant="danger"
+            size="lg"
+            className="mb-3"
+            onClick={handleClick}
+          >
+            Back
+          </Button>
+        </Form>
       </Container>
     </div>
   );

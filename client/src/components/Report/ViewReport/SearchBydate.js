@@ -68,11 +68,17 @@ export default function SearchByDate() {
 
   const handleClickView = (e) => {
     const { value } = e.target;
+    localStorage.setItem("i_defects", JSON.stringify([]));
+    localStorage.setItem("p_defects", JSON.stringify([]));
+    localStorage.setItem("r_defects", JSON.stringify([]));
     history.push("/showreport", { id: value });
   };
 
   const handleClickEdit = (e) => {
     const { value } = e.target;
+    localStorage.setItem("edit_i_defects", JSON.stringify([]));
+    localStorage.setItem("edit_p_defects", JSON.stringify([]));
+    localStorage.setItem("edit_r_defects", JSON.stringify([]));
     history.push("/editreport", { id: value });
   };
 
