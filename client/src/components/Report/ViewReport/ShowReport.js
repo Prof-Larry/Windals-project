@@ -189,23 +189,23 @@ export default function ShowReport() {
           </Row>
 
           <strong>
-            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+            <Form.Label as={Row} className=" justify-content-md-start mt-4 text-dark">
               * Inprocess Rework
             </Form.Label>
           </strong>
 
-          <Row className=" justify-content-md-center">
+          <Row className=" justify-content-md-center mt-1">
             <Col >
-              <Table bordered className="mt-4">
+              <Table bordered className="mt-1">
                 <thead className="text-dark">
                   <tr className="text-dark">
-                    <th className="text-dark">Sr.No</th>
+                    <th className="text-dark">Sr. No</th>
                     <th className="text-dark">Name of the Process</th>
                     <th className="text-dark">No. of defective quantity</th>
                     <th className="text-dark">Defect</th>
                     <th className="text-dark">Category of Defect</th>
                     <th className="text-dark">Rework Status</th>
-                    <th className="text-dark">Email</th>
+                    <th className="text-dark">Employee ID</th>
                   </tr>
                 </thead>
                 <tbody className="text-dark" >
@@ -228,23 +228,23 @@ export default function ShowReport() {
           </Row>
 
           <strong>
-            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+            <Form.Label as={Row} className=" justify-content-md-start mt-4 text-dark">
               * PDI Rework
             </Form.Label>
           </strong>
 
-          <Row className=" justify-content-md-center">
+          <Row className=" justify-content-md-center mt-1">
             <Col >
-              <Table bordered className="mt-4">
+              <Table bordered className="mt-1">
                 <thead className="text-dark">
                   <tr className="text-dark">
-                    <th className="text-dark">Sr.No</th>
+                    <th className="text-dark">Sr. No</th>
                     <th className="text-dark">Name of the Process</th>
                     <th className="text-dark">No. of defective quantity</th>
                     <th className="text-dark">Defect</th>
                     <th className="text-dark">Category of Defect</th>
                     <th className="text-dark">Rework Status</th>
-                    <th className="text-dark">Email</th>
+                    <th className="text-dark">Employee ID</th>
                   </tr>
                 </thead>
                 <tbody className="text-dark" >
@@ -267,23 +267,23 @@ export default function ShowReport() {
           </Row>
 
           <strong>
-            <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+            <Form.Label as={Row} className=" justify-content-md-start mt-4 text-dark">
               * REJECTION Rework
             </Form.Label>
           </strong>
 
           <Row className=" justify-content-md-center">
             <Col >
-              <Table bordered className="mt-4">
+              <Table bordered className="mt-1">
                 <thead className="text-dark">
                   <tr className="text-dark">
-                    <th className="text-dark">Sr.No</th>
+                    <th className="text-dark">Sr. No</th>
                     <th className="text-dark">Name of the Process</th>
                     <th className="text-dark">No. of defective quantity</th>
                     <th className="text-dark">Defect</th>
                     <th className="text-dark">Category of Defect</th>
                     <th className="text-dark">Rework Status</th>
-                    <th className="text-dark">Email</th>
+                    <th className="text-dark">Employee ID</th>
                   </tr>
                 </thead>
                 <tbody className="text-dark" >
@@ -308,7 +308,7 @@ export default function ShowReport() {
           <Button
             variant="danger"
             size="lg"
-            className="mb-3"
+            className="mb-3 mt-2"
             onClick={handleClick}
           >
             Back
