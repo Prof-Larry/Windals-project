@@ -71,6 +71,11 @@ export default function SearchByDate() {
     history.push("/showreport", { id: value });
   };
 
+  const handleClickEdit = (e) => {
+    const { value } = e.target;
+    history.push("/editreport", { id: value });
+  };
+
   return (
     <div style={{ justifyContent: "center", alignItems: "center" }}>
       <Navbar />
@@ -125,7 +130,7 @@ export default function SearchByDate() {
       <div style={{ justifyContent: "center", alignItems: "center" }}>
         <Container>
           <Row className=" justify-content-md-center">
-            <Col sm="8">
+            <Col>
               <Table bordered className="mt-4">
                 {show ? (
                   <thead className="text-dark">
@@ -136,7 +141,8 @@ export default function SearchByDate() {
                       <th className="text-dark">Production Line</th>
                       <th className="text-dark">Product Name</th>
                       <th className="text-dark">Admin</th>
-                      <th className="text-dark">Link</th>
+                      <th className="text-dark">View</th>
+                      <th className="text-dark">Edit</th>
                     </tr>
                   </thead>
                 ) : null}
@@ -161,6 +167,16 @@ export default function SearchByDate() {
                             onClick={handleClickView}
                           >
                             View
+                          </Button>
+                        </td>
+                        <td>
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            value={report.report_id}
+                            onClick={handleClickEdit}
+                          >
+                            Edit
                           </Button>
                         </td>
                       </tr>

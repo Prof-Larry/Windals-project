@@ -129,24 +129,12 @@ export default function Adminhome() {
                   className="mb-3"
                   onClick={goToSearchbydate}
                 >
-                  View Report
+                  Show Reports
                 </Button>
               </Row>
             ) : null}
-            {show ? (
-              show1 ? (
-                <Row>
-                  <Button
-                    variant="outline-secondary"
-                    size="lg"
-                    className="mb-3"
-                    onClick={(event) => (window.location.href = "/editreport")}
-                  >
-                    Edit Report
-                  </Button>
-                </Row>
-              ) : null
-            ) : null}
+            
+            
             {show ? (
               <Row>
                 <Button

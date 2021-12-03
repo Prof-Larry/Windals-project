@@ -425,7 +425,7 @@ export default function EditReport() {
                 </Row>      
                     
                     
-                    <Row className="justify-content-md-end mt-4">
+                    <Row className="justify-content-md-end mt-4 mb-2">
                             <Col sm="7">
                                 <Button type="submit" variant="success" size="lg" className="mx-2" >SAVE</Button>
                             </Col>
