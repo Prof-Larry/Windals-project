@@ -14,8 +14,8 @@ export default function NavbarAdmin() {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto"></Nav>
             <Nav>
-              <Nav.Link href="/adminhome">Admin Home</Nav.Link>
-              <Nav.Link href="/">Home</Nav.Link>
+              <strong><Navbar.Brand href="/adminhome" className="mx-5">Admin Home</Navbar.Brand></strong>
+              <strong><Navbar.Brand href="/">Home</Navbar.Brand></strong>
             </Nav>
           </Navbar.Collapse>
         </Container>
