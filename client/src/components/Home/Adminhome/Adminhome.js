@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useEffect } from "react";
 import "./Adminhome.css";
 import { useHistory } from "react-router";
 import { Button, Container, Row, Col } from "react-bootstrap";
-import Navbar from "../../Navbar/NavbarAdmin";
+import Navbar from "../../Navbar/NavbarAdminHome";
+
 import {
   LineChart,
   Line,
@@ -18,8 +19,6 @@ import {
 } from "recharts";
 
 export default function Adminhome() {
-  const [show, setShow] = useState(false);
-  const [show1, setShow1] = useState(false);
   const data = [
     {
       name: "Page A",
@@ -77,7 +76,7 @@ export default function Adminhome() {
       });
 
       const data = await response.json();
-      if (data.designation == "M") setShow1(true);
+      
       console.log(data);
       if (response.status !== 200) {
         throw new Error(response.error);
@@ -92,77 +91,13 @@ export default function Adminhome() {
     checkAuthentication();
   }, []);
 
-  const goToSearchbydate = () => {
-    localStorage.setItem("reports", JSON.stringify([]));
-    history.push("/searchbydate");
-  };
-
-  const goToMyRework = () => {
-    sessionStorage.setItem("i_defects", JSON.stringify([]));
-    sessionStorage.setItem("p_defects", JSON.stringify([]));
-    history.push("/myrework");
-  };
 
   return (
     <div className="adminHome">
       <Navbar />
       <br />
       <Container>
-        <Row className="justify-content-md-center">
-          <Col sm="5">
-            <Row>
-              <Button
-                variant="secondary"
-                size="lg"
-                className="mb-3"
-                onClick={() => setShow(!show)}
-              >
-                PDI Report
-              </Button>
-            </Row>
-
-            {show ? (
-              <Row>
-                <Button
-                  variant="outline-secondary"
-                  size="lg"
-                  className="mb-3"
-                  onClick={goToSearchbydate}
-                >
-                  Show Reports
-                </Button>
-              </Row>
-            ) : null}
-            
-            
-            {show ? (
-              <Row>
-                <Button
-                  variant="outline-secondary"
-                  size="lg"
-                  className="mb-3"
-                  onClick={(event) => (window.location.href = "/inspection")}
-                >
-                  Submit Report
-                </Button>
-              </Row>
-            ) : null}
-            <Row>
-              <Button
-                variant="secondary"
-                size="lg"
-                className="mb-3"
-                onClick={goToMyRework}
-              >
-                My Rework
-              </Button>
-            </Row>
-          </Col>
-        </Row>
-        <br/>
-        <br/>
-
-        <ResponsiveContainer aspect={4 / 2}>
+        <ResponsiveContainer aspect={4 / 2} className="mt-2 mb-4">
           <LineChart
             width={500}
             height={300}
@@ -188,8 +123,9 @@ export default function Adminhome() {
             <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
           </LineChart>
         </ResponsiveContainer>
+        <br/>
 
-        <ResponsiveContainer aspect={4 / 2}>
+        <ResponsiveContainer aspect={4 / 2} className="mt-2 mb-4">
           <AreaChart
             width={500}
             height={400}
