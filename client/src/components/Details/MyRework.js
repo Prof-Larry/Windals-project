@@ -81,31 +81,31 @@ export default function MyRework() {
               ) : null}
               {i_defects
                 ? i_defects.map((defect) => {
-                    return (
-                      <tbody className="text-dark" key={defect.defect_id}>
-                        <tr key={defect.defect_id}>
-                          <td>{defect.defect_id}</td>
-                          <td>{defect.inprocess_defect_quantity}</td>
-                          <td>{defect.inprocess_defect}</td>
-                          <td>{defect.inprocess_defect_location}</td>
-                          <td>{defect.inprocess_category_defect}</td>
-                          <td>{defect.inprocess_defect_details}</td>
-                          <td>{defect.inprocess_rework_status}</td>
-                          <td>{defect.inprocess_rework_details}</td>
-                          <td>{defect.inprocess_rework_handler}</td>
-                           <td>
-                                                <Button
-                                                    variant="danger"
-                                                    size="sm"
-                                                    onClick={handleClickComplete}
-                                                >
-                                                    Complete
-                                                </Button>
-                                            </td>
-                        </tr>
-                      </tbody>
-                    );
-                  })
+                  return (
+                    <tbody className="text-dark" key={defect.defect_id}>
+                      <tr key={defect.defect_id}>
+                        <td>{defect.defect_id}</td>
+                        <td>{defect.inprocess_defect_quantity}</td>
+                        <td>{defect.inprocess_defect}</td>
+                        <td>{defect.inprocess_defect_location}</td>
+                        <td>{defect.inprocess_category_defect}</td>
+                        <td>{defect.inprocess_defect_details}</td>
+                        <td>{defect.inprocess_rework_status}</td>
+                        <td>{defect.inprocess_rework_details}</td>
+                        <td>{defect.inprocess_rework_handler}</td>
+                        <td>
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            onClick={handleClickComplete}
+                          >
+                            Complete
+                          </Button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  );
+                })
                 : null}
             </Table>
           </Col>
@@ -131,32 +131,32 @@ export default function MyRework() {
               ) : null}
               {p_defects
                 ? p_defects.map((defect) => {
-                    return (
-                      <tbody className="text-dark" key={defect.defect_id}>
-                        <tr key={defect.defect_id}>
-                          <td>{defect.defect_id}</td>
-                          <td>{defect.pdi_defect_quantity}</td>
-                          <td>{defect.pdi_defect}</td>
-                          <td>{defect.pdi_defect_location}</td>
-                          <td>{defect.pdi_category_defect}</td>
-                          <td>{defect.pdi_defect_details}</td>
-                          <td>{defect.pdi_rework_status}</td>
-                          <td>{defect.pdi_rework_details}</td>
-                          <td>{defect.pdi_rework_handler}</td>
-                          <td>
-                                                <Button
-                                                    variant="danger"
-                                                    size="sm"
-                                                    
-                                                    onClick={handleClickComplete}
-                                                >
-                                                    Complete
-                                                </Button>
-                                            </td>
-                        </tr>
-                      </tbody>
-                    );
-                  })
+                  return (
+                    <tbody className="text-dark" key={defect.defect_id}>
+                      <tr key={defect.defect_id}>
+                        <td>{defect.defect_id}</td>
+                        <td>{defect.pdi_defect_quantity}</td>
+                        <td>{defect.pdi_defect}</td>
+                        <td>{defect.pdi_defect_location}</td>
+                        <td>{defect.pdi_category_defect}</td>
+                        <td>{defect.pdi_defect_details}</td>
+                        <td>{defect.pdi_rework_status}</td>
+                        <td>{defect.pdi_rework_details}</td>
+                        <td>{defect.pdi_rework_handler}</td>
+                        <td>
+                          <Button
+                            variant="danger"
+                            size="sm"
+
+                            onClick={handleClickComplete}
+                          >
+                            Complete
+                          </Button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  );
+                })
                 : null}
             </Table>
           </Col>

@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Container, Form, Row, Col, Nav } from 'react-bootstrap'
 import { useHistory } from 'react-router'
 import Navbar from '../Navbar/NavbarAdmin'
@@ -33,9 +33,9 @@ export default function InspectionDetails(props) {
         checkAuthorization();
     }, []);
 
-        const [validated, setValidated] = useState(false);
+    const [validated, setValidated] = useState(false);
 
-        const handleValidate = (event) => {
+    const handleValidate = (event) => {
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
@@ -43,7 +43,7 @@ export default function InspectionDetails(props) {
         }
 
         setValidated(true);
-        };
+    };
 
 
 
@@ -112,10 +112,10 @@ export default function InspectionDetails(props) {
                     <br />
 
                     <Row className="justify-content-md-end">
-                            <Col sm="7">
-                                <Button type="submit" variant="success" size="lg" className="mx-2" >SAVE</Button>
-                                <Button variant="danger" size="lg" className="mx-2" onClick={event => window.location.href = '/rework'}>NEXT</Button>
-                            </Col>
+                        <Col sm="7">
+                            <Button type="submit" variant="success" size="lg" className="mx-2" >SAVE</Button>
+                            <Button variant="danger" size="lg" className="mx-2" onClick={event => window.location.href = '/rework'}>NEXT</Button>
+                        </Col>
                     </Row><br />
                 </Form>
             </Container>
