@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@influxdata/influxdb-client": "^1.21.0",
-    "@nivo/core": "^0.74.0"
-  }
-}
