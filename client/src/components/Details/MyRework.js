@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Form, Row, Col, Table } from "react-bootstrap";
+import { Container, Form, Row, Col, Table, Button } from "react-bootstrap";
 import Navbar from "../Navbar/NavbarAdmin";
 import { useHistory } from "react-router";
 import axios from "axios";
@@ -43,6 +43,11 @@ export default function MyRework() {
     checkAuthorization();
   }, []);
 
+
+  const handleClickComplete = () => {
+    history.push("/reworktodo");
+  };
+
   return (
     <div style={{ justifyContent: "center", alignItems: "center" }}>
       <Navbar />
@@ -70,6 +75,7 @@ export default function MyRework() {
                     <th className="text-dark">inprocess rework status</th>
                     <th className="text-dark">inprocess rework details</th>
                     <th className="text-dark">inprocess rework handler</th>
+                    <th className="text-dark">Inprocess Rework</th>
                   </tr>
                 </thead>
               ) : null}
@@ -87,16 +93,15 @@ export default function MyRework() {
                           <td>{defect.inprocess_rework_status}</td>
                           <td>{defect.inprocess_rework_details}</td>
                           <td>{defect.inprocess_rework_handler}</td>
-                          {/* <td>
+                           <td>
                                                 <Button
                                                     variant="danger"
                                                     size="sm"
-                                                    value={defect.defect_id}
-                                                    onClick={handleClickView}
+                                                    onClick={handleClickComplete}
                                                 >
-                                                    View
+                                                    Complete
                                                 </Button>
-                                            </td> */}
+                                            </td>
                         </tr>
                       </tbody>
                     );
@@ -120,6 +125,7 @@ export default function MyRework() {
                     <th className="text-dark">pdi rework status</th>
                     <th className="text-dark">pdi rework details</th>
                     <th className="text-dark">pdi rework handler</th>
+                    <th className="text-dark">PDI Rework</th>
                   </tr>
                 </thead>
               ) : null}
@@ -137,16 +143,16 @@ export default function MyRework() {
                           <td>{defect.pdi_rework_status}</td>
                           <td>{defect.pdi_rework_details}</td>
                           <td>{defect.pdi_rework_handler}</td>
-                          {/* <td>
+                          <td>
                                                 <Button
                                                     variant="danger"
                                                     size="sm"
-                                                    value={defect.defect_id}
-                                                    onClick={handleClickView}
+                                                    
+                                                    onClick={handleClickComplete}
                                                 >
-                                                    View
+                                                    Complete
                                                 </Button>
-                                            </td> */}
+                                            </td>
                         </tr>
                       </tbody>
                     );
@@ -159,3 +165,6 @@ export default function MyRework() {
     </div>
   );
 }
+
+
+//{/*value={defect.defect_id}*/} value={defect.defect_id}
