@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import db from "../Database/db.js";
 import moment from "moment";
+import util from "util";
 
 export const validateAdmin = (req, res) => {
   try {
@@ -92,31 +93,18 @@ export const createAdmin = async (req, res) => {
 };
 
 export const sendReworkDetails = async (req, res, next) => {
-  let complete_reworks = {};
-  db.query(
-    "Select * from inprocess_defects where inprocess_rework_handler=? and inprocess_rework_status=?",
-    [req.userID, "incomplete"],
-    (error, results) => {
-      if (error)
-        return res
-          .status(401)
-          .send({ message: "Something is Wrong in inprocess_defects" });
-      complete_reworks = { inprocess_defects: results };
-      req.complete_reworks = complete_reworks;
-    }
-  );
-  db.query(
-    "Select * from pdi_defects where pdi_rework_handler=? and pdi_rework_status=?",
-    [req.userID, "incomplete"],
-    (error, results) => {
-      if (error)
-        return res
-          .status(401)
-          .send({ message: "Something is Wrong in pdi_defects" });
-      complete_reworks = { ...complete_reworks, pdi_defects: results };
-      req.complete_reworks = complete_reworks;
-      next();
-    }
-  );
+  try {
+    let complete_reworks = {};
+    const query = util.promisify(db.query).bind(db);
+    const rows = await query("Select * from inprocess_defects where inprocess_rework_handler=? and inprocess_rework_status=?", [req.userID, "incomplete"]);
+    complete_reworks = { inprocess_defects: rows };
+    const rows1 = await query("Select * from pdi_defects where pdi_rework_handler=? and pdi_rework_status=?", [req.userID, "incomplete"]);
+    complete_reworks = { ...complete_reworks, pdi_defects: rows1 };
+    req.complete_reworks = complete_reworks;
+    next();
+  } catch (error) {
+    console.log(error);
+  }
 };
+
 /*--------------------------Don't uncomment/touch above code---------------------------*/
