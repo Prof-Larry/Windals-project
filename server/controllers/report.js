@@ -176,3 +176,34 @@ export const sendCompleteReport = async (req, res) => {
     }
   );
 };
+
+export const updateReport = (req, res) => {
+  const { completeReport, i_defects, p_defects, r_defects } = req.body;
+  const query = "update report set plant_code=?,production_line=?,product_number=?,product_name=?,inprocess_name=?,inprocess_total_quantity=?,pdi_name=?,pdi_total_quantity=?,rejection_name=?,rejection_total_quantity=? where report_id=?"
+  const updatedValues = [completeReport.plant_code, completeReport.production_line, completeReport.product_number, completeReport.product_name, completeReport.inprocess_name, parseInt(completeReport.inprocess_total_quantity), completeReport.pdi_name, parseInt(completeReport.pdi_total_quantity), completeReport.rejection_name, parseInt(completeReport.rejection_total_quantity), completeReport.report_id];
+  db.query(query, updatedValues, (error, result) => {
+    if (error) res.status(401).send({ message: "Something error in the query" });
+  });
+  i_defects.forEach(def => {
+    const inp_query = "update inprocess_defects set inprocess_defect_quantity=?,inprocess_defect=?,inprocess_defect_location=?,inprocess_category_defect=?,inprocess_defect_details=?,inprocess_rework_status=?,inprocess_rework_details=?,inprocess_rework_handler=? where defect_id=?";
+    const inpValues = [parseInt(def.inprocess_defect_quantity), def.inprocess_defect, def.inprocess_defect_location, def.inprocess_category_defect, def.inprocess_defect_details, def.inprocess_rework_status, def.inprocess_rework_details, def.inprocess_rework_handler, def.defect_id]
+    db.query(inp_query, inpValues, (error, result) => {
+      if (error) res.status(401).send({ message: "Something error in the query" });
+    });
+  })
+  p_defects.forEach(def => {
+    const pdi_query = "update pdi_defects set pdi_defect_quantity=?,pdi_defect=?,pdi_defect_location=?,pdi_category_defect=?,pdi_defect_details=?,pdi_rework_status=?,pdi_rework_details=?,pdi_rework_handler=? where defect_id=?";
+    const pdiValues = [parseInt(def.pdi_defect_quantity), def.pdi_defect, def.pdi_defect_location, def.pdi_category_defect, def.pdi_defect_details, def.pdi_rework_status, def.pdi_rework_details, def.pdi_rework_handler, def.defect_id]
+    db.query(pdi_query, pdiValues, (error, result) => {
+      if (error) res.status(401).send({ message: "Something error in the query" });
+    });
+  })
+  r_defects.forEach(def => {
+    const rej_query = "update rejection_defects set rejection_defect_quantity=?,rejection_defect=?,rejection_defect_location=?,rejection_category_defect=?,rejection_defect_details=?,rejection_rework_status=?,rejection_rework_details=?,rejection_rework_handler=? where defect_id=?";
+    const rejValues = [parseInt(def.rejection_defect_quantity), def.rejection_defect, def.rejection_defect_location, def.rejection_category_defect, def.rejection_defect_details, def.rejection_rework_status, def.rejection_rework_details, def.rejection_rework_handler, def.defect_id]
+    db.query(rej_query, rejValues, (error, result) => {
+      if (error) res.status(401).send({ message: "Something error in the query" });
+    });
+  })
+  res.status(201).send({ message: "Report Updated Successfully" });
+}

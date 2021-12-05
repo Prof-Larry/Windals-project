@@ -3,6 +3,7 @@ import {
   saveReport,
   sendReport,
   sendCompleteReport,
+  updateReport
 } from "../controllers/report.js";
 import { adminAuthenticate } from "../middlewares/middleware.js";
 
@@ -18,6 +19,7 @@ router.post("/viewReport", adminAuthenticate, sendReport);
 
 router.post("/viewCompleteReport", adminAuthenticate, sendCompleteReport);
 
-// router.get("/viewReport/:id", adminAuthenticate, sendCompleteReport);
+router.put("/updateReport", adminAuthenticate, updateReport)
+
 
 export default router;
