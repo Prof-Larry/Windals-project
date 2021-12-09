@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
+import { Modal, Button } from "react-bootstrap";
 import Icon from "./Icon";
 import "./Login.css";
 
@@ -9,7 +10,8 @@ export default function AdminLogin() {
         empid: "",
         password: ""
     });
-
+    const [message, setMessage] = useState("");
+    const [show, setShow] = useState(false);
     const history = useHistory();
 
     const handleChange = e => {
@@ -28,15 +30,21 @@ export default function AdminLogin() {
             withCredentials: true
         })
             .then(res => {
-                alert(res.data.message);
-                history.push("/adminhome");
+                if (res.data.code) {
+                    history.push("/adminhome");
+                } else {
+                    setMessage(res.data.message);
+                    setShow(true);
+                }
             })
             .catch(e => {
                 console.log(e);
             })
     }
 
-
+    const handleClose = () => {
+        setShow(false);
+    }
 
 
     return (
@@ -52,6 +60,17 @@ export default function AdminLogin() {
                     <button onClick={login} className="btn btn-primary mt-3">Login</button>
                 </div>
             </div>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Warning</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>{message}</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }

@@ -6,9 +6,9 @@ import util from "util";
 
 export const validateAdmin = (req, res) => {
   try {
-    const { empid, password } = req.body;
-    const findAdmin = "select * from admin where empid=?";
     if (!req.cookies.admin && !req.cookies.master) {
+      const { empid, password } = req.body;
+      const findAdmin = "select * from admin where empid=?";
       db.query(findAdmin, [empid], async (error, results) => {
         if (error) return res.send({ message: "User not Found!!" });
         if (results[0] != null) {
@@ -24,17 +24,17 @@ export const validateAdmin = (req, res) => {
                   httpOnly: true,
                 }
               );
-              return res.send({ ...results, message: "Login Successful" });
+              return res.send({ ...results, message: "Login Successful", code: true });
             }
           } else {
-            res.send({ message: "ID or password is incorrect" });
+            res.send({ message: "ID or password is incorrect", code: false });
           }
         } else {
-          res.send({ message: "Admin Doesn't exist" });
+          res.send({ message: "Admin Doesn't exist", code: false });
         }
       });
     } else {
-      res.send({ message: "User Already logged in" })
+      res.send({ message: "User Already logged in", code: true })
     }
   } catch (error) {
     console.log(error)

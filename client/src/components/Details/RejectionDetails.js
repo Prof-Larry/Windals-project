@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button, Container, Row, Col, Form, Nav, Card } from "react-bootstrap";
+import { Button, Container, Row, Col, Form, Nav, Card, Modal } from "react-bootstrap";
 import { useHistory } from "react-router";
 import Navbar from "../Navbar/NavbarAdmin";
 
 export default function RejectionDetails(props) {
   const history = useHistory();
+  const [show, setShow] = useState(false);
 
   const checkAuthorization = async () => {
     try {
@@ -122,6 +123,14 @@ export default function RejectionDetails(props) {
         alert("Some technical Error, please try again later");
       });
   };
+
+  const handleShow = () => {
+    setShow(true)
+  }
+
+  const handleClose = () => {
+    setShow(false);
+  }
 
   return (
     <div className="RejectionDetails">
@@ -369,13 +378,27 @@ export default function RejectionDetails(props) {
           <Row className="justify-content-md-center">
             <Col sm="5"></Col>
             <Col sm="2">
-              <Button type="submit" variant="danger" onClick={handleSubmit}>
+              <Button className="mb-5" type="submit" variant="danger" onClick={handleShow}>
                 Submit
               </Button>
             </Col>
           </Row>
         </Form>
       </Container>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Submit Report</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are You Sure?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleSubmit}>
+            Submit
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
