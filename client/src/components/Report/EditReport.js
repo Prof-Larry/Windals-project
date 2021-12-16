@@ -247,9 +247,9 @@ export default function EditReport() {
                     <Row className="justify-content-md-center mt-4">
                       <Form.Label column sm="4">Rework:</Form.Label>
                       <Col sm="6">
-                        <Form.Check type="radio" name="inprocess_rework_status" label="done" value="done" onChange={e => handleInpChange(e, index)}
+                        <Form.Check type="radio" name={index} label="done" value="done" onChange={e => handleInpChange(e, index)}
                         />
-                        <Form.Check type="radio" name="inprocess_rework_status" label="incomplete" value="incomplete" onChange={e => handleInpChange(e, index)}
+                        <Form.Check type="radio" name={index} label="incomplete" value="incomplete" onChange={e => handleInpChange(e, index)}
                         />
                       </Col>
                     </Row>
@@ -346,9 +346,9 @@ export default function EditReport() {
                     <Row className="justify-content-md-center mt-4">
                       <Form.Label column sm="4">Rework:</Form.Label>
                       <Col sm="6">
-                        <Form.Check type="radio" name="pdi_rework_status" label="done" value="done" onChange={e => handlePdiChange(e, index)}
+                        <Form.Check type="radio" name={index+100} label="done" value="done" onChange={e => handlePdiChange(e, index)}
                         />
-                        <Form.Check type="radio" name="pdi_rework_status" label="incomplete" value="incomplete" onChange={e => handlePdiChange(e, index)}
+                        <Form.Check type="radio" name={index+100} label="incomplete" value="incomplete" onChange={e => handlePdiChange(e, index)}
                         />
                       </Col>
                     </Row>
@@ -470,9 +470,9 @@ export default function EditReport() {
                     <Row className="justify-content-md-center mt-4">
                       <Form.Label column sm="4">Rework:</Form.Label>
                       <Col sm="6">
-                        <Form.Check type="radio" name="rejection_rework_status" label="done" value="done" onChange={e => handleRejChange(e, index)}
+                        <Form.Check type="radio" name={index+200} label="done" value="done" onChange={e => handleRejChange(e, index)}
                         />
-                        <Form.Check type="radio" name="rejection_rework_status" label="incomplete" value="incomplete" onChange={e => handleRejChange(e, index)}
+                        <Form.Check type="radio" name={index+200} label="incomplete" value="incomplete" onChange={e => handleRejChange(e, index)}
                         />
                       </Col>
                     </Row>
