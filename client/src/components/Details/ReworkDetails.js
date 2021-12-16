@@ -202,9 +202,9 @@ export default function ReworkDetails(props) {
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Rework:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Check type="radio" name="inprocess_rework_status" label="done" value="done"
+                                                    <Form.Check type="radio" name={i} label="done" value="done"
                                                         onChange={e => props.addInpDefects(e, i)} />
-                                                    <Form.Check type="radio" name="inprocess_rework_status" label="incomplete" value="incomplete"
+                                                    <Form.Check type="radio" name={i} label="incomplete" value="incomplete"
                                                         onChange={e => props.addInpDefects(e, i)} />
                                                 </Col>
                                             </Row>
@@ -321,9 +321,9 @@ export default function ReworkDetails(props) {
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4">Rework:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Check type="radio" name="pdi_rework_status" label="done" value="done"
+                                                    <Form.Check type="radio" name={i+100} label="done" value="done"
                                                         onChange={e => props.addPdiDefects(e, i)} />
-                                                    <Form.Check type="radio" name="pdi_rework_status" label="incomplete" value="incomplete"
+                                                    <Form.Check type="radio" name={i+100} label="incomplete" value="incomplete"
                                                         onChange={e => props.addPdiDefects(e, i)} />
                                                 </Col>
                                             </Row>

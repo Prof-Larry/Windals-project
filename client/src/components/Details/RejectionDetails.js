@@ -297,14 +297,14 @@ export default function RejectionDetails(props) {
                         <Col sm="6">
                           <Form.Check
                             type="radio"
-                            name="rej_rework_status"
+                            name={i}
                             label="Scrap"
                             value="scrap"
                             onChange={(e) => props.addRejDefects(e, i)}
                           />
                           <Form.Check
                             type="radio"
-                            name="rej_rework_status"
+                            name={i}
                             label="Used Under Deviation"
                             value="used under deviation"
                             onChange={(e) => props.addRejDefects(e, i)}
