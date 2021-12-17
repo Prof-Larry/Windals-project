@@ -57,10 +57,15 @@ export default function ReworkToDo() {
             </Col>
           </Form.Group>
 
-
-
-
-
+          <Form.Group as={Row} className="justify-content-md-center mt-4">
+            <Form.Label column sm="3">Rework:</Form.Label>
+              <Col sm="4">
+                <Form.Check type="radio" name="Rework_Status" label="done" value="done"
+                   />
+                <Form.Check type="radio" name="Rework_Status" label="incomplete" value="incomplete"
+                   />
+              </Col>
+          </Form.Group>         
 
 
 
