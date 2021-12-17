@@ -4,7 +4,7 @@ import './Navbar.css';
 export default function Navbar() {
     return (
         <div className="navbar">
-            <h2>WINDALS</h2>
+            <h2>WINDALS PRECISION Pvt. Ltd.</h2>
             <div className="navigation">
                 <Link to="/userlogin" className="userlink">User</Link>
                 <Link to="/adminlogin" className="adminlink">Admin</Link>

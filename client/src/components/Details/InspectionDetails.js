@@ -76,16 +76,20 @@ export default function InspectionDetails(props) {
             <Container >
                 <Form noValidate validated={validated} onSubmit={handleValidate}>
                     <Form.Group as={Row} className="justify-content-md-center" controlId="validationCustom01">
-                        <Form.Label column sm="3">Plant Code</Form.Label>
+                        <Form.Label column sm="3" className="text-dark">Plant Code</Form.Label>
                         <Col sm="4">
-                            <Form.Control required name="plant_code" value={props.inspection.plant_code} onChange={handleChange}></Form.Control>
+                            <Form.Control 
+                                required
+                                placeholder="Provide Plant Code here"
+                                name="plant_code" 
+                                value={props.inspection.plant_code} onChange={handleChange}></Form.Control>
                             <Form.Control.Feedback type="invalid">Please provide plant code.</Form.Control.Feedback>
                         </Col>
                     </Form.Group>
                     <br />
 
                     <Form.Group as={Row} className="justify-content-md-center" controlId="validationCustom02">
-                        <Form.Label column sm="3">Production Line</Form.Label>
+                        <Form.Label column sm="3" className="text-dark">Production Line</Form.Label>
                         <Col sm="4">
                             <Form.Control required name="production_line" value={props.inspection.production_line} onChange={handleChange}></Form.Control>
                             <Form.Control.Feedback type="invalid">Please provide production line.</Form.Control.Feedback>
@@ -94,7 +98,7 @@ export default function InspectionDetails(props) {
                     <br />
 
                     <Form.Group as={Row} className="justify-content-md-center" controlId="validationCustom03">
-                        <Form.Label column sm="3">Product no</Form.Label>
+                        <Form.Label column sm="3" className="text-dark">Product no</Form.Label>
                         <Col sm="4">
                             <Form.Control required name="product_number" value={props.inspection.product_number} onChange={handleChange}></Form.Control>
                             <Form.Control.Feedback type="invalid">Please provide product no.</Form.Control.Feedback>
@@ -103,7 +107,7 @@ export default function InspectionDetails(props) {
                     <br />
 
                     <Form.Group as={Row} className="justify-content-md-center" controlId="validationCustom04">
-                        <Form.Label column sm="3">Product Name</Form.Label>
+                        <Form.Label column sm="3" className="text-dark">Product Name</Form.Label>
                         <Col sm="4">
                             <Form.Control required name="product_name" value={props.inspection.product_name} onChange={handleChange}></Form.Control>
                             <Form.Control.Feedback type="invalid">Please provide product name.</Form.Control.Feedback>
