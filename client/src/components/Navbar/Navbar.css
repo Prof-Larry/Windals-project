@@ -11,6 +11,7 @@
     font-weight: bold;
     margin-left: 5%;
     margin-bottom: 0;
+    color: rgb(194, 11, 11);
 }
 
 .navigation{
@@ -23,16 +24,17 @@
 .adminlink, .userlink, .masterlink{
     padding: 10px 20px;
     text-decoration: none;
+    font-weight: bold;
     color: black;
 }
 
 .adminlink:hover{
     background-color: rgb(205, 205, 248);
-    border-radius: 4px;
+    border-radius: 10px;
 }
 .userlink:hover{
     background-color: rgb(205, 205, 248);
-    border-radius: 4px;
+    border-radius: 10px;
 }
 .masterlink:hover{
     background-color: rgb(205, 205, 248);
