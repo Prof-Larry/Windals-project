@@ -4,6 +4,7 @@ import db from "../Database/db.js";
 
 export const saveReport = (req, res) => {
   try {
+    console.log(req.body);
     const {
       inspection,
       inp_report,
