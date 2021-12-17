@@ -154,13 +154,13 @@ export default function RejectionDetails(props) {
       </Container>
       <Container>
         <br />
-        <Form noValidate validated={validated} onSubmit={handleValidate}>
-          <Form.Text as={Row} className="justify-content-md-center">
+        <Form noValidate validated={validated} onSubmit={handleValidate} className="text-dark">
+          <strong><Form.Text as={Row} className="justify-content-md-center text-dark">
             **Inprocess Rejection**
-          </Form.Text>
+          </Form.Text></strong>
           <br />
           <Form.Group as={Row} className="justify-content-md-center">
-            <Form.Label column sm="3">
+            <Form.Label column sm="3" className="text-dark">
               Name of Process
             </Form.Label>
             <Col sm="4">
@@ -178,7 +178,7 @@ export default function RejectionDetails(props) {
           <br />
 
           <Form.Group as={Row} className="justify-content-md-center">
-            <Form.Label column sm="3">
+            <Form.Label column sm="3" className="text-dark">
               No. of quantity:
             </Form.Label>
             <Col sm="4">
@@ -201,12 +201,12 @@ export default function RejectionDetails(props) {
                 <Row className="justify-content-md-center mt-4">
                   <Col sm="8">
                     <Card>
-                      <Card.Header className="text-center">
+                      <Card.Header className="text-center text-dark">
                         DEFECT LIST
                       </Card.Header>
 
                       <Row className="justify-content-md-center mt-4">
-                        <Form.Label column sm="4">
+                        <Form.Label column sm="4" className="text-dark">
                           defect:
                         </Form.Label>
                         <Col sm="6">
@@ -223,7 +223,7 @@ export default function RejectionDetails(props) {
                       </Row>
 
                       <Row className="justify-content-md-center mt-4">
-                        <Form.Label column sm="4">
+                        <Form.Label column sm="4" className="text-dark">
                           No. of defect specific quantity:
                         </Form.Label>
                         <Col sm="6">
@@ -240,7 +240,7 @@ export default function RejectionDetails(props) {
                       </Row>
 
                       <Row className="justify-content-md-center mt-4">
-                        <Form.Label column sm="4">
+                        <Form.Label column sm="4" className="text-dark">
                           Location of Defect:
                         </Form.Label>
                         <Col sm="6">
@@ -257,7 +257,7 @@ export default function RejectionDetails(props) {
                       </Row>
 
                       <Row className="justify-content-md-center mt-3 mb-1">
-                        <Form.Label column sm="4">
+                        <Form.Label column sm="4" className="text-dark">
                           category of defects:
                         </Form.Label>
                         <Col sm="6">
@@ -274,7 +274,7 @@ export default function RejectionDetails(props) {
                       </Row>
 
                       <Row className="justify-content-md-center mt-4">
-                        <Form.Label column sm="4">
+                        <Form.Label column sm="4" className="text-dark">
                           Details:
                         </Form.Label>
                         <Col sm="6">
@@ -291,20 +291,20 @@ export default function RejectionDetails(props) {
                       </Row>
 
                       <Row className="justify-content-md-center mt-4">
-                        <Form.Label column sm="4">
-                          Rework:
+                        <Form.Label column sm="4" className="text-dark">
+                          Rejection Status:
                         </Form.Label>
                         <Col sm="6">
                           <Form.Check
-                            type="radio"
-                            name={i}
+                            type="checkbox"
+                            name="rej_rework_status"
                             label="Scrap"
                             value="scrap"
                             onChange={(e) => props.addRejDefects(e, i)}
                           />
                           <Form.Check
-                            type="radio"
-                            name={i}
+                            type="checkbox"
+                            name="rej_rework_status"
                             label="Used Under Deviation"
                             value="used under deviation"
                             onChange={(e) => props.addRejDefects(e, i)}
@@ -313,8 +313,8 @@ export default function RejectionDetails(props) {
                       </Row>
 
                       <Row className="justify-content-md-center mt-4">
-                        <Form.Label column sm="4">
-                          Rework Details:
+                        <Form.Label column sm="4" className="text-dark">
+                          Rejection Details:
                         </Form.Label>
                         <Col sm="6">
                           <Form.Control
@@ -332,11 +332,19 @@ export default function RejectionDetails(props) {
                       </Row>
 
                       <Row className="justify-content-md-center mt-4">
-                        <Form.Label column sm="4">
-                          Who will do Rework:
+                        <Form.Label column sm="4" className="text-dark">Upload images if any:</Form.Label>
+                        <Col sm="6">     
+                        <Form.Control column sm="6"type="file"  multiple></Form.Control>
+                        </Col>
+                      </Row>
+
+                      <Row className="justify-content-md-center mt-4">
+                        <Form.Label column sm="4" className="text-dark">
+                          Who has Authorised Rejection:
                         </Form.Label>
                         <Col sm="6">
                           <Form.Control
+                            placeholder="provide employee ID"
                             required
                             name="rej_rework_handler"
                             value={x.rej_rework_handler}

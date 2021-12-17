@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, Row, Col, InputGroup } from "react-bootstrap";
+import { Button, Form, Row, Col, InputGroup, Card } from "react-bootstrap";
 
 export default function SubmitReport() {
   const [validated, setValidated] = useState(false);
@@ -81,12 +81,69 @@ export default function SubmitReport() {
 
         <Form.Group className="mb-3">
           <Form.Check
+            name="defects"
+            value="done"
+            required
+            label="Agree to terms and conditions"
+            feedback="You must agree before submitting."
+            feedbackType="invalid"
+          />
+          <Form.Check
+            name="defects"
+            value="incomplete"
+            required
+            label="Agree to terms and conditions"
+            feedback="You must agree before submitting."
+            feedbackType="invalid"
+          />
+          <Form.Check
             required
             label="Agree to terms and conditions"
             feedback="You must agree before submitting."
             feedbackType="invalid"
           />
         </Form.Group>
+        <br/>
+        <Form.Check
+          name="check" 
+          type="switch"
+          id="custom-switch"
+          label="Check this switch"
+        />
+        <Form.Check 
+          name="check"
+          type="switch"
+          id="custom-switch"
+          label="Check this switch"
+        />
+        <br/>
+        <Form.Select aria-label="Floating label select example">
+        <option>Open this select menu</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </Form.Select>
+      <br/>
+      <br/>
+
+
+        <Card>
+        <center><Card.Title>Card Title</Card.Title></center>
+        <Form.Group controlId="formFileMultiple" className="mb-3">
+          <Form.Label>Multiple files input example</Form.Label>
+          <Form.Control type="file"  multiple/>
+        </Form.Group>
+
+        </Card>
+        <br/>
+        <br/>
+
+
+
+
+
+
+
 
         <Button type="submit">Submit form</Button>
       </Form>
