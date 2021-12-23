@@ -75,23 +75,43 @@ export default function InspectionDetails(props) {
             <br />
             <Container >
                 <Form noValidate validated={validated} onSubmit={handleValidate}>
-                    <Form.Group as={Row} className="justify-content-md-center" controlId="validationCustom01">
-                        <Form.Label column sm="3" className="text-dark">Plant Code</Form.Label>
-                        <Col sm="4">
-                            <Form.Control 
-                                required
-                                placeholder="Provide Plant Code here"
-                                name="plant_code" 
-                                value={props.inspection.plant_code} onChange={handleChange}></Form.Control>
-                            <Form.Control.Feedback type="invalid">Please provide plant code.</Form.Control.Feedback>
-                        </Col>
-                    </Form.Group>
-                    <br />
+
+                <Form.Group as={Row} className="justify-content-md-center mb-4">
+                <Form.Label column sm="3" className="text-dark">Plant Code</Form.Label>
+                    <Col sm="4">
+                        <Form.Select 
+                            required
+                            name="plant_code"
+                            onChange={handleChange}
+                            >
+                            <option value="">select plant code</option>
+                            <option value="wppl0001">wppl0001</option>
+                            <option value="wppl0002">wppl0002</option>
+                            <option value="wppl0003">wppl0003</option>
+                            <option value="wppl0004">wppl0004</option>
+                            <option value="wppl0005">wppl0005</option>
+                        </Form.Select>
+                        <Form.Control.Feedback type="invalid">Please provide plant code.</Form.Control.Feedback>
+                    </Col>
+                </Form.Group>
+
+                 
 
                     <Form.Group as={Row} className="justify-content-md-center" controlId="validationCustom02">
                         <Form.Label column sm="3" className="text-dark">Production Line</Form.Label>
                         <Col sm="4">
-                            <Form.Control required name="production_line" value={props.inspection.production_line} onChange={handleChange}></Form.Control>
+                            <Form.Select
+                             required 
+                             name="production_line"
+                             onChange={handleChange}
+                             >
+                            <option value="">Select Production Line</option>
+                            <option value="wppl0001">wppl0001</option>
+                            <option value="wppl0002">wppl0002</option>
+                            <option value="wppl0003">wppl0003</option>
+                            <option value="wppl0004">wppl0004</option>
+                            <option value="wppl0005">wppl0005</option>
+                             </Form.Select>
                             <Form.Control.Feedback type="invalid">Please provide production line.</Form.Control.Feedback>
                         </Col>
                     </Form.Group>
@@ -100,7 +120,18 @@ export default function InspectionDetails(props) {
                     <Form.Group as={Row} className="justify-content-md-center" controlId="validationCustom03">
                         <Form.Label column sm="3" className="text-dark">Product no</Form.Label>
                         <Col sm="4">
-                            <Form.Control required name="product_number" value={props.inspection.product_number} onChange={handleChange}></Form.Control>
+                            <Form.Select 
+                            required 
+                            name="product_number" 
+                            onChange={handleChange}
+                            >
+                            <option value="">Select Product No.</option>
+                            <option value="001">001</option>
+                            <option value="002">002</option>
+                            <option value="003">003</option>
+                            <option value="004">004</option>
+                            <option value="005">005</option>
+                            </Form.Select>
                             <Form.Control.Feedback type="invalid">Please provide product no.</Form.Control.Feedback>
                         </Col>
                     </Form.Group>
@@ -109,7 +140,18 @@ export default function InspectionDetails(props) {
                     <Form.Group as={Row} className="justify-content-md-center" controlId="validationCustom04">
                         <Form.Label column sm="3" className="text-dark">Product Name</Form.Label>
                         <Col sm="4">
-                            <Form.Control required name="product_name" value={props.inspection.product_name} onChange={handleChange}></Form.Control>
+                            <Form.Select 
+                            required 
+                            name="product_name"
+                            onChange={handleChange}
+                            >
+                            <option value="">Select Product Name</option>
+                            <option value="Product_001">Product_001</option>
+                            <option value="Product_002">Product_002</option>
+                            <option value="Product_003">Product_003</option>
+                            <option value="Product_004">Product_004</option>
+                            <option value="Product_005">Product_005</option>
+                            </Form.Select>
                             <Form.Control.Feedback type="invalid">Please provide product name.</Form.Control.Feedback>
                         </Col>
                     </Form.Group>
