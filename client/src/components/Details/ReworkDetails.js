@@ -58,7 +58,8 @@ export default function ReworkDetails(props) {
     const updateInprocessRework = (e) => {
         const { name, value } = e.target;
         props.setInprocessRework({ ...props.inprocessRework, [name]: value });
-        // localStorage.setItem('inp_report', JSON.stringify(props.inprocessRework));
+         localStorage.setItem('inp_report', JSON.stringify(props.inprocessRework));
+        console.log(props.inprocessRework)
     }
 
     const handleRemoveClick = index => {
@@ -129,12 +130,27 @@ export default function ReworkDetails(props) {
                     <strong><Form.Text as={Row} className="justify-content-md-center text-dark" >**Inprocess Rework**</Form.Text></strong>
                     <br />
                     <Form.Group as={Row} className="justify-content-md-center">
+                    <Form.Label column sm="3" className="text-dark">Name of Process</Form.Label>
+                    <Col sm="4">
+                        <Form.Select 
+                        name="inprocess_name"
+                        onChange={updateInprocessRework}
+                        >
+                        <option>select name of process</option>
+                        <option value="process 1">process 1</option>
+                        <option value="process 2">process 2</option>
+                        <option value="process 3">process 3</option>
+                        </Form.Select>
+                        </Col>
+                        </Form.Group>
+
+                    {/*<Form.Group as={Row} className="justify-content-md-center">
                         <Form.Label column sm="3" className="text-dark">Name of Process</Form.Label>
                         <Col sm="4">
                             <Form.Control required name="inprocess_name" value={props.inprocessRework.inprocess_name} onChange={updateInprocessRework} ></Form.Control>
                             <Form.Control.Feedback type="invalid">Please provide Name of Process.</Form.Control.Feedback>
                         </Col>
-                    </Form.Group>
+    </Form.Group>*/}
                     <br />
 
                     <Form.Group as={Row} className="justify-content-md-center">
@@ -199,15 +215,29 @@ export default function ReworkDetails(props) {
                                                 </Col>
                                             </Row>
 
-                                            <Row className="justify-content-md-center mt-4">
+                                            {/*<Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4" className="text-dark">Rework Status:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Check type="checkbox" name="inprocess_rework_status" label="done" value="done"
+                                                    <Form.Check type="radio" name="inprocess_rework_status" label="done" value="done"
                                                         onChange={e => props.addInpDefects(e, i)} />
-                                                    <Form.Check type="checkbox" name="inprocess_rework_status" label="incomplete" value="incomplete"
+                                                    <Form.Check type="radio" name="inprocess_rework_status" label="incomplete" value="incomplete"
                                                         onChange={e => props.addInpDefects(e, i)} />
                                                 </Col>
-                                            </Row>
+                        </Row>*/}
+                        <br/>
+                        <Form.Group as={Row} className="justify-content-md-center">
+                        <Form.Label column sm="4" className="text-dark">Rework Status:</Form.Label>
+                    <Col sm="6">
+                        <Form.Select 
+                        name="inprocess_rework_status"
+                        onChange={e => props.addInpDefects(e, i)}
+                        >
+                        <option>select Rework Status</option>
+                        <option value="done">Done</option>
+                        <option value="incomplete">Incomplete</option>
+                        </Form.Select>
+                        </Col>
+                        </Form.Group>
 
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4" className="text-dark">Rework Details:</Form.Label>
@@ -246,7 +276,7 @@ export default function ReworkDetails(props) {
 
 
 
-                    <strong><Form.Text as={Row} className="justify-content-md-center text-dark" >**PDI Rework**</Form.Text></strong>
+                    {/*<strong><Form.Text as={Row} className="justify-content-md-center text-dark" >**PDI Rework**</Form.Text></strong>
                     <br />
                     <Form.Group as={Row} className="justify-content-md-center">
                         <Form.Label column sm="3" className="text-dark">Name of Process</Form.Label>
@@ -322,9 +352,9 @@ export default function ReworkDetails(props) {
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4" className="text-dark">Rework Status:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Check type="checkbox" name="pdi_rework_status" label="done" value="done"
+                                                    <Form.Check type="radio" name="pdi_rework_status" label="done" value="done"
                                                         onChange={e => props.addPdiDefects(e, i)} />
-                                                    <Form.Check type="checkbox" name="pdi_rework_status" label="incomplete" value="incomplete"
+                                                    <Form.Check type="radio" name="pdi_rework_status" label="incomplete" value="incomplete"
                                                         onChange={e => props.addPdiDefects(e, i)} />
                                                 </Col>
                                             </Row>
@@ -359,11 +389,11 @@ export default function ReworkDetails(props) {
                                 <br />
                             </div>
                         );
-                    })}
+                    })}*/}
 
                     <Row className="justify-content-md-end">
                         <Col sm="7">
-                            <Button type="submit" variant="success" size="lg" className="mx-2" >SAVE</Button>
+                            <Button type="submit" variant="success" size="lg" className="mx-2" >SUBMIT</Button>
                             <Button variant="danger" size="lg" className="mx-2" onClick={event => window.location.href = '/rejection'}>NEXT</Button>
                         </Col>
                     </Row><br />

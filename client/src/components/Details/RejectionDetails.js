@@ -296,14 +296,14 @@ export default function RejectionDetails(props) {
                         </Form.Label>
                         <Col sm="6">
                           <Form.Check
-                            type="checkbox"
+                            type="radio"
                             name="rej_rework_status"
                             label="Scrap"
                             value="scrap"
                             onChange={(e) => props.addRejDefects(e, i)}
                           />
                           <Form.Check
-                            type="checkbox"
+                            type="radio"
                             name="rej_rework_status"
                             label="Used Under Deviation"
                             value="used under deviation"
@@ -326,17 +326,17 @@ export default function RejectionDetails(props) {
                             onChange={(e) => props.addRejDefects(e, i)}
                           ></Form.Control>
                           <Form.Control.Feedback type="invalid">
-                            Please provide Rework Details
+                            Please provide Rejection Details
                           </Form.Control.Feedback>
                         </Col>
                       </Row>
 
-                      <Row className="justify-content-md-center mt-4">
+                      {/*<Row className="justify-content-md-center mt-4">
                         <Form.Label column sm="4" className="text-dark">Upload images if any:</Form.Label>
                         <Col sm="6">     
                         <Form.Control column sm="6"type="file"  multiple></Form.Control>
                         </Col>
-                      </Row>
+                      </Row>*/}
 
                       <Row className="justify-content-md-center mt-4">
                         <Form.Label column sm="4" className="text-dark">
