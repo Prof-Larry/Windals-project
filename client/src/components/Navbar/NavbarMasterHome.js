@@ -11,20 +11,15 @@ export default function NavbarAdminHome() {
         localStorage.setItem("reports", JSON.stringify([]));
         history.push("/searchbydate");
       };
-
-    const logOut = () => {
-      history.push("/");
-    };
-
-    const HandleOnClickSubmitReport = () => {
-        history.push("/inspection");
+    
+      const logOut = () => {
+        history.push("/");
       };
 
-    const goToMyRework = () => {
-        sessionStorage.setItem("i_defects", JSON.stringify([]));
-        sessionStorage.setItem("p_defects", JSON.stringify([]));
-        history.push("/myrework");
-    };
+      const goToAdminRegister = () => {
+        history.push("/adminregister");
+      };
+
 
   return (
     <div className="navbaradmin">
@@ -38,8 +33,9 @@ export default function NavbarAdminHome() {
             <Nav className="me-auto"></Nav>
             <Nav className="mx-4">
                 <strong><Nav.Link onClick={goToSearchbydate}>Show Reports</Nav.Link></strong>
-                <strong><Nav.Link onClick={HandleOnClickSubmitReport}>Submit Report</Nav.Link></strong>
-                <strong><Nav.Link onClick={goToMyRework}>My Rework</Nav.Link></strong>
+                <strong><Nav.Link >Edit Drop-Downs</Nav.Link></strong>
+                <strong><Nav.Link onClick={goToAdminRegister}>Employee Registration</Nav.Link></strong>
+                
             </Nav>
                 <strong><Navbar.Brand className="mx-3" onClick={logOut}>Log Out</Navbar.Brand></strong>
           </Navbar.Collapse>

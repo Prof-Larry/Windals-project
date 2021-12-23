@@ -5,6 +5,7 @@ import Navbar from "../../Navbar/NavbarAdmin";
 import { useHistory } from "react-router";
 
 export default function SearchByDate() {
+  const [showMaster, setShowMaster] = useState(false);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [show, setShow] = useState(false);
@@ -26,6 +27,8 @@ export default function SearchByDate() {
           credentials: "include",
         }
       );
+      const data = await response.json();
+      data.designation === "M" ? setShowMaster(true): setShowMaster(false)
 
       if (response.status !== 200) {
         throw new Error(response.error);
@@ -139,6 +142,7 @@ export default function SearchByDate() {
             <Col>
               <Table bordered className="mt-4">
                 {show ? (
+                  
                   <thead className="text-dark">
                     <tr className="text-dark">
                       <th className="text-dark">Sr.No</th>
@@ -148,7 +152,7 @@ export default function SearchByDate() {
                       <th className="text-dark">Product Name</th>
                       <th className="text-dark">Admin</th>
                       <th className="text-dark">View</th>
-                      <th className="text-dark">Edit</th>
+                      {showMaster ? (<th className="text-dark">Edit</th>) : null}
                     </tr>
                   </thead>
                 ) : null}
@@ -175,7 +179,7 @@ export default function SearchByDate() {
                             View
                           </Button>
                         </td>
-                        <td>
+                        {showMaster ? (<td>
                           <Button
                             variant="danger"
                             size="sm"
@@ -184,7 +188,7 @@ export default function SearchByDate() {
                           >
                             Edit
                           </Button>
-                        </td>
+                        </td>) : null}
                       </tr>
                     </tbody>
                   );
