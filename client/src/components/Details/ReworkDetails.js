@@ -127,22 +127,36 @@ export default function ReworkDetails(props) {
                 <br />
 
                 <Form noValidate validated={validated} onSubmit={handleValidate}>
-                    <strong><Form.Text as={Row} className="justify-content-md-center text-dark" >**Inprocess Rework**</Form.Text></strong>
+                    <strong><Form.Text as={Row} className="justify-content-md-center text-dark" >** Rework **</Form.Text></strong>
                     <br />
-                    <Form.Group as={Row} className="justify-content-md-center">
-                    <Form.Label column sm="3" className="text-dark">Name of Process</Form.Label>
-                    <Col sm="4">
-                        <Form.Select 
-                        name="inprocess_name"
-                        onChange={updateInprocessRework}
-                        >
-                        <option>select name of process</option>
-                        <option value="process 1">process 1</option>
-                        <option value="process 2">process 2</option>
-                        <option value="process 3">process 3</option>
-                        </Form.Select>
+                    <Form.Group as={Row} className="justify-content-md-center mb-4">
+                        <Form.Label column sm="3" className="text-dark">Name of Process</Form.Label>
+                        <Col sm="4">
+                            <Form.Select 
+                                name="rework_type"
+                                onChange={updateInprocessRework}
+                                >
+                                <option value="">select rework type</option>
+                                <option value="inprocess">Inprocess</option>
+                                <option value="pdi">PDI</option>
+                            </Form.Select>
                         </Col>
-                        </Form.Group>
+                    </Form.Group>
+
+                    <Form.Group as={Row} className="justify-content-md-center mb-4">
+                        <Form.Label column sm="3" className="text-dark">Name of Process</Form.Label>
+                        <Col sm="4">
+                            <Form.Select 
+                                name="inprocess_name"
+                                onChange={updateInprocessRework}
+                                >
+                                <option>select name of process</option>
+                                <option value="process 1">process 1</option>
+                                <option value="process 2">process 2</option>
+                                <option value="process 3">process 3</option>
+                            </Form.Select>
+                        </Col>
+                    </Form.Group>
 
                     {/*<Form.Group as={Row} className="justify-content-md-center">
                         <Form.Label column sm="3" className="text-dark">Name of Process</Form.Label>
@@ -151,16 +165,16 @@ export default function ReworkDetails(props) {
                             <Form.Control.Feedback type="invalid">Please provide Name of Process.</Form.Control.Feedback>
                         </Col>
     </Form.Group>*/}
-                    <br />
+                   
 
-                    <Form.Group as={Row} className="justify-content-md-center">
+                    <Form.Group as={Row} className="justify-content-md-center mb-4">
                         <Form.Label column sm="3" className="text-dark">No. of quantity:</Form.Label>
                         <Col sm="4">
                             <Form.Control required name="inprocess_total_quantity" value={props.inprocessRework.inprocess_total_quantity} onChange={updateInprocessRework} ></Form.Control>
                             <Form.Control.Feedback type="invalid">Please provide No. of quantity.</Form.Control.Feedback>
                         </Col>
                     </Form.Group>
-                    <br />
+                 
 
                     {props.inprocess_defects.map((x, i) => {
                         return (
@@ -173,8 +187,16 @@ export default function ReworkDetails(props) {
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4" className="text-dark">defect:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control required name="inprocess_defect" value={x.inprocess_defect}
-                                                        onChange={e => props.addInpDefects(e, i)}></Form.Control>
+                                                    <Form.Select 
+                                                    required 
+                                                    name="inprocess_defect"
+                                                    onChange={e => props.addInpDefects(e, i)}
+                                                    >
+                                                        <option value="">select name of defect</option>
+                                                        <option value="option_1">option_1</option>
+                                                        <option value="option_2">option_2</option>
+                                                        <option value="option_3">option_3</option>
+                                                    </Form.Select>
                                                     <Form.Control.Feedback type="invalid">Please provide defect.</Form.Control.Feedback>
                                                 </Col>
                                             </Row>
@@ -191,8 +213,16 @@ export default function ReworkDetails(props) {
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4" className="text-dark">Location of Defect:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control required name="inprocess_defect_location" value={x.inprocess_defect_location}
-                                                        onChange={e => props.addInpDefects(e, i)}></Form.Control>
+                                                    <Form.Select
+                                                    required 
+                                                    name="inprocess_defect_location"
+                                                    onChange={e => props.addInpDefects(e, i)}
+                                                    >
+                                                        <option value="">select Location of defect</option>
+                                                        <option value="option_1">option_1</option>
+                                                        <option value="option_2">option_2</option>
+                                                        <option value="option_3">option_3</option>
+                                                    </Form.Select>
                                                     <Form.Control.Feedback type="invalid">Please provide Location of Defect.</Form.Control.Feedback>
                                                 </Col>
                                             </Row>
@@ -200,8 +230,16 @@ export default function ReworkDetails(props) {
                                             <Row className="justify-content-md-center mt-3 mb-1">
                                                 <Form.Label column sm="4" className="text-dark">category of defects:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control required name="inprocess_category_defect" value={x.inprocess_category_defect}
-                                                        onChange={e => props.addInpDefects(e, i)}></Form.Control>
+                                                    <Form.Select 
+                                                    required 
+                                                    name="inprocess_category_defect"
+                                                    onChange={e => props.addInpDefects(e, i)}
+                                                    >
+                                                        <option value="">select Category of defect</option>
+                                                        <option value="option_1">option_1</option>
+                                                        <option value="option_2">option_2</option>
+                                                        <option value="option_3">option_3</option>
+                                                    </Form.Select>
                                                     <Form.Control.Feedback type="invalid">Please provide category of defects.</Form.Control.Feedback>
                                                 </Col>
                                             </Row>
@@ -209,35 +247,31 @@ export default function ReworkDetails(props) {
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4" className="text-dark">Details:</Form.Label>
                                                 <Col sm="6">
-                                                    <Form.Control required name="inprocess_defect_details" value={x.inprocess_defect_details}
+                                                    <Form.Control 
+                                                    required 
+                                                    name="inprocess_defect_details" 
+                                                    as="textarea" rows={3}
+                                                    value={x.inprocess_defect_details}
                                                         onChange={e => props.addInpDefects(e, i)}></Form.Control>
                                                     <Form.Control.Feedback type="invalid">Please provide details.</Form.Control.Feedback>
                                                 </Col>
                                             </Row>
 
-                                            {/*<Row className="justify-content-md-center mt-4">
-                                                <Form.Label column sm="4" className="text-dark">Rework Status:</Form.Label>
-                                                <Col sm="6">
-                                                    <Form.Check type="radio" name="inprocess_rework_status" label="done" value="done"
-                                                        onChange={e => props.addInpDefects(e, i)} />
-                                                    <Form.Check type="radio" name="inprocess_rework_status" label="incomplete" value="incomplete"
-                                                        onChange={e => props.addInpDefects(e, i)} />
-                                                </Col>
-                        </Row>*/}
+                                           
                         <br/>
                         <Form.Group as={Row} className="justify-content-md-center">
-                        <Form.Label column sm="4" className="text-dark">Rework Status:</Form.Label>
-                    <Col sm="6">
-                        <Form.Select 
-                        name="inprocess_rework_status"
-                        onChange={e => props.addInpDefects(e, i)}
-                        >
-                        <option>select Rework Status</option>
-                        <option value="done">Done</option>
-                        <option value="incomplete">Incomplete</option>
-                        </Form.Select>
-                        </Col>
-                        </Form.Group>
+                            <Form.Label column sm="4" className="text-dark">Rework Status:</Form.Label>
+                            <Col sm="6">
+                                <Form.Select 
+                                name="inprocess_rework_status"
+                                onChange={e => props.addInpDefects(e, i)}
+                                >
+                                <option>select Rework Status</option>
+                                <option value="done">Done</option>
+                                <option value="incomplete">Incomplete</option>
+                                </Form.Select>
+                            </Col>
+                            </Form.Group>
 
                                             <Row className="justify-content-md-center mt-4">
                                                 <Form.Label column sm="4" className="text-dark">Rework Details:</Form.Label>

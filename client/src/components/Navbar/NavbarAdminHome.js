@@ -12,6 +12,10 @@ export default function NavbarAdminHome() {
         history.push("/searchbydate");
       };
 
+    const logOut = () => {
+      history.push("/");
+    };
+
     const HandleOnClickSubmitReport = () => {
         history.push("/inspection");
       };
@@ -37,7 +41,7 @@ export default function NavbarAdminHome() {
                 <strong><Nav.Link onClick={HandleOnClickSubmitReport}>Submit Report</Nav.Link></strong>
                 <strong><Nav.Link onClick={goToMyRework}>My Rework</Nav.Link></strong>
             </Nav>
-                <strong><Navbar.Brand className="mx-3" href="/">Home</Navbar.Brand></strong>
+                <strong><Navbar.Brand className="mx-3" onClick={logOut}>Log Out</Navbar.Brand></strong>
           </Navbar.Collapse>
         </Container>
       </Navbar>

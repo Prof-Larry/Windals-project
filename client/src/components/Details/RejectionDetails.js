@@ -156,7 +156,7 @@ export default function RejectionDetails(props) {
         <br />
         <Form noValidate validated={validated} onSubmit={handleValidate} className="text-dark">
           <strong><Form.Text as={Row} className="justify-content-md-center text-dark">
-            **Inprocess Rejection**
+            ** Rejection **
           </Form.Text></strong>
           <br />
           <Form.Group as={Row} className="justify-content-md-center">
@@ -164,12 +164,17 @@ export default function RejectionDetails(props) {
               Name of Process
             </Form.Label>
             <Col sm="4">
-              <Form.Control
+              <Form.Select
                 required
                 name="rejection_name"
                 value={props.rejectionRework.rejection_name}
                 onChange={handleChange}
-              ></Form.Control>
+              >
+                <option value="">select Name of Process</option>
+                <option value="option_1">option_1</option>
+                <option value="option_2">option_2</option>
+                <option value="option_3">option_3</option>
+              </Form.Select>
               <Form.Control.Feedback type="invalid">
                 Please provide Name of Process
               </Form.Control.Feedback>
@@ -210,12 +215,16 @@ export default function RejectionDetails(props) {
                           defect:
                         </Form.Label>
                         <Col sm="6">
-                          <Form.Control
+                          <Form.Select                            
                             required
                             name="rej_defect"
-                            value={x.rej_defect}
                             onChange={(e) => props.addRejDefects(e, i)}
-                          ></Form.Control>
+                          >
+                            <option value="">select Name of defect</option>
+                            <option value="option_1">option_1</option>
+                            <option value="option_2">option_2</option>
+                            <option value="option_3">option_3</option>
+                          </Form.Select>
                           <Form.Control.Feedback type="invalid">
                             Please provide defect
                           </Form.Control.Feedback>
@@ -244,12 +253,16 @@ export default function RejectionDetails(props) {
                           Location of Defect:
                         </Form.Label>
                         <Col sm="6">
-                          <Form.Control
+                          <Form.Select
                             required
                             name="rej_defect_location"
-                            value={x.rej_defect_location}
                             onChange={(e) => props.addRejDefects(e, i)}
-                          ></Form.Control>
+                          >
+                            <option value="">select Location of defect</option>
+                            <option value="option_1">option_1</option>
+                            <option value="option_2">option_2</option>
+                            <option value="option_3">option_3</option>
+                          </Form.Select>
                           <Form.Control.Feedback type="invalid">
                             Please provide Location of Defect
                           </Form.Control.Feedback>
@@ -261,12 +274,16 @@ export default function RejectionDetails(props) {
                           category of defects:
                         </Form.Label>
                         <Col sm="6">
-                          <Form.Control
+                          <Form.Select
                             required
                             name="rej_category_defect"
-                            value={x.rej_category_defect}
                             onChange={(e) => props.addRejDefects(e, i)}
-                          ></Form.Control>
+                          >
+                            <option value="">select Category of defect</option>
+                            <option value="option_1">option_1</option>
+                            <option value="option_2">option_2</option>
+                            <option value="option_3">option_3</option>
+                          </Form.Select>
                           <Form.Control.Feedback type="invalid">
                             Please provide category of defects
                           </Form.Control.Feedback>
@@ -281,6 +298,8 @@ export default function RejectionDetails(props) {
                           <Form.Control
                             required
                             name="rej_defect_details"
+                            as="textarea"
+                            rows={3}
                             value={x.rej_defect_details}
                             onChange={(e) => props.addRejDefects(e, i)}
                           ></Form.Control>
@@ -295,20 +314,18 @@ export default function RejectionDetails(props) {
                           Rejection Status:
                         </Form.Label>
                         <Col sm="6">
-                          <Form.Check
-                            type="radio"
+                          <Form.Select
+                            required
                             name="rej_rework_status"
-                            label="Scrap"
-                            value="scrap"
                             onChange={(e) => props.addRejDefects(e, i)}
-                          />
-                          <Form.Check
-                            type="radio"
-                            name="rej_rework_status"
-                            label="Used Under Deviation"
-                            value="used under deviation"
-                            onChange={(e) => props.addRejDefects(e, i)}
-                          />
+                          >
+                            <option value="">select Rejection Status</option>
+                            <option value="scrap">scrap</option>
+                            <option value="used under deviation">used under deviation</option>
+                          </Form.Select>
+                          <Form.Control.Feedback type="invalid">
+                            Please provide category of defects
+                          </Form.Control.Feedback>
                         </Col>
                       </Row>
 

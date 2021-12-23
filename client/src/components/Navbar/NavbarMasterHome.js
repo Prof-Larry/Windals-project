@@ -11,6 +11,10 @@ export default function NavbarAdminHome() {
         localStorage.setItem("reports", JSON.stringify([]));
         history.push("/searchbydate");
       };
+    
+      const logOut = () => {
+        history.push("/");
+      };
 
       const goToAdminRegister = () => {
         history.push("/adminregister");
@@ -33,7 +37,7 @@ export default function NavbarAdminHome() {
                 <strong><Nav.Link onClick={goToAdminRegister}>Employee Registration</Nav.Link></strong>
                 
             </Nav>
-                <strong><Navbar.Brand className="mx-3" href="/">Home</Navbar.Brand></strong>
+                <strong><Navbar.Brand className="mx-3" onClick={logOut}>Log Out</Navbar.Brand></strong>
           </Navbar.Collapse>
         </Container>
       </Navbar>
