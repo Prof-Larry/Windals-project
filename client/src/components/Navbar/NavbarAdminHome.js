@@ -21,7 +21,7 @@ export default function NavbarAdminHome() {
         },
         credentials: "include",
       });
-      history.push("/adminlogin");
+      history.push("/");
     } catch (error) {
       console.log(error);
       history.push("/adminlogin");

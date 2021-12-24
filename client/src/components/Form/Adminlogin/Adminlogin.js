@@ -48,6 +48,7 @@ export default function AdminLogin() {
 
 
     return (
+
         <div className="d-flex align-items-center justify-content-center login-contain" style={{ height: "100vh", backgroundColor: "rgb(237, 240, 243)" }}>
             <div className="login d-flex align-items-center justify-content-center" style={{ height: "60%", flexDirection: "column", width: "50%" }}>
                 <Icon />
