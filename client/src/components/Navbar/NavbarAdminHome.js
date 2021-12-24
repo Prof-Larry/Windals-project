@@ -5,26 +5,38 @@ import Logo from "../Logo/logo.png";
 
 export default function NavbarAdminHome() {
 
-    const history = useHistory();
+  const history = useHistory();
 
-    const goToSearchbydate = () => {
-        localStorage.setItem("reports", JSON.stringify([]));
-        history.push("/searchbydate");
-      };
+  const goToSearchbydate = () => {
+    localStorage.setItem("reports", JSON.stringify([]));
+    history.push("/searchbydate");
+  };
 
-    const logOut = () => {
-      history.push("/");
-    };
+  const logOut = async () => {
+    try {
+      const response = await fetch("http://localhost:5050/adminlogout", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      history.push("/adminlogin");
+    } catch (error) {
+      console.log(error);
+      history.push("/adminlogin");
+    }
+  };
 
-    const HandleOnClickSubmitReport = () => {
-        history.push("/inspection");
-      };
+  const HandleOnClickSubmitReport = () => {
+    history.push("/inspection");
+  };
 
-    const goToMyRework = () => {
-        sessionStorage.setItem("i_defects", JSON.stringify([]));
-        sessionStorage.setItem("p_defects", JSON.stringify([]));
-        history.push("/myrework");
-    };
+  const goToMyRework = () => {
+    sessionStorage.setItem("i_defects", JSON.stringify([]));
+    sessionStorage.setItem("p_defects", JSON.stringify([]));
+    history.push("/myrework");
+  };
 
   return (
     <div className="navbaradmin">
@@ -37,11 +49,11 @@ export default function NavbarAdminHome() {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto"></Nav>
             <Nav className="mx-4">
-                <strong><Nav.Link onClick={goToSearchbydate}>Show Reports</Nav.Link></strong>
-                <strong><Nav.Link onClick={HandleOnClickSubmitReport}>Submit Report</Nav.Link></strong>
-                <strong><Nav.Link onClick={goToMyRework}>My Rework</Nav.Link></strong>
+              <strong><Nav.Link onClick={goToSearchbydate}>Show Reports</Nav.Link></strong>
+              <strong><Nav.Link onClick={HandleOnClickSubmitReport}>Submit Report</Nav.Link></strong>
+              <strong><Nav.Link onClick={goToMyRework}>My Rework</Nav.Link></strong>
             </Nav>
-                <strong><Navbar.Brand className="mx-3" onClick={logOut}>Log Out</Navbar.Brand></strong>
+            <strong><Navbar.Brand className="mx-3 btn btn-danger" onClick={logOut}>Log Out</Navbar.Brand></strong>
           </Navbar.Collapse>
         </Container>
       </Navbar>

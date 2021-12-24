@@ -9,6 +9,11 @@ import { adminAuthenticate } from "../middlewares/middleware.js";
 const router = express.Router();
 
 router.post("/adminlogin", validateAdmin);
+
+router.get("/adminlogout", (req, res) => {
+  req.cookies.admin ? res.clearCookie("admin") : res.clearCookie("master");
+  res.send({ message: "Logged out" });
+})
 /*-----------------------------------------------------*/
 //here no one can create user
 //for this we need to use middleware to check

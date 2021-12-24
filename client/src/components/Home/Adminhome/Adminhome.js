@@ -26,8 +26,8 @@ export default function Adminhome() {
       });
 
       const data = await response.json();
-      data.designation === "M" ? setShowMaster(true): setShowAdmin(true)
-      
+      data.designation === "M" ? setShowMaster(true) : setShowAdmin(true)
+
       console.log(data);
       if (response.status !== 200) {
         throw new Error(response.error);
@@ -38,7 +38,7 @@ export default function Adminhome() {
     }
   };
 
-  
+
   useEffect(() => {
     checkAuthentication();
   }, []);
@@ -47,10 +47,10 @@ export default function Adminhome() {
   return (
     <div className="adminHome">
       {showAdmin ? (<NavbarAdmin />) : null}
-      {showMaster ? (<NavbarMaster/>) : null}
-      <br/>
-      <Dashboard/>
-      
+      {showMaster ? (<NavbarMaster />) : null}
+      <br />
+      <Dashboard />
+
     </div>
   );
 }
