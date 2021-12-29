@@ -5,6 +5,9 @@ import {
   validateAdmin,
 } from "../controllers/admin.js";
 import { adminAuthenticate } from "../middlewares/middleware.js";
+import { DefectDropDown } from "../models/defdd.js";
+import { ProDropDown } from "../models/prodd.js";
+import { InpDropDown } from "../models/inpdd.js";
 
 const router = express.Router();
 
@@ -29,5 +32,16 @@ router.get("/adminhome", adminAuthenticate, (req, res) => {
 router.get("/myrework", adminAuthenticate, sendReworkDetails, (req, res) => {
   res.send(req.complete_reworks);
 });
+
+router.get("/getFromMongo", (req, res) => {
+  const newDrop = new ProDropDown({
+    process_name: "Something",
+    process_Defects: [{
+      defect_name: "Defect_1"
+    }]
+  });
+  newDrop.save();
+  res.send("success");
+})
 
 export default router;

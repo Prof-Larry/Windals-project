@@ -4,6 +4,7 @@ import loginRoutes from './routes/admin.js'
 import reportRoutes from './routes/report.js'
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+import mongoose from 'mongoose';
 dotenv.config();
 
 const app = express();
@@ -14,6 +15,17 @@ const corsOptions = {
     // methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
     credentials: true
 };
+
+mongoose.connect('mongodb://localhost:27017/Windals-pdi', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", () => {
+    console.log("Database connected");
+});
 
 app.use(cors(corsOptions))
 app.use(express.json());
