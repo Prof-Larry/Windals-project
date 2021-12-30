@@ -34,13 +34,67 @@ router.get("/myrework", adminAuthenticate, sendReworkDetails, (req, res) => {
 });
 
 router.get("/getFromMongo", (req, res) => {
-  const newDrop = new ProDropDown({
-    process_name: "Something",
-    process_Defects: [{
-      defect_name: "Defect_1"
-    }]
-  });
-  newDrop.save();
+
+
+
+
+  // const newDef = new DefectDropDown({
+  //   defect_name: "d4",
+  //   location: [{
+  //     loc: "l1"
+  //   }, {
+  //     loc: "l2"
+  //   }, {
+  //     loc: "l3"
+  //   }],
+  //   category: [{
+  //     cat: "c1",
+  //   }],
+  //   defect_handlers: [{
+  //     handlers: "h1"
+  //   }, {
+  //     handlers: "h2"
+  //   }]
+  // });
+
+  // newDef.save();
+  // const newInp = new InpDropDown({
+  //   plant_code: "A3",
+  //   production_line: [{
+  //     line: "wppl01"
+  //   }, {
+  //     line: "wppl02"
+  //   }, {
+  //     line: "wppl03"
+  //   }],
+  //   product: [{
+  //     product_number: "1",
+  //     product_name: "p1"
+  //   }, {
+  //     product_number: "2",
+  //     product_name: "p2"
+  //   }, {
+  //     product_number: "3",
+  //     product_name: "p3"
+  //   }],
+  //   process: [{
+  //     process_name: "process1"
+  //   }, {
+  //     process_name: "process2"
+  //   }, {
+  //     process_name: "process3"
+  //   }]
+  // });
+  // newInp.save();
+  // const newDrop = new ProDropDown({
+  //   process_name: "process4",
+  //   process_Defects: [{
+  //     defect_name: "Defect_1"
+  //   }, {
+  //     defect_name: "Defect_2"
+  //   }]
+  // });
+  // newDrop.save();
   res.send("success");
 })
 

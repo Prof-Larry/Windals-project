@@ -2,12 +2,14 @@ import moment from "moment";
 import jwt from "jsonwebtoken";
 import db from "../Database/db.js";
 import util from "util"
+import { InpDropDown } from "../models/inpdd.js";
+import { ProDropDown } from "../models/prodd.js";
+import { DefectDropDown } from "../models/defdd.js";
 const query = util.promisify(db.query).bind(db);
 
 
 export const saveReport = (req, res) => {
   try {
-    console.log(req.body);
     const {
       inspection,
       inp_report,
@@ -186,5 +188,28 @@ export const updateReport = (req, res) => {
   } else {
     res.send({ message: "Unauthorized" });
   }
+
+}
+
+export const sendPlantCodes = async (req, res) => {
+  const getData = await InpDropDown.find();
+  const plantCodes = getData.map(pcode => {
+    return pcode.plant_code;
+  });
+  res.send(plantCodes);
+}
+
+export const sendInspectionDropDown = async (req, res) => {
+  const { plant_code } = req.body;
+  const getDropDown = await InpDropDown.find({ plant_code });
+  res.send(getDropDown);
+
+}
+
+export const sendProcessDropDown = (req, res) => {
+
+}
+
+export const sendDefectDropDown = (req, res) => {
 
 }
