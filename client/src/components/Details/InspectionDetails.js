@@ -9,9 +9,13 @@ import axios from 'axios'
 export default function InspectionDetails(props) {
     const history = useHistory();
 
+    const [inspectionDetails, setInspectionDetails] = useState({
+        plant_code: "", production_line: "",
+    })
+
     const [plant_codes, setPlantCodes] = useState([]);
     const [productionLine, setProductionLine] = useState([]);
-    const [process, setProcess] = useState([]);
+    const [productIndex, setProductIndex] = useState(-1);
     const [product, setProduct] = useState([]);
 
     const checkAuthorization = async () => {
@@ -65,7 +69,6 @@ export default function InspectionDetails(props) {
             })
             .then((res) => {
                 setProductionLine(res.data[0].production_line);
-                setProcess(res.data[0].process);
                 setProduct(res.data[0].product);
                 console.log(res.data[0]);
             })
@@ -73,6 +76,16 @@ export default function InspectionDetails(props) {
                 alert("Some technical Error, please try again later");
             });
     }
+
+    const handleProductChange = (e) => {
+        const { value } = e.target;
+        const index = product.map((p, i) => {
+            return p.product_number == value ? 1 : -1;
+        });
+        setProductIndex(index.indexOf(1));
+    }
+
+
 
     useEffect(() => {
         checkAuthorization();
@@ -131,11 +144,6 @@ export default function InspectionDetails(props) {
                                 onChange={getInspectionDropDown}
                             >
                                 <option value="">select plant code</option>
-                                {/* <option value="wppl0001">wppl0001</option>
-                                <option value="wppl0002">wppl0002</option>
-                                <option value="wppl0003">wppl0003</option>
-                                <option value="wppl0004">wppl0004</option>
-                                <option value="wppl0005">wppl0005</option> */}
                                 {plant_codes.map((pcode, index) => {
                                     return (
                                         <option key={index} value={pcode}>{pcode}</option>
@@ -173,12 +181,12 @@ export default function InspectionDetails(props) {
                             <Form.Select
                                 required
                                 name="product_number"
-                                onChange={handleChange}
+                                onChange={handleProductChange}
                             >
                                 <option value="">Select Product No.</option>
-                                {process.map((p, i) => {
+                                {product.map((p, i) => {
                                     return (
-                                        <option key={i} value={p.process_name}>{p.process_name}</option>
+                                        <option key={i} value={p.product_number}>{p.product_number}</option>
                                     );
                                 })}
                             </Form.Select>
@@ -194,11 +202,12 @@ export default function InspectionDetails(props) {
                                 required
                                 name="product_name"
                                 onChange={handleChange}
+                                disabled
                             >
                                 <option value="">Select Product Name</option>
                                 {product.map((p, i) => {
                                     return (
-                                        <option key={i} value={p.product_name}>{p.product_name}</option>
+                                        <option key={i} value={p.product_name} selected={i == productIndex}>{p.product_name}</option>
                                     );
                                 })}
                             </Form.Select>
