@@ -10,8 +10,8 @@ export default function InspectionDetails(props) {
     const history = useHistory();
 
     const [inspectionDetails, setInspectionDetails] = useState({
-        plant_code: "", production_line: "",
-    })
+        plant_code: "", production_line: "", product_number: "", product_name: ""
+    });
 
     const [plant_codes, setPlantCodes] = useState([]);
     const [productionLine, setProductionLine] = useState([]);
@@ -59,6 +59,7 @@ export default function InspectionDetails(props) {
 
     const getInspectionDropDown = (e) => {
         const { name, value } = e.target;
+        setInspectionDetails({ ...inspectionDetails, [name]: value });
         axios
             .post("http://localhost:5050/report/inspectionDropDown", { [name]: value }, {
                 headers: {

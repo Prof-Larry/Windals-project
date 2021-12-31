@@ -19,7 +19,7 @@ import ShowReport from "./components/Report/ViewReport/ShowReport";
 import ReworkToDo from "./components/Details/ReworkToDo";
 
 const getInspectionDetails = () => {
-  let ins_details = JSON.parse(localStorage.getItem("inspection"));
+  let ins_details = JSON.parse(sessionStorage.getItem("inspection"));
 
   if (ins_details) {
     return ins_details;
