@@ -33,6 +33,9 @@ export default function NavbarAdminHome() {
   const goToAdminRegister = () => {
     history.push("/adminregister");
   };
+  const goToEditDropdowns = () => {
+    history.push("/editdropdown");
+  };
 
 
   return (
@@ -47,7 +50,7 @@ export default function NavbarAdminHome() {
             <Nav className="me-auto"></Nav>
             <Nav className="mx-4">
               <strong><Nav.Link onClick={goToSearchbydate}>Show Reports</Nav.Link></strong>
-              <strong><Nav.Link >Edit Drop-Downs</Nav.Link></strong>
+              <strong><Nav.Link onClick={goToEditDropdowns}>Edit Drop-Downs</Nav.Link></strong>
               <strong><Nav.Link onClick={goToAdminRegister}>Employee Registration</Nav.Link></strong>
 
             </Nav>
