@@ -28,7 +28,7 @@ const getInspectionDetails = () => {
     plant_code: "",
     production_line: "",
     product_number: "",
-    product_name: "",
+    product_name: ""
   };
 };
 
