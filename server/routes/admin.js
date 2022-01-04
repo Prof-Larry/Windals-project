@@ -58,15 +58,17 @@ router.get("/getFromMongo", (req, res) => {
   //   }]
   // });
 
-  // newDef.save();
+  //newDef.save();
   // const newInp = new InpDropDown({
-  //   plant_code: "A3",
+  //   plant_code: "A1",
   //   production_line: [{
   //     line: "wppl01"
   //   }, {
   //     line: "wppl02"
   //   }, {
   //     line: "wppl03"
+  //   },{
+  //     line: "wppl04"
   //   }],
   //   product: [{
   //     product_number: "1",
