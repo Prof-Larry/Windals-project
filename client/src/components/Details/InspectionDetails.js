@@ -9,13 +9,29 @@ import axios from 'axios'
 export default function InspectionDetails(props) {
     const history = useHistory();
 
+    const getProductionLine = () => {
+        const production_line = JSON.parse(sessionStorage.getItem("production_line"));
+        if (production_line) {
+            return production_line;
+        }
+        return [];
+    }
+
+    const getProductInfo = () => {
+        const product_info = JSON.parse(sessionStorage.getItem('product_info'));
+        if (product_info) {
+            return product_info;
+        }
+        return [];
+    }
+
     const [inspectionDetails, setInspectionDetails] = useState({
         plant_code: "", production_line: "", product_number: "", product_name: ""
     });
     const [plant_codes, setPlantCodes] = useState([]);
-    const [productionLine, setProductionLine] = useState([]);
+    const [productionLine, setProductionLine] = useState(getProductionLine());
     const [productIndex, setProductIndex] = useState(-1);
-    const [product, setProduct] = useState([]);
+    const [product, setProduct] = useState(getProductInfo());
 
     const checkAuthorization = async () => {
         try {
@@ -68,10 +84,17 @@ export default function InspectionDetails(props) {
                 withCredentials: true,
             })
             .then((res) => {
-
                 const production_line = res.data[0].production_line.map(l => l.line);
+                const product_info = res.data[0].product.map(p => {
+                    return {
+                        product_number: p.product_number,
+                        product_name: p.product_name
+                    }
+                });
                 setProductionLine(production_line);
-                setProduct(res.data[0].product);
+                sessionStorage.setItem('production_line', JSON.stringify(production_line));
+                setProduct(product_info);
+                sessionStorage.setItem('product_info', JSON.stringify(product_info));
                 console.log(res.data[0]);
             })
             .catch((e) => {
@@ -146,7 +169,7 @@ export default function InspectionDetails(props) {
                                 name="plant_code"
                                 onChange={getInspectionDropDown}
                             >
-                                {props.inspection.plant_code ? <option value={props.inspection.plant_code}>{props.inspection.plant_code}</option> : <option value="">select plant code</option>}
+                                <option value="">select plant code</option>
                                 {plant_codes.map((pcode, index) => {
                                     return (
                                         <option key={index} value={pcode} selected={props.inspection.plant_code == pcode}>{pcode || props.inspection.plant_code}</option>
@@ -167,7 +190,7 @@ export default function InspectionDetails(props) {
                                 name="production_line"
                                 onChange={handleLineChange}
                             >
-                                {props.inspection.production_line ? <option value={props.inspection.production_line}>{props.inspection.production_line}</option> : <option value="">Select Production Line</option>}
+                                <option value="">Select Production Line</option>
                                 {productionLine.map((l, i) => {
                                     return (
                                         <option key={i} value={l} selected={props.inspection.production_line == l}>{l || props.inspection.production_line}</option>
@@ -187,7 +210,7 @@ export default function InspectionDetails(props) {
                                 name="product_number"
                                 onChange={handleProductChange}
                             >
-                                {props.inspection.product_number ? <option value={props.inspection.product_number}>{props.inspection.product_number}</option> : <option value="">Select Product number</option>}
+                                <option value="">Select Product number</option>
                                 {product.map((p, i) => {
                                     return (
                                         <option key={i} value={p.product_number} selected={props.inspection.product_number == p.product_number}>{p.product_number || props.inspection.product_number}</option>
@@ -207,10 +230,10 @@ export default function InspectionDetails(props) {
                                 name="product_name"
                                 disabled
                             >
-                                {props.inspection.product_name ? <option value={props.inspection.product_name}>{props.inspection.product_name}</option> : <option value="">Product Name</option>}
+                                <option value="">Product Name</option>
                                 {product.map((p, i) => {
                                     return (
-                                        <option key={i} value={p.product_name} selected={i == productIndex}>{p.product_name || props.inspection.product_name}</option>
+                                        <option key={i} value={p.product_name} selected={i == productIndex || props.inspection.product_name == p.product_name}>{p.product_name || props.inspection.product_name}</option>
                                     );
                                 })}
                             </Form.Select>

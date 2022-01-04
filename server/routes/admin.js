@@ -8,6 +8,7 @@ import { adminAuthenticate } from "../middlewares/middleware.js";
 import { DefectDropDown } from "../models/defdd.js";
 import { ProDropDown } from "../models/prodd.js";
 import { InpDropDown } from "../models/inpdd.js";
+import { CategoryDropDown } from "../models/catdd.js";
 
 const router = express.Router();
 
@@ -95,6 +96,18 @@ router.get("/getFromMongo", (req, res) => {
   //   }]
   // });
   // newDrop.save();
+
+  // const newCat = new CategoryDropDown({
+  //   category: "C4",
+  //   defects: [{
+  //     defect: "Defect_1"
+  //   }, {
+  //     defect: "Defect_2"
+  //   }, {
+  //     defect: "Defect_3"
+  //   }]
+  // });
+  // newCat.save();
   res.send("success");
 })
 

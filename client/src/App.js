@@ -32,31 +32,17 @@ const getInspectionDetails = () => {
   };
 };
 
-const getInprocessItems = () => {
-  let inp_report = JSON.parse(localStorage.getItem("inp_report"));
-
-  if (inp_report) {
-    return inp_report;
+const getReworkDetails = () => {
+  let reworkDetails = JSON.parse(sessionStorage.getItem("rework_details"));
+  if (reworkDetails) {
+    return reworkDetails;
   }
   return {
-    inprocess_name: "",
-    inprocess_total_quantity: "",
-    inprocess_total_defective_quantity: "",
-  };
-};
-
-const getPdiItems = () => {
-  let pdi_details = JSON.parse(localStorage.getItem("pdi_report"));
-
-  if (pdi_details) {
-    return pdi_details;
+    rework_type: "",
+    process_name: "",
+    process_quantity: ""
   }
-  return {
-    pdi_name: "",
-    pdi_total_quantity: "",
-    pdi_total_defective_quantity: "",
-  };
-};
+}
 
 const getInpRejectionItems = () => {
   let rej_report = JSON.parse(localStorage.getItem("rej_report"));
@@ -71,40 +57,21 @@ const getInpRejectionItems = () => {
   };
 };
 
-const getInpDefect = () => {
-  let inpro_defect = JSON.parse(localStorage.getItem("inpro_defect"));
-  if (inpro_defect) {
-    return inpro_defect;
+const getReworkDefects = () => {
+  let rework_defects = JSON.parse(localStorage.getItem("rework_defects"));
+  if (rework_defects) {
+    return rework_defects;
   }
   return [
     {
-      inprocess_defect_quantity: "",
-      inprocess_defect: "",
-      inprocess_defect_location: "",
-      inprocess_category_defect: "",
-      inprocess_defect_details: "",
-      inprocess_rework_status: "",
-      inprocess_rework_details: "",
-      inprocess_rework_handler: "",
-    },
-  ];
-};
-
-const getPdiDefect = () => {
-  let pdi_defect = JSON.parse(localStorage.getItem("pdi_defect"));
-  if (pdi_defect) {
-    return pdi_defect;
-  }
-  return [
-    {
-      pdi_defect_quantity: "",
-      pdi_defect: "",
-      pdi_defect_location: "",
-      pdi_category_defect: "",
-      pdi_defect_details: "",
-      pdi_rework_status: "",
-      pdi_rework_details: "",
-      pdi_rework_handler: "",
+      rework_defect: "",
+      rework_defect_quantity: "",
+      rework_defect_location: "",
+      rework_category_defect: "",
+      rework_defect_details: "",
+      rework_rework_status: "",
+      rework_rework_details: "",
+      rework_rework_handler: "",
     },
   ];
 };
@@ -128,33 +95,29 @@ const getInpRejectionDefect = () => {
   ];
 };
 
+
+
+
+
+
+
 function App() {
   let [inspection, setInspection] = useState(getInspectionDetails());
 
-  let [inprocessRework, setInprocessRework] = useState(getInprocessItems());
+  let [reworkDetails, setReworkDetails] = useState(getReworkDetails());
 
-  let [inprocess_defects, setInprocessDefects] = useState(getInpDefect());
-
-  let [pdiRework, setPdiRework] = useState(getPdiItems());
-
-  let [pdi_defects, setPdiDefects] = useState(getPdiDefect());
+  let [reworkDefects, setReworkDefects] = useState(getReworkDefects());
 
   let [rejectionRework, setRejectionRework] = useState(getInpRejectionItems());
 
   let [rej_defects, setRejDefects] = useState(getInpRejectionDefect());
 
-  const addInpDefects = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...inprocess_defects];
-    list[index][name] = value;
-    setInprocessDefects(list);
-  };
 
-  const addPdiDefects = (e, index) => {
+  const addReworkDefects = (e, index) => {
     const { name, value } = e.target;
-    const list = [...pdi_defects];
+    const list = [...reworkDefects];
     list[index][name] = value;
-    setPdiDefects(list);
+    setReworkDefects(list);
   };
 
   const addRejDefects = (e, index) => {
@@ -202,16 +165,11 @@ function App() {
         </Route>
         <Route exact path="/rework">
           <ReworkDetails
-            inprocessRework={inprocessRework}
-            setInprocessRework={setInprocessRework}
-            inprocess_defects={inprocess_defects}
-            setInprocessDefects={setInprocessDefects}
-            addInpDefects={addInpDefects}
-            pdiRework={pdiRework}
-            setPdiRework={setPdiRework}
-            pdi_defects={pdi_defects}
-            setPdiDefects={setPdiDefects}
-            addPdiDefects={addPdiDefects}
+            reworkDetails={reworkDetails}
+            setReworkDetails={setReworkDetails}
+            reworkDefects={reworkDefects}
+            setReworkDefects={setReworkDefects}
+            addReworkDefects={addReworkDefects}
           />
         </Route>
         <Route exact path="/rejection">
