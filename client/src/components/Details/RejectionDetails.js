@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Container, Row, Col, Form, Nav, Card, Modal } from "react-bootstrap";
 import { useHistory } from "react-router";
+import { sendCategories } from "../../../../server/controllers/report";
 import Navbar from "../Navbar/NavbarAdmin";
 
 export default function RejectionDetails(props) {
@@ -242,9 +243,7 @@ export default function RejectionDetails(props) {
                             onChange={(e) => props.addRejDefects(e, i)}
                           >
                             <option value="">select Category of defect</option>
-                            <option value="option_1">option_1</option>
-                            <option value="option_2">option_2</option>
-                            <option value="option_3">option_3</option>
+                            {}
                           </Form.Select>
                           <Form.Control.Feedback type="invalid">
                             Please provide category of defects
