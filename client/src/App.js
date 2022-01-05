@@ -19,6 +19,7 @@ import ReportsTable from "./components/Report/ViewReport/Reportstable";
 import ShowReport from "./components/Report/ViewReport/ShowReport";
 import ReworkToDo from "./components/Details/ReworkToDo";
 import EditDropdown from "./components/DropDowns/editDropdown";
+import axios from "axios";
 
 const getInspectionDetails = () => {
   let ins_details = JSON.parse(sessionStorage.getItem("inspection"));
@@ -60,7 +61,7 @@ const getInpRejectionItems = () => {
 };
 
 const getReworkDefects = () => {
-  let rework_defects = JSON.parse(localStorage.getItem("rework_defects"));
+  let rework_defects = JSON.parse(sessionStorage.getItem("rework_defects"));
   if (rework_defects) {
     return rework_defects;
   }
@@ -97,6 +98,23 @@ const getInpRejectionDefect = () => {
   ];
 };
 
+const getDefects = () => {
+  const defects = JSON.parse(sessionStorage.getItem("defects"));
+  if (defects) {
+    return defects;
+  }
+  return [];
+}
+
+const getLocation = () => {
+  const location = JSON.parse(sessionStorage.getItem("location"));
+  if (location) {
+    return location;
+  }
+  return [];
+}
+
+
 
 
 
@@ -110,13 +128,46 @@ function App() {
 
   let [reworkDefects, setReworkDefects] = useState(getReworkDefects());
 
+  let [defects, setDefects] = useState(getDefects());
+
   let [rejectionRework, setRejectionRework] = useState(getInpRejectionItems());
 
   let [rej_defects, setRejDefects] = useState(getInpRejectionDefect());
 
+  let [location, setLocation] = useState(getLocation());
+
+
 
   const addReworkDefects = (e, index) => {
     const { name, value } = e.target;
+    if (name == "rework_category_defect") {
+      const catAndDef = JSON.parse(sessionStorage.getItem("catAndDef"));
+      catAndDef.map(cad => {
+        if (cad.category == value) {
+          const defects = cad.defects.map(d => d.defect);
+          setDefects(defects);
+          sessionStorage.setItem("defects", JSON.stringify(defects));
+        }
+      })
+    }
+    if (name == "rework_defect") {
+      axios.post('http://localhost:5050/report/getLocation', { defect_name: value }, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "JWT fefege...",
+        },
+        withCredentials: true,
+      })
+        .then((res) => {
+          const location = res.data[0].location.map(l => l.loc);
+          setLocation(location);
+          sessionStorage.setItem("location", JSON.stringify(location));
+          console.log(res.data);
+        })
+        .catch((e) => {
+          alert("Some technical Error, please try again later");
+        });
+    }
     const list = [...reworkDefects];
     list[index][name] = value;
     setReworkDefects(list);
@@ -172,6 +223,8 @@ function App() {
             reworkDefects={reworkDefects}
             setReworkDefects={setReworkDefects}
             addReworkDefects={addReworkDefects}
+            defects={defects}
+            location={location}
           />
         </Route>
         <Route exact path="/rejection">
@@ -198,11 +251,11 @@ function App() {
         <Route exact path="/reworktodo">
           <ReworkToDo />
         </Route>
-        
+
         <Route exact path="/editdropdown">
           <EditDropdown />
         </Route>
-        
+
       </Switch>
     </Router>
   );

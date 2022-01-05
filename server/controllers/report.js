@@ -5,6 +5,7 @@ import util from "util"
 import { InpDropDown } from "../models/inpdd.js";
 import { ProDropDown } from "../models/prodd.js";
 import { DefectDropDown } from "../models/defdd.js";
+import { CategoryDropDown } from "../models/catdd.js";
 const query = util.promisify(db.query).bind(db);
 
 
@@ -212,4 +213,15 @@ export const sendProcessDropDown = (req, res) => {
 
 export const sendDefectDropDown = (req, res) => {
 
+}
+
+export const sendCategories = async (req, res) => {
+  const getCategories = await CategoryDropDown.find();
+  res.send(getCategories);
+}
+
+export const sendLocation = async (req, res) => {
+  const { defect_name } = req.body;
+  const defectInfo = await DefectDropDown.find({ defect_name: defect_name });
+  res.send(defectInfo);
 }
