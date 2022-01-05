@@ -60,30 +60,10 @@ export default function ReworkDetails(props) {
             });
     }
 
-    const getCategories = () => {
-        axios
-            .get("http://localhost:5050/report/categoryDropDown", {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "JWT fefege...",
-                },
-                withCredentials: true,
-            })
-            .then((res) => {
-                setCategories(res.data.map(category => category.category));
-                setCatandDef(res.data);
-                sessionStorage.setItem('catAndDef', JSON.stringify(res.data));
-                console.log(res.data);
-            })
-            .catch((e) => {
-                alert("Some technical Error, please try again later");
-            });
-    }
 
     useEffect(() => {
         checkAuthorization();
         getProcesses();
-        getCategories();
     }, []);
 
     const [validated, setValidated] = useState(false);
@@ -104,6 +84,23 @@ export default function ReworkDetails(props) {
 
     const updateReworkDetails = (e) => {
         const { name, value } = e.target;
+        if (name == "process_name") {
+            axios
+                .post("http://localhost:5050/report/categoryDropDown", { process: value }, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: "JWT fefege...",
+                    },
+                    withCredentials: true,
+                })
+                .then((res) => {
+                    setCategories(res.data.map(category => category.category));
+                    console.log(res.data);
+                })
+                .catch((e) => {
+                    alert("Some technical Error, please try again later");
+                });
+        }
         props.setReworkDetails({ ...props.reworkDetails, [name]: value });
         sessionStorage.setItem('rework_details', JSON.stringify(props.reworkDetails));
         console.log(props.reworkDetails)
@@ -234,7 +231,7 @@ export default function ReworkDetails(props) {
                                                         name="rework_defect"
                                                         onChange={e => props.addReworkDefects(e, i)}
                                                     >
-                                                        <option value="">select name of defect</option>
+                                                        <option value="">{x.rework_defect || "select name of defect"}</option>
                                                         {props.defects.map(defect => {
                                                             return (
                                                                 <option value={defect} selected={x.rework_defect == defect}>{defect || x.rework_defect}</option>

@@ -91,10 +91,10 @@ router.get("/getFromMongo", (req, res) => {
   // newInp.save();
   // const newDrop = new ProDropDown({
   //   process_name: "process4",
-  //   process_Defects: [{
-  //     defect_name: "Defect_1"
+  //   process_categories: [{
+  //     category_name: "C1"
   //   }, {
-  //     defect_name: "Defect_2"
+  //     category_name: "C2"
   //   }]
   // });
   // newDrop.save();

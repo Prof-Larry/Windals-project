@@ -216,7 +216,8 @@ export const sendDefectDropDown = (req, res) => {
 }
 
 export const sendCategories = async (req, res) => {
-  const getCategories = await CategoryDropDown.find();
+  const { process } = req.body;
+  const getCategories = await ProDropDown.find({ process_name: process });
   res.send(getCategories);
 }
 
@@ -224,4 +225,10 @@ export const sendLocation = async (req, res) => {
   const { defect_name } = req.body;
   const defectInfo = await DefectDropDown.find({ defect_name: defect_name });
   res.send(defectInfo);
+}
+
+export const sendDefects = async (req, res) => {
+  const { category_name } = req.body;
+  const getDefects = await CategoryDropDown.find({ category: category_name });
+  res.send(getDefects);
 }

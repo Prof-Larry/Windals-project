@@ -7,6 +7,8 @@ import Navbar from "../Navbar/NavbarAdmin";
 export default function RejectionDetails(props) {
   const history = useHistory();
   const [show, setShow] = useState(false);
+  const [processes, setProcesses] = useState([]);
+
 
   const checkAuthorization = async () => {
     try {
@@ -32,8 +34,27 @@ export default function RejectionDetails(props) {
     }
   };
 
+  const getProcesses = () => {
+    axios
+      .post("http://localhost:5050/report/inspectionDropDown", { plant_code: JSON.parse(sessionStorage.getItem("inspection")).plant_code }, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "JWT fefege...",
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        setProcesses(res.data[0].process.map(p => p.process_name));
+        console.log(res.data[0]);
+      })
+      .catch((e) => {
+        alert("Some technical Error, please try again later");
+      });
+  }
+
   useEffect(() => {
     checkAuthorization();
+    getProcesses();
   }, []);
 
   const [validated, setValidated] = useState(false);
@@ -48,8 +69,8 @@ export default function RejectionDetails(props) {
     setValidated(true);
   };
 
-  localStorage.setItem("rej_report", JSON.stringify(props.rejectionRework));
-  localStorage.setItem("rej_defect", JSON.stringify(props.rej_defects));
+  sessionStorage.setItem("rejection_details", JSON.stringify(props.rejectionRework));
+  sessionStorage.setItem("rejection_defects", JSON.stringify(props.rejectionDefects));
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,14 +78,14 @@ export default function RejectionDetails(props) {
   };
 
   const handleRemoveClick = (index) => {
-    const list = [...props.rej_defects];
+    const list = [...props.rejectionDefects];
     list.splice(index, 1);
     props.setRejDefects(list);
   };
 
   const handleAddClick = () => {
     props.setRejDefects([
-      ...props.rej_defects,
+      ...props.rejectionDefects,
       {
         rej_defect_quantity: "",
         rej_defect: "",
@@ -171,9 +192,9 @@ export default function RejectionDetails(props) {
                 onChange={handleChange}
               >
                 <option value="">select Name of Process</option>
-                <option value="option_1">option_1</option>
-                <option value="option_2">option_2</option>
-                <option value="option_3">option_3</option>
+                {processes.map(p => {
+                  return <option value={p}>{p}</option>
+                })}
               </Form.Select>
               <Form.Control.Feedback type="invalid">
                 Please provide Name of Process
@@ -189,8 +210,8 @@ export default function RejectionDetails(props) {
             <Col sm="4">
               <Form.Control
                 required
-                name="rejection_total_quantity"
-                value={props.rejectionRework.rejection_total_quantity}
+                name="rejection_quantity"
+                value={props.rejectionRework.rejection_quantity}
                 onChange={handleChange}
               ></Form.Control>
               <Form.Control.Feedback type="invalid">
@@ -200,7 +221,7 @@ export default function RejectionDetails(props) {
           </Form.Group>
           <br />
 
-          {props.rej_defects.map((x, i) => {
+          {props.rejectionDefects.map((x, i) => {
             return (
               <div className="box">
                 <Row className="justify-content-md-center mt-4">
@@ -210,14 +231,35 @@ export default function RejectionDetails(props) {
                         DEFECT LIST
                       </Card.Header>
 
+                      <Row className="justify-content-md-center mt-3 mb-1">
+                        <Form.Label column sm="4" className="text-dark">
+                          category of defects:
+                        </Form.Label>
+                        <Col sm="6">
+                          <Form.Select
+                            required
+                            name="rejection_category_defect"
+                            onChange={(e) => props.addRejDefects(e, i)}
+                          >
+                            <option value="">select Category of defect</option>
+                            <option value="option_1">option_1</option>
+                            <option value="option_2">option_2</option>
+                            <option value="option_3">option_3</option>
+                          </Form.Select>
+                          <Form.Control.Feedback type="invalid">
+                            Please provide category of defects
+                          </Form.Control.Feedback>
+                        </Col>
+                      </Row>
+
                       <Row className="justify-content-md-center mt-4">
                         <Form.Label column sm="4" className="text-dark">
                           defect:
                         </Form.Label>
                         <Col sm="6">
-                          <Form.Select                            
+                          <Form.Select
                             required
-                            name="rej_defect"
+                            name="rejection_defect"
                             onChange={(e) => props.addRejDefects(e, i)}
                           >
                             <option value="">select Name of defect</option>
@@ -238,8 +280,8 @@ export default function RejectionDetails(props) {
                         <Col sm="6">
                           <Form.Control
                             required
-                            name="rej_defect_quantity"
-                            value={x.rej_defect_quantity}
+                            name="rejection_defect_quantity"
+                            value={x.rejection_defect_quantity}
                             onChange={(e) => props.addRejDefects(e, i)}
                           ></Form.Control>
                           <Form.Control.Feedback type="invalid">
@@ -255,7 +297,7 @@ export default function RejectionDetails(props) {
                         <Col sm="6">
                           <Form.Select
                             required
-                            name="rej_defect_location"
+                            name="rejection_defect_location"
                             onChange={(e) => props.addRejDefects(e, i)}
                           >
                             <option value="">select Location of defect</option>
@@ -269,27 +311,6 @@ export default function RejectionDetails(props) {
                         </Col>
                       </Row>
 
-                      <Row className="justify-content-md-center mt-3 mb-1">
-                        <Form.Label column sm="4" className="text-dark">
-                          category of defects:
-                        </Form.Label>
-                        <Col sm="6">
-                          <Form.Select
-                            required
-                            name="rej_category_defect"
-                            onChange={(e) => props.addRejDefects(e, i)}
-                          >
-                            <option value="">select Category of defect</option>
-                            <option value="option_1">option_1</option>
-                            <option value="option_2">option_2</option>
-                            <option value="option_3">option_3</option>
-                          </Form.Select>
-                          <Form.Control.Feedback type="invalid">
-                            Please provide category of defects
-                          </Form.Control.Feedback>
-                        </Col>
-                      </Row>
-
                       <Row className="justify-content-md-center mt-4">
                         <Form.Label column sm="4" className="text-dark">
                           Details:
@@ -297,7 +318,7 @@ export default function RejectionDetails(props) {
                         <Col sm="6">
                           <Form.Control
                             required
-                            name="rej_defect_details"
+                            name="rejection_defect_details"
                             as="textarea"
                             rows={3}
                             value={x.rej_defect_details}
@@ -316,7 +337,7 @@ export default function RejectionDetails(props) {
                         <Col sm="6">
                           <Form.Select
                             required
-                            name="rej_rework_status"
+                            name="rejection_rework_status"
                             onChange={(e) => props.addRejDefects(e, i)}
                           >
                             <option value="">select Rejection Status</option>
@@ -336,7 +357,7 @@ export default function RejectionDetails(props) {
                         <Col sm="6">
                           <Form.Control
                             required
-                            name="rej_rework_details"
+                            name="rejection_rework_details"
                             as="textarea"
                             rows={3}
                             value={x.rej_rework_details}
@@ -363,7 +384,7 @@ export default function RejectionDetails(props) {
                           <Form.Control
                             placeholder="provide employee ID"
                             required
-                            name="rej_rework_handler"
+                            name="rejection_rework_handler"
                             value={x.rej_rework_handler}
                             onChange={(e) => props.addRejDefects(e, i)}
                           ></Form.Control>
@@ -374,7 +395,7 @@ export default function RejectionDetails(props) {
                       </Row>
 
                       <div className="mt-1 text-center">
-                        {props.rej_defects.length !== 1 && (
+                        {props.rejectionDefects.length !== 1 && (
                           <Button
                             className="mx-1 mt-2 mb-2"
                             variant="danger"
@@ -383,7 +404,7 @@ export default function RejectionDetails(props) {
                             Remove
                           </Button>
                         )}
-                        {props.rej_defects.length - 1 === i && (
+                        {props.rejectionDefects.length - 1 === i && (
                           <Button
                             className="mx-1 mt-2 mb-2"
                             variant="success"

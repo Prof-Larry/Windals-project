@@ -5,6 +5,7 @@ import {
   sendPlantCodes,
   sendCategories,
   sendLocation,
+  sendDefects,
   sendCompleteReport,
   sendInspectionDropDown,
   sendProcessDropDown,
@@ -35,7 +36,9 @@ router.post("/processDropDown", adminAuthenticate, sendProcessDropDown);
 
 router.post("/defectDropDown", adminAuthenticate, sendDefectDropDown);
 
-router.get("/categoryDropDown", adminAuthenticate, sendCategories);
+router.post("/categoryDropDown", adminAuthenticate, sendCategories);
 
 router.post("/getLocation", adminAuthenticate, sendLocation);
+
+router.post("/getDefects", adminAuthenticate, sendDefects);
 export default router;

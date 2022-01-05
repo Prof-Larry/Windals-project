@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 
 const ProcessDropdownSchema = mongoose.Schema({
     process_name: String,
-    process_Defects: [{
-        defect_name: {
+    process_categories: [{
+        category_name: {
             type: String
         }
     }]

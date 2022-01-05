@@ -47,16 +47,15 @@ const getReworkDetails = () => {
   }
 }
 
-const getInpRejectionItems = () => {
-  let rej_report = JSON.parse(localStorage.getItem("rej_report"));
+const getRejectionDetails = () => {
+  let rej_report = JSON.parse(sessionStorage.getItem("rejection_details"));
 
   if (rej_report) {
     return rej_report;
   }
   return {
     rejection_name: "",
-    rejection_total_quantity: "",
-    rejection_total_defective_quantity: "",
+    rejection_quantity: ""
   };
 };
 
@@ -79,21 +78,21 @@ const getReworkDefects = () => {
   ];
 };
 
-const getInpRejectionDefect = () => {
-  let rej_defect = JSON.parse(localStorage.getItem("rej_defect"));
+const getRejectionDefects = () => {
+  let rej_defect = JSON.parse(sessionStorage.getItem("rejection_defects"));
   if (rej_defect) {
     return rej_defect;
   }
   return [
     {
-      rej_defect_quantity: "",
-      rej_defect: "",
-      rej_defect_location: "",
-      rej_category_defect: "",
-      rej_defect_details: "",
-      rej_rework_status: "",
-      rej_rework_details: "",
-      rej_rework_handler: "",
+      rejection_defect_quantity: "",
+      rejection_defect: "",
+      rejection_defect_location: "",
+      rejection_category_defect: "",
+      rejection_defect_details: "",
+      rejection_rework_status: "",
+      rejection_rework_details: "",
+      rejection_rework_handler: "",
     },
   ];
 };
@@ -118,9 +117,6 @@ const getLocation = () => {
 
 
 
-
-
-
 function App() {
   let [inspection, setInspection] = useState(getInspectionDetails());
 
@@ -130,9 +126,9 @@ function App() {
 
   let [defects, setDefects] = useState(getDefects());
 
-  let [rejectionRework, setRejectionRework] = useState(getInpRejectionItems());
+  let [rejectionRework, setRejectionRework] = useState(getRejectionDetails());
 
-  let [rej_defects, setRejDefects] = useState(getInpRejectionDefect());
+  let [rejectionDefects, setRejectionDefects] = useState(getRejectionDefects());
 
   let [location, setLocation] = useState(getLocation());
 
@@ -141,14 +137,19 @@ function App() {
   const addReworkDefects = (e, index) => {
     const { name, value } = e.target;
     if (name == "rework_category_defect") {
-      const catAndDef = JSON.parse(sessionStorage.getItem("catAndDef"));
-      catAndDef.map(cad => {
-        if (cad.category == value) {
-          const defects = cad.defects.map(d => d.defect);
-          setDefects(defects);
-          sessionStorage.setItem("defects", JSON.stringify(defects));
-        }
+      axios.post('http://localhost:5050/report/getDefects', { category_name: value }, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "JWT fefege...",
+        },
+        withCredentials: true,
       })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((e) => {
+          alert("Some technical Error, please try again later");
+        });
     }
     if (name == "rework_defect") {
       axios.post('http://localhost:5050/report/getLocation', { defect_name: value }, {
@@ -175,9 +176,9 @@ function App() {
 
   const addRejDefects = (e, index) => {
     const { name, value } = e.target;
-    const list = [...rej_defects];
+    const list = [...rejectionDefects];
     list[index][name] = value;
-    setRejDefects(list);
+    setRejectionDefects(list);
   };
 
   return (
@@ -231,8 +232,8 @@ function App() {
           <RejectionDetails
             rejectionRework={rejectionRework}
             setRejectionRework={setRejectionRework}
-            rej_defects={rej_defects}
-            setRejDefects={setRejDefects}
+            rejectionDefects={rejectionDefects}
+            setRejectionDefects={setRejectionDefects}
             addRejDefects={addRejDefects}
           />
         </Route>
