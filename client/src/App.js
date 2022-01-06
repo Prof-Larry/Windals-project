@@ -31,7 +31,7 @@ const getInspectionDetails = () => {
     plant_code: "",
     production_line: "",
     product_number: "",
-    product_name: ""
+    product_name: "",
   };
 };
 
@@ -43,9 +43,9 @@ const getReworkDetails = () => {
   return {
     rework_type: "",
     process_name: "",
-    process_quantity: ""
-  }
-}
+    process_quantity: "",
+  };
+};
 
 const getRejectionDetails = () => {
   let rej_report = JSON.parse(sessionStorage.getItem("rejection_details"));
@@ -55,7 +55,7 @@ const getRejectionDetails = () => {
   }
   return {
     rejection_name: "",
-    rejection_quantity: ""
+    rejection_quantity: "",
   };
 };
 
@@ -103,7 +103,15 @@ const getDefects = () => {
     return defects;
   }
   return [];
-}
+};
+
+const getRejDefects = () => {
+  const defects = JSON.parse(sessionStorage.getItem("defects_rej"));
+  if (defects) {
+    return defects;
+  }
+  return [];
+};
 
 const getLocation = () => {
   const location = JSON.parse(sessionStorage.getItem("location"));
@@ -111,11 +119,15 @@ const getLocation = () => {
     return location;
   }
   return [];
-}
+};
 
-
-
-
+const getRejLocation = () => {
+  const location = JSON.parse(sessionStorage.getItem("location_rej"));
+  if (location) {
+    return location;
+  }
+  return [];
+};
 
 function App() {
   let [inspection, setInspection] = useState(getInspectionDetails());
@@ -126,41 +138,56 @@ function App() {
 
   let [defects, setDefects] = useState(getDefects());
 
+  let [rej_defects, setRejDefects] = useState(getRejDefects());
+
   let [rejectionRework, setRejectionRework] = useState(getRejectionDetails());
 
   let [rejectionDefects, setRejectionDefects] = useState(getRejectionDefects());
 
   let [location, setLocation] = useState(getLocation());
 
-
+  let [rej_location, setRejLocation] = useState(getRejLocation());
 
   const addReworkDefects = (e, index) => {
     const { name, value } = e.target;
+
     if (name == "rework_category_defect") {
-      axios.post('http://localhost:5050/report/getDefects', { category_name: value }, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "JWT fefege...",
-        },
-        withCredentials: true,
-      })
+      axios
+        .post(
+          "http://localhost:5050/report/getDefects",
+          { category_name: value },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "JWT fefege...",
+            },
+            withCredentials: true,
+          }
+        )
         .then((res) => {
-          console.log(res.data);
+          const defects_arr = res.data[0].defects.map((d) => d.defect);
+          setDefects(defects_arr);
+          sessionStorage.setItem("defects", JSON.stringify(defects_arr));
         })
         .catch((e) => {
           alert("Some technical Error, please try again later");
         });
     }
     if (name == "rework_defect") {
-      axios.post('http://localhost:5050/report/getLocation', { defect_name: value }, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "JWT fefege...",
-        },
-        withCredentials: true,
-      })
+      axios
+        .post(
+          "http://localhost:5050/report/getLocation",
+          { defect_name: value },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "JWT fefege...",
+            },
+            withCredentials: true,
+          }
+        )
         .then((res) => {
-          const location = res.data[0].location.map(l => l.loc);
+          const location = res.data[0].location.map((l) => l.loc);
           setLocation(location);
           sessionStorage.setItem("location", JSON.stringify(location));
           console.log(res.data);
@@ -176,6 +203,50 @@ function App() {
 
   const addRejDefects = (e, index) => {
     const { name, value } = e.target;
+    if (name == "rejection_category_defect") {
+      axios
+        .post(
+          "http://localhost:5050/report/getDefects",
+          { category_name: value },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "JWT fefege...",
+            },
+            withCredentials: true,
+          }
+        )
+        .then((res) => {
+          const defects_arr = res.data[0].defects.map((d) => d.defect);
+          setRejDefects(defects_arr);
+          sessionStorage.setItem("defects_rej", JSON.stringify(defects_arr));
+        })
+        .catch((e) => {
+          alert("Some technical Error, please try again later");
+        });
+    }
+    if (name == "rejection_defect") {
+      axios
+        .post(
+          "http://localhost:5050/report/getLocation",
+          { defect_name: value },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "JWT fefege...",
+            },
+            withCredentials: true,
+          }
+        )
+        .then((res) => {
+          const location = res.data[0].location.map((l) => l.loc);
+          setRejLocation(location);
+          sessionStorage.setItem("location_rej", JSON.stringify(location));
+        })
+        .catch((e) => {
+          alert("Some technical Error, please try again later");
+        });
+    }
     const list = [...rejectionDefects];
     list[index][name] = value;
     setRejectionDefects(list);
@@ -235,6 +306,8 @@ function App() {
             rejectionDefects={rejectionDefects}
             setRejectionDefects={setRejectionDefects}
             addRejDefects={addRejDefects}
+            rejDefects={rej_defects}
+            rejlocation={rej_location}
           />
         </Route>
         <Route exact path="/myrework">
@@ -256,7 +329,6 @@ function App() {
         <Route exact path="/editdropdown">
           <EditDropdown />
         </Route>
-
       </Switch>
     </Router>
   );
