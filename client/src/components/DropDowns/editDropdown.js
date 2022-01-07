@@ -16,19 +16,19 @@ export default function editDropdown() {
             <NavbarMaster/>
 
             <Nav variant="tabs" className="justify-content-md-center">
-                    <Nav.Item>
-                        <Nav.Link >Inspection Dropdowns</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link >Rework Dropdowns</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link >Rejection Dropdowns</Nav.Link>
-                    </Nav.Item>
-                </Nav>
+                <Nav.Item>
+                    <Nav.Link >Inspection Dropdowns</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link >Rework Dropdowns</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link >Rejection Dropdowns</Nav.Link>
+                </Nav.Item>
+            </Nav>
             
+            <hr/>
             <Inspection/>
-
             <hr/>
             <Rework/>
             <hr/>
