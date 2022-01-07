@@ -3,6 +3,9 @@ import {
   saveReport,
   sendReport,
   sendPlantCodes,
+  sendCategories,
+  sendLocation,
+  sendDefects,
   sendCompleteReport,
   sendInspectionDropDown,
   sendProcessDropDown,
@@ -32,4 +35,10 @@ router.post("/inspectionDropDown", adminAuthenticate, sendInspectionDropDown);
 router.post("/processDropDown", adminAuthenticate, sendProcessDropDown);
 
 router.post("/defectDropDown", adminAuthenticate, sendDefectDropDown);
+
+router.post("/categoryDropDown", adminAuthenticate, sendCategories);
+
+router.post("/getLocation", adminAuthenticate, sendLocation);
+
+router.post("/getDefects", adminAuthenticate, sendDefects);
 export default router;
