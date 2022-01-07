@@ -39,6 +39,7 @@ export default function InspectionDropdown() {
         const list = [...production_line];
         list[index][name] = value;
         setProductionLine(list)
+        setPlantCode(plantCode.production_line=list)
     }    
 
 //-----------------PRODUCT NO----------------------------    
