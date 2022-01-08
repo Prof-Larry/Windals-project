@@ -107,12 +107,8 @@ export const sendCompleteReport = async (req, res) => {
     const report = await query("select * from report where report_id=?", [
       parseInt(id),
     ]);
-    const inprocess_defects = await query(
-      "select * from inprocess_defects WHERE report_id=?",
-      [id]
-    );
-    const pdi_defects = await query(
-      "select * from pdi_defects where report_id=?",
+    const rework_defects = await query(
+      "select * from rework_defects WHERE report_id=?",
       [id]
     );
     const rejection_defects = await query(
@@ -121,8 +117,7 @@ export const sendCompleteReport = async (req, res) => {
     );
     complete_report = {
       report: report[0],
-      inprocess_defects,
-      pdi_defects,
+      rework_defects,
       rejection_defects,
     };
     res.send(complete_report);
@@ -231,9 +226,9 @@ export const sendInspectionDropDown = async (req, res) => {
   res.send(getDropDown);
 };
 
-export const sendProcessDropDown = (req, res) => {};
+export const sendProcessDropDown = (req, res) => { };
 
-export const sendDefectDropDown = (req, res) => {};
+export const sendDefectDropDown = (req, res) => { };
 
 export const sendCategories = async (req, res) => {
   const { process } = req.body;

@@ -14,9 +14,8 @@ import axios from "axios";
 
 export default function ShowReport() {
   const [completeReport, setCompleteReport] = useState("");
-  const [i_defects, setInpDefects] = useState(JSON.parse(localStorage.getItem("i_defects")));
-  const [p_defects, setPdiDefects] = useState(JSON.parse(localStorage.getItem("p_defects")));
-  const [r_defects, setRejDefects] = useState(JSON.parse(localStorage.getItem("r_defects")));
+  const [rew_defects, setRewDefects] = useState(JSON.parse(sessionStorage.getItem("rew_defects")));
+  const [rej_defects, setRejDefects] = useState(JSON.parse(sessionStorage.getItem("rej_defects")));
   const history = useHistory();
   const location = useLocation();
 
@@ -61,12 +60,11 @@ export default function ShowReport() {
           throw new Error();
         }
         const d = new Date(`${res.data.report.report_date}`)
-        res.data.report.report_date = `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`;
-        const { report, inprocess_defects, pdi_defects, rejection_defects } = res.data;
+        res.data.report.report_date = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+        const { report, rework_defects, rejection_defects } = res.data;
         console.log(res.data);
         setCompleteReport(report);
-        setInpDefects(inprocess_defects);
-        setPdiDefects(pdi_defects);
+        setRewDefects(rework_defects);
         setRejDefects(rejection_defects);
       })
       .catch((e) => {
@@ -190,7 +188,7 @@ export default function ShowReport() {
 
           <strong>
             <Form.Label as={Row} className=" justify-content-md-start mt-4 text-dark">
-              * Inprocess Rework
+              * {completeReport.report_type} Rework
             </Form.Label>
           </strong>
 
@@ -209,54 +207,15 @@ export default function ShowReport() {
                   </tr>
                 </thead>
                 <tbody className="text-dark" >
-                  {i_defects.map(def => {
+                  {rew_defects.map(def => {
                     return (
                       <tr>
                         <td>{def.defect_id}</td>
-                        <td>{completeReport.inprocess_name}</td>
-                        <td>{def.inprocess_defect_quantity}</td>
-                        <td>{def.inprocess_defect}</td>
-                        <td>{def.inprocess_category_defect}</td>
-                        <td>{def.inprocess_rework_status}</td>
-                        <td>{completeReport.admin_id}</td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </Table>
-            </Col>
-          </Row>
-
-          <strong>
-            <Form.Label as={Row} className=" justify-content-md-start mt-4 text-dark">
-              * PDI Rework
-            </Form.Label>
-          </strong>
-
-          <Row className=" justify-content-md-center mt-1">
-            <Col >
-              <Table bordered className="mt-1">
-                <thead className="text-dark">
-                  <tr className="text-dark">
-                    <th className="text-dark">Sr. No</th>
-                    <th className="text-dark">Name of the Process</th>
-                    <th className="text-dark">No. of defective quantity</th>
-                    <th className="text-dark">Defect</th>
-                    <th className="text-dark">Category of Defect</th>
-                    <th className="text-dark">Rework Status</th>
-                    <th className="text-dark">Employee ID</th>
-                  </tr>
-                </thead>
-                <tbody className="text-dark" >
-                  {p_defects.map(def => {
-                    return (
-                      <tr>
-                        <td>{def.defect_id}</td>
-                        <td>{completeReport.pdi_name}</td>
-                        <td>{def.pdi_defect_quantity}</td>
-                        <td>{def.pdi_defect}</td>
-                        <td>{def.pdi_category_defect}</td>
-                        <td>{def.pdi_rework_status}</td>
+                        <td>{completeReport.rework_process}</td>
+                        <td>{def.rework_defect_quantity}</td>
+                        <td>{def.rework_defect}</td>
+                        <td>{def.rework_category_defect}</td>
+                        <td>{def.rework_rework_status}</td>
                         <td>{completeReport.admin_id}</td>
                       </tr>
                     )
@@ -287,11 +246,11 @@ export default function ShowReport() {
                   </tr>
                 </thead>
                 <tbody className="text-dark" >
-                  {r_defects.map(def => {
+                  {rej_defects.map(def => {
                     return (
                       <tr>
                         <td>{def.defect_id}</td>
-                        <td>{completeReport.rejection_name}</td>
+                        <td>{completeReport.rejection_process}</td>
                         <td>{def.rejection_defect_quantity}</td>
                         <td>{def.rejection_defect}</td>
                         <td>{def.rejection_category_defect}</td>

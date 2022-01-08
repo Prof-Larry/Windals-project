@@ -10,7 +10,7 @@ export default function SearchByDate() {
   const [to, setTo] = useState("");
   const [show, setShow] = useState(false);
   const [reports, setReports] = useState(
-    JSON.parse(localStorage.getItem("reports"))
+    JSON.parse(sessionStorage.getItem("reports")) || []
   );
 
   const history = useHistory();
@@ -28,7 +28,7 @@ export default function SearchByDate() {
         }
       );
       const data = await response.json();
-      data.designation === "M" ? setShowMaster(true): setShowMaster(false)
+      data.designation === "M" ? setShowMaster(true) : setShowMaster(false)
 
       if (response.status !== 200) {
         throw new Error(response.error);
@@ -41,6 +41,9 @@ export default function SearchByDate() {
 
   useEffect(() => {
     checkAuthorization();
+    if (reports) {
+      setShow(true);
+    }
   }, []);
 
   const handleClick = () => {
@@ -60,7 +63,7 @@ export default function SearchByDate() {
         if (res.status === 401) {
           throw new Error();
         }
-        localStorage.setItem("reports", JSON.stringify(res.data));
+        sessionStorage.setItem("reports", JSON.stringify(res.data));
         setReports(res.data);
         setShow(true);
       })
@@ -71,17 +74,15 @@ export default function SearchByDate() {
 
   const handleClickView = (e) => {
     const { value } = e.target;
-    localStorage.setItem("i_defects", JSON.stringify([]));
-    localStorage.setItem("p_defects", JSON.stringify([]));
-    localStorage.setItem("r_defects", JSON.stringify([]));
+    sessionStorage.setItem("rew_defects", JSON.stringify([]));
+    sessionStorage.setItem("rej_defects", JSON.stringify([]));
     history.push("/showreport", { id: value });
   };
 
   const handleClickEdit = (e) => {
     const { value } = e.target;
-    localStorage.setItem("edit_i_defects", JSON.stringify([]));
-    localStorage.setItem("edit_p_defects", JSON.stringify([]));
-    localStorage.setItem("edit_r_defects", JSON.stringify([]));
+    sessionStorage.setItem("edit_rework_defects", JSON.stringify([]));
+    sessionStorage.setItem("edit_rework_defects", JSON.stringify([]));
     history.push("/editreport", { id: value });
   };
 
@@ -142,14 +143,17 @@ export default function SearchByDate() {
             <Col>
               <Table bordered className="mt-4">
                 {show ? (
-                  
+
                   <thead className="text-dark">
                     <tr className="text-dark">
                       <th className="text-dark">Sr.No</th>
                       <th className="text-dark">Date</th>
+                      <th className="text-dark">Report Type</th>
                       <th className="text-dark">Plant Code</th>
                       <th className="text-dark">Production Line</th>
                       <th className="text-dark">Product Name</th>
+                      <th className="text-dark">Rework Process</th>
+                      <th className="text-dark">Rejection Process</th>
                       <th className="text-dark">Admin</th>
                       <th className="text-dark">View</th>
                       {showMaster ? (<th className="text-dark">Edit</th>) : null}
@@ -158,16 +162,20 @@ export default function SearchByDate() {
                 ) : null}
                 {reports.map((report) => {
                   const d = new Date(`${report.report_date}`);
+
                   return (
                     <tbody className="text-dark" key={report.report_id}>
                       <tr key={report.report_id}>
                         <td>{report.report_id}</td>
                         <td>
-                          {d.getDate()}-{d.getMonth()}-{d.getFullYear()}
+                          {d.getDate()}-{d.getMonth() + 1}-{d.getFullYear()}
                         </td>
+                        <td>{report.report_type}</td>
                         <td>{report.plant_code}</td>
                         <td>{report.production_line}</td>
                         <td>{report.product_name}</td>
+                        <td>{report.rework_process}</td>
+                        <td>{report.rejection_process}</td>
                         <td>{report.admin_id}</td>
                         <td>
                           <Button
