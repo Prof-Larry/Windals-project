@@ -203,7 +203,7 @@ export default function InspectionDetails(props) {
                     <br />
 
                     <Form.Group as={Row} className="justify-content-md-center" controlId="validationCustom03">
-                        <Form.Label column sm="3" className="text-dark">Product no</Form.Label>
+                        <Form.Label column sm="3" className="text-dark">Product number</Form.Label>
                         <Col sm="4">
                             <Form.Select
                                 required
@@ -244,7 +244,6 @@ export default function InspectionDetails(props) {
 
                     <Row className="justify-content-md-end">
                         <Col sm="7">
-                            <Button type="submit" variant="success" size="lg" className="mx-2" >SAVE</Button>
                             <Button variant="danger" size="lg" className="mx-2" onClick={event => window.location.href = '/rework'}>NEXT</Button>
                         </Col>
                     </Row><br />

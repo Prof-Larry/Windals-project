@@ -184,7 +184,7 @@ export default function ReworkDetails(props) {
           <br />
           <Form.Group as={Row} className="justify-content-md-center mb-4">
             <Form.Label column sm="3" className="text-dark">
-              Name of Process
+              Type of Process
             </Form.Label>
             <Col sm="4">
               <Form.Select name="rework_type" onChange={updateReworkDetails}>
@@ -228,7 +228,7 @@ export default function ReworkDetails(props) {
 
           <Form.Group as={Row} className="justify-content-md-center mb-4">
             <Form.Label column sm="3" className="text-dark">
-              No. of quantity:
+              No. of Inspected quantity:
             </Form.Label>
             <Col sm="4">
               <Form.Control
@@ -255,7 +255,7 @@ export default function ReworkDetails(props) {
 
                       <Row className="justify-content-md-center mt-3 mb-1">
                         <Form.Label column sm="4" className="text-dark">
-                          category of defects:
+                          Category of Defects:
                         </Form.Label>
                         <Col sm="6">
                           <Form.Select
@@ -283,7 +283,7 @@ export default function ReworkDetails(props) {
 
                       <Row className="justify-content-md-center mt-4">
                         <Form.Label column sm="4" className="text-dark">
-                          defect:
+                          Defect:
                         </Form.Label>
                         <Col sm="6">
                           <Form.Select

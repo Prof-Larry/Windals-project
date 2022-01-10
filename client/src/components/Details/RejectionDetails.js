@@ -267,7 +267,7 @@ export default function RejectionDetails(props) {
 
           <Form.Group as={Row} className="justify-content-md-center">
             <Form.Label column sm="3" className="text-dark">
-              No. of quantity:
+              No. of Rejected quantity:
             </Form.Label>
             <Col sm="4">
               <Form.Control
@@ -295,7 +295,7 @@ export default function RejectionDetails(props) {
 
                       <Row className="justify-content-md-center mt-3 mb-1">
                         <Form.Label column sm="4" className="text-dark">
-                          category of defects:
+                          Category of Defects:
                         </Form.Label>
                         <Col sm="6">
                           <Form.Select
@@ -323,7 +323,7 @@ export default function RejectionDetails(props) {
 
                       <Row className="justify-content-md-center mt-4">
                         <Form.Label column sm="4" className="text-dark">
-                          defect:
+                          Defect:
                         </Form.Label>
                         <Col sm="6">
                           <Form.Select
