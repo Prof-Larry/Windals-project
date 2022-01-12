@@ -9,6 +9,7 @@ import { DefectDropDown } from "../models/defdd.js";
 import { ProDropDown } from "../models/prodd.js";
 import { InpDropDown } from "../models/inpdd.js";
 import { CategoryDropDown } from "../models/catdd.js";
+import { LineDropDown } from "../models/linedd.js";
 
 const router = express.Router();
 
@@ -104,6 +105,29 @@ router.get("/getFromMongo", (req, res) => {
   //   ],
   // });
   // newCat.save();
+
+  // const newLine = new LineDropDown({
+  //   production_line: "wppl05",
+  //   product: [
+  //     {
+  //       product_number: "p1",
+  //       product_name: "N1",
+  //     },
+  //     {
+  //       product_number: "p2",
+  //       product_name: "N2",
+  //     },
+  //     {
+  //       product_number: "p3",
+  //       product_name: "N3",
+  //     },
+  //     {
+  //       product_number: "p4",
+  //       product_name: "N4",
+  //     },
+  //   ],
+  // });
+  // newLine.save();
   res.send("success");
 });
 

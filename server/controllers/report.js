@@ -6,6 +6,7 @@ import { InpDropDown } from "../models/inpdd.js";
 import { ProDropDown } from "../models/prodd.js";
 import { DefectDropDown } from "../models/defdd.js";
 import { CategoryDropDown } from "../models/catdd.js";
+import { LineDropDown } from "../models/linedd.js";
 const query = util.promisify(db.query).bind(db);
 
 export const saveReport = (req, res) => {
@@ -226,9 +227,9 @@ export const sendInspectionDropDown = async (req, res) => {
   res.send(getDropDown);
 };
 
-export const sendProcessDropDown = (req, res) => { };
+export const sendProcessDropDown = (req, res) => {};
 
-export const sendDefectDropDown = (req, res) => { };
+export const sendDefectDropDown = (req, res) => {};
 
 export const sendCategories = async (req, res) => {
   const { process } = req.body;
@@ -246,4 +247,12 @@ export const sendDefects = async (req, res) => {
   const { category_name } = req.body;
   const getDefects = await CategoryDropDown.find({ category: category_name });
   res.send(getDefects);
+};
+
+export const sendProducts = async (req, res) => {
+  const { production_line_name } = req.body;
+  const getProducts = await LineDropDown.find({
+    production_line: production_line_name,
+  });
+  res.send(getProducts);
 };

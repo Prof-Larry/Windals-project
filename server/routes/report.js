@@ -5,12 +5,13 @@ import {
   sendPlantCodes,
   sendCategories,
   sendLocation,
+  sendProducts,
   sendDefects,
   sendCompleteReport,
   sendInspectionDropDown,
   sendProcessDropDown,
   sendDefectDropDown,
-  updateReport
+  updateReport,
 } from "../controllers/report.js";
 import { adminAuthenticate } from "../middlewares/middleware.js";
 
@@ -41,4 +42,6 @@ router.post("/categoryDropDown", adminAuthenticate, sendCategories);
 router.post("/getLocation", adminAuthenticate, sendLocation);
 
 router.post("/getDefects", adminAuthenticate, sendDefects);
+
+router.post("/getProducts", adminAuthenticate, sendProducts);
 export default router;
