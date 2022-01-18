@@ -50,9 +50,8 @@ export default function NavbarAdminHome() {
             <Nav className="me-auto"></Nav>
             <Nav className="mx-4">
               <strong><Nav.Link onClick={goToSearchbydate}>Show Reports</Nav.Link></strong>
-              <strong><Nav.Link onClick={goToEditDropdowns}>Edit Drop-Downs</Nav.Link></strong>
+              {/*<strong><Nav.Link onClick={goToEditDropdowns}>Edit Drop-Downs</Nav.Link></strong>*/}
               <strong><Nav.Link onClick={goToAdminRegister}>Employee Registration</Nav.Link></strong>
-
             </Nav>
             <strong><Navbar.Brand className="mx-3 btn btn-danger" onClick={logOut}>Log Out</Navbar.Brand></strong>
           </Navbar.Collapse>
