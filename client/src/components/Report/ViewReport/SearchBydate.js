@@ -28,7 +28,7 @@ export default function SearchByDate() {
         }
       );
       const data = await response.json();
-      data.designation === "M" ? setShowMaster(true) : setShowMaster(false)
+      data.designation === "M" ? setShowMaster(true) : setShowMaster(false);
 
       if (response.status !== 200) {
         throw new Error(response.error);
@@ -41,7 +41,7 @@ export default function SearchByDate() {
 
   useEffect(() => {
     checkAuthorization();
-    if (reports) {
+    if (reports && show) {
       setShow(true);
     }
   }, []);
@@ -143,7 +143,6 @@ export default function SearchByDate() {
             <Col>
               <Table bordered className="mt-4">
                 {show ? (
-
                   <thead className="text-dark">
                     <tr className="text-dark">
                       <th className="text-dark">Sr.No</th>
@@ -156,7 +155,7 @@ export default function SearchByDate() {
                       <th className="text-dark">Rejection Process</th>
                       <th className="text-dark">Admin</th>
                       <th className="text-dark">View</th>
-                      {showMaster ? (<th className="text-dark">Edit</th>) : null}
+                      {showMaster ? <th className="text-dark">Edit</th> : null}
                     </tr>
                   </thead>
                 ) : null}
@@ -187,16 +186,18 @@ export default function SearchByDate() {
                             View
                           </Button>
                         </td>
-                        {showMaster ? (<td>
-                          <Button
-                            variant="danger"
-                            size="sm"
-                            value={report.report_id}
-                            onClick={handleClickEdit}
-                          >
-                            Edit
-                          </Button>
-                        </td>) : null}
+                        {showMaster ? (
+                          <td>
+                            <Button
+                              variant="danger"
+                              size="sm"
+                              value={report.report_id}
+                              onClick={handleClickEdit}
+                            >
+                              Edit
+                            </Button>
+                          </td>
+                        ) : null}
                       </tr>
                     </tbody>
                   );

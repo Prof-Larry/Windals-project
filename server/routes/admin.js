@@ -32,7 +32,7 @@ router.get("/adminhome", adminAuthenticate, (req, res) => {
 });
 
 router.get("/myrework", adminAuthenticate, sendReworkDetails, (req, res) => {
-  res.send(req.complete_reworks);
+  res.send({ ...req.complete_reworks, user: req.userID });
 });
 
 router.get("/getFromMongo", (req, res) => {

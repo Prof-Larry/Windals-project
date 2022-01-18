@@ -14,18 +14,25 @@ export const validateAdmin = (req, res) => {
         if (results[0] != null) {
           const verified = await bcrypt.compare(password, results[0].pass);
           if (verified) {
-            const token = jwt.sign(results[0].empid, process.env.SECRET_AUTH + "");
+            const token = jwt.sign(
+              results[0].empid,
+              process.env.SECRET_AUTH + ""
+            );
             if (results[0].token == token) {
               res.cookie(
                 results[0].designation == "M" ? "master" : "admin",
                 token,
                 {
                   expires: new Date(Date.now() + 86400000),
-                  sameSite: 'lax',
+                  sameSite: "lax",
                   httpOnly: true,
                 }
               );
-              return res.send({ ...results, message: "Login Successful", code: true });
+              return res.send({
+                ...results,
+                message: "Login Successful",
+                code: true,
+              });
             }
           } else {
             res.send({ message: "ID or password is incorrect", code: false });
@@ -35,10 +42,10 @@ export const validateAdmin = (req, res) => {
         }
       });
     } else {
-      res.send({ message: "User Already logged in", code: true })
+      res.send({ message: "User Already logged in", code: true });
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 
@@ -97,11 +104,13 @@ export const sendReworkDetails = async (req, res, next) => {
   try {
     let complete_reworks = {};
     const query = util.promisify(db.query).bind(db);
-    const rows = await query("Select * from inprocess_defects where inprocess_rework_handler=? and inprocess_rework_status=?", [req.userID, "incomplete"]);
-    complete_reworks = { inprocess_defects: rows };
-    const rows1 = await query("Select * from pdi_defects where pdi_rework_handler=? and pdi_rework_status=?", [req.userID, "incomplete"]);
-    complete_reworks = { ...complete_reworks, pdi_defects: rows1 };
+    const rows = await query(
+      "Select * from rework_defects where rework_rework_handler=? and rework_rework_status=?",
+      [req.userID, "incomplete"]
+    );
+    complete_reworks = { rework_defects: rows };
     req.complete_reworks = complete_reworks;
+    console.log(req.userID);
     next();
   } catch (error) {
     console.log(error);
