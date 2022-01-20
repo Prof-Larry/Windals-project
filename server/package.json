@@ -4,6 +4,9 @@
   "description": "PDI Utility",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "14.16.0"
+  },
   "scripts": {
     "start": "nodemon index.js"
   },
