@@ -15,6 +15,10 @@ const router = express.Router();
 
 router.post("/adminlogin", validateAdmin);
 
+router.get("/test", (req, res) => {
+  res.send("Hello I am deployed!!");
+});
+
 router.get("/adminlogout", (req, res) => {
   req.cookies.admin ? res.clearCookie("admin") : res.clearCookie("master");
   res.send({ message: "Logged out" });
