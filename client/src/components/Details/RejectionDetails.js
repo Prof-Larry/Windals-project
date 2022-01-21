@@ -141,7 +141,7 @@ export default function RejectionDetails(props) {
   const handleRemoveClick = (index) => {
     const list = [...props.rejectionDefects];
     list.splice(index, 1);
-    props.setRejDefects(list);
+    props.setRejectionDefects(list);
   };
 
   const handleAddClick = () => {
