@@ -39,6 +39,7 @@ router.get("/myrework", adminAuthenticate, sendReworkDetails, (req, res) => {
   res.send({ ...req.complete_reworks, user: req.userID });
 });
 
+
 router.get("/getFromMongo", (req, res) => {
   // const newDef = new DefectDropDown({
   //   defect_name: "Defect4",
@@ -58,20 +59,24 @@ router.get("/getFromMongo", (req, res) => {
   // });
 
   // newDef.save();
+
   // const newInp = new InpDropDown({
-  //   plant_code: "A4",
+  //   plant_code: "Pune",
   //   production_line: [
   //     {
-  //       line: "wppl01",
+  //       line: "John Deere",
   //     },
   //     {
-  //       line: "wppl02",
+  //       line: "Dana",
   //     },
-  //   ],
-  //   product: [
   //     {
-  //       product_number: "1",
-  //       product_name: "p1",
+  //       line: "MVML",
+  //     },
+  //     {
+  //       line: "TMTL",
+  //     },
+  //     {
+  //       line: "TML",
   //     },
   //   ],
   //   process: [
@@ -81,56 +86,37 @@ router.get("/getFromMongo", (req, res) => {
   //   ],
   // });
   // newInp.save();
+
   // const newDrop = new ProDropDown({
-  //   process_name: "process4",
-  //   process_categories: [
-  //     {
-  //       category_name: "C1",
-  //     },
-  //     {
-  //       category_name: "C2",
-  //     },
-  //   ],
+  //   process_name: "process1",
+  //   process_categories: arr.map((a, index) => {
+  //     return {
+  //       category_name: a
+  //     }
+  //   })
   // });
   // newDrop.save();
 
   // const newCat = new CategoryDropDown({
-  //   category: "C4",
-  //   defects: [
-  //     {
-  //       defect: "Defect1",
-  //     },
-  //     {
-  //       defect: "Defect2",
-  //     },
-  //     {
-  //       defect: "Defect3",
-  //     },
-  //   ],
+  //   category: "Weld Defect",
+  //   defects: arr.map(a => {
+  //     return {
+  //       defect: a
+  //     }
+  //   })
   // });
   // newCat.save();
 
+
   // const newLine = new LineDropDown({
-  //   production_line: "wppl05",
-  //   product: [
-  //     {
-  //       product_number: "p1",
-  //       product_name: "N1",
-  //     },
-  //     {
-  //       product_number: "p2",
-  //       product_name: "N2",
-  //     },
-  //     {
-  //       product_number: "p3",
-  //       product_name: "N3",
-  //     },
-  //     {
-  //       product_number: "p4",
-  //       product_name: "N4",
-  //     },
-  //   ],
-  // });
+  //   production_line: "TML",
+  //   product: arr.map((a, index) => {
+  //     return {
+  //       product_number: a,
+  //       product_name: names[index]
+  //     }
+  //   })
+  // })
   // newLine.save();
   res.send("success");
 });

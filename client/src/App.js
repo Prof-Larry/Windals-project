@@ -114,11 +114,33 @@ const getRejDefects = () => {
 };
 
 const getLocation = () => {
-  const location = JSON.parse(sessionStorage.getItem("location"));
-  if (location) {
-    return location;
-  }
-  return [];
+  return [
+    "AA",
+    "AB",
+    "AC",
+    "AD",
+    "AE",
+    "AF",
+    "AG",
+    "AH",
+    "AI",
+    "AJ",
+    "AK",
+    "AL",
+    "AM",
+    "AN",
+    "AO",
+    "AP",
+    "AQ",
+    "AR",
+    "AS",
+    "AT",
+    "AU",
+    "AW",
+    "AX",
+    "AY",
+    "AZ"
+  ];
 };
 
 const getRejLocation = () => {
@@ -146,8 +168,6 @@ function App() {
 
   let [location, setLocation] = useState(getLocation());
 
-  let [rej_location, setRejLocation] = useState(getRejLocation());
-
   const addReworkDefects = (e, index) => {
     const { name, value } = e.target;
 
@@ -173,29 +193,29 @@ function App() {
           alert("Some technical Error, please try again later");
         });
     }
-    if (name == "rework_defect") {
-      axios
-        .post(
-          "http://localhost:5050/report/getLocation",
-          { defect_name: value },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "JWT fefege...",
-            },
-            withCredentials: true,
-          }
-        )
-        .then((res) => {
-          const location = res.data[0].location.map((l) => l.loc);
-          setLocation(location);
-          sessionStorage.setItem("location", JSON.stringify(location));
-          console.log(res.data);
-        })
-        .catch((e) => {
-          alert("Some technical Error, please try again later");
-        });
-    }
+    // if (name == "rework_defect") {
+    //   axios
+    //     .post(
+    //       "http://localhost:5050/report/getLocation",
+    //       { defect_name: value },
+    //       {
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //           Authorization: "JWT fefege...",
+    //         },
+    //         withCredentials: true,
+    //       }
+    //     )
+    //     .then((res) => {
+    //       const location = res.data[0].location.map((l) => l.loc);
+    //       setLocation(location);
+    //       sessionStorage.setItem("location", JSON.stringify(location));
+    //       console.log(res.data);
+    //     })
+    //     .catch((e) => {
+    //       alert("Some technical Error, please try again later");
+    //     });
+    // }
     const list = [...reworkDefects];
     list[index][name] = value;
     setReworkDefects(list);
@@ -225,28 +245,28 @@ function App() {
           alert("Some technical Error, please try again later");
         });
     }
-    if (name == "rejection_defect") {
-      axios
-        .post(
-          "http://localhost:5050/report/getLocation",
-          { defect_name: value },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "JWT fefege...",
-            },
-            withCredentials: true,
-          }
-        )
-        .then((res) => {
-          const location = res.data[0].location.map((l) => l.loc);
-          setRejLocation(location);
-          sessionStorage.setItem("location_rej", JSON.stringify(location));
-        })
-        .catch((e) => {
-          alert("Some technical Error, please try again later");
-        });
-    }
+    // if (name == "rejection_defect") {
+    //   axios
+    //     .post(
+    //       "http://localhost:5050/report/getLocation",
+    //       { defect_name: value },
+    //       {
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //           Authorization: "JWT fefege...",
+    //         },
+    //         withCredentials: true,
+    //       }
+    //     )
+    //     .then((res) => {
+    //       const location = res.data[0].location.map((l) => l.loc);
+    //       setRejLocation(location);
+    //       sessionStorage.setItem("location_rej", JSON.stringify(location));
+    //     })
+    //     .catch((e) => {
+    //       alert("Some technical Error, please try again later");
+    //     });
+    // }
     const list = [...rejectionDefects];
     list[index][name] = value;
     setRejectionDefects(list);
@@ -307,7 +327,7 @@ function App() {
             setRejectionDefects={setRejectionDefects}
             addRejDefects={addRejDefects}
             rejDefects={rej_defects}
-            rejlocation={rej_location}
+            rejlocation={location}
           />
         </Route>
         <Route exact path="/myrework">

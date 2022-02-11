@@ -5,7 +5,9 @@ import reportRoutes from "./routes/report.js";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-const dbUrl = process.env.MDB_URL || "mongodb://localhost:27017/Windals-pdi";
+// const dbUrl = process.env.MDB_URL || "mongodb://localhost:27017/Windals-pdi";
+
+const dbUrl = "mongodb://localhost:27017/Windals-pdi";
 
 dotenv.config();
 

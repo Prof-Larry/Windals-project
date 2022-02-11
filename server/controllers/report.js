@@ -10,6 +10,7 @@ import { LineDropDown } from "../models/linedd.js";
 const query = util.promisify(db.query).bind(db);
 
 export const saveReport = (req, res) => {
+  console.log(req.body);
   try {
     const {
       inspection,
@@ -227,9 +228,9 @@ export const sendInspectionDropDown = async (req, res) => {
   res.send(getDropDown);
 };
 
-export const sendProcessDropDown = (req, res) => {};
+export const sendProcessDropDown = (req, res) => { };
 
-export const sendDefectDropDown = (req, res) => {};
+export const sendDefectDropDown = (req, res) => { };
 
 export const sendCategories = async (req, res) => {
   const { process } = req.body;
