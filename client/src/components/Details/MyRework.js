@@ -96,7 +96,7 @@ export default function MyRework() {
                               size="sm"
                               onClick={handleClickComplete}
                             >
-                              Completed
+                              Complete
                             </Button>
                           </td>
                         </tr>
