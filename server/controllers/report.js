@@ -30,10 +30,10 @@ export const saveReport = (req, res) => {
       inspection.production_line,
       inspection.product_number,
       inspection.product_name,
-      rework_details.process_name,
-      parseInt(rework_details.process_quantity),
-      rejection_details.rejection_name,
-      parseInt(rejection_details.rejection_quantity),
+      rework_details.process_name || "NA",
+      parseInt(rework_details.process_quantity) || 0,
+      rejection_details.rejection_name || "NA",
+      parseInt(rejection_details.rejection_quantity) || 0,
       rework_details.rework_type,
     ];
     const add_report =
@@ -55,13 +55,15 @@ export const saveReport = (req, res) => {
           ];
           const add_rework_Defect =
             "insert into rework_defects(rework_defect_quantity,rework_defect,rework_defect_location,rework_category_defect,rework_defect_details,rework_rework_status,rework_rework_details,rework_rework_handler,report_id) values (?,?,?,?,?,?,?,?,?)";
-          db.query(
-            add_rework_Defect,
-            rework_defects_values,
-            (error, results) => {
-              if (error) throw new Error();
-            }
-          );
+          defect.rework_defect
+            ? db.query(
+                add_rework_Defect,
+                rework_defects_values,
+                (error, results) => {
+                  if (error) throw new Error();
+                }
+              )
+            : null;
         });
       }
       if (rejection_defects) {
@@ -79,13 +81,15 @@ export const saveReport = (req, res) => {
           ];
           const add_rejection_Defect =
             "insert into rejection_defects(rejection_defect_quantity,rejection_defect,rejection_defect_location,rejection_category_defect,rejection_defect_details,rejection_rework_status,rejection_rework_details,rejection_rework_handler,report_id) values (?,?,?,?,?,?,?,?,?)";
-          db.query(
-            add_rejection_Defect,
-            rejection_defects_values,
-            (error, results) => {
-              if (error) throw new Error();
-            }
-          );
+          defect.rejection_defect
+            ? db.query(
+                add_rejection_Defect,
+                rejection_defects_values,
+                (error, results) => {
+                  if (error) throw new Error();
+                }
+              )
+            : null;
         });
       }
     });
@@ -228,9 +232,9 @@ export const sendInspectionDropDown = async (req, res) => {
   res.send(getDropDown);
 };
 
-export const sendProcessDropDown = (req, res) => { };
+export const sendProcessDropDown = (req, res) => {};
 
-export const sendDefectDropDown = (req, res) => { };
+export const sendDefectDropDown = (req, res) => {};
 
 export const sendCategories = async (req, res) => {
   const { process } = req.body;
