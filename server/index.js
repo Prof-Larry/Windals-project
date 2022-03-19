@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 // const dbUrl = process.env.MDB_URL || "mongodb://localhost:27017/Windals-pdi";
 
-const dbUrl = "mongodb://localhost:27017/Windals-pdi";
+// const dbUrl = "mongodb://localhost:27017/Windals-pdi";
 
 dotenv.config();
 
@@ -19,7 +19,7 @@ const corsOptions = {
   credentials: true,
 };
 
-mongoose.connect(dbUrl, {
+mongoose.connect(process.env.MDB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

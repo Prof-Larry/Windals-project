@@ -184,7 +184,7 @@ export default function ReworkDetails(props) {
           <br />
           <Form.Group as={Row} className="justify-content-md-center mb-4">
             <Form.Label column sm="3" className="text-dark">
-              Type of Process
+              Type of Rework
             </Form.Label>
             <Col sm="4">
               <Form.Select name="rework_type" onChange={updateReworkDetails}>
