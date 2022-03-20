@@ -16,7 +16,7 @@ const router = express.Router();
 router.post("/adminlogin", validateAdmin);
 
 router.get("/test", (req, res) => {
-  res.send("Hello I am currently being deployed!!");
+  res.send("Hello I am being deployed here u know deployed!!");
 });
 
 router.get("/adminlogout", (req, res) => {

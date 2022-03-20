@@ -1,2 +1,3 @@
-import axios from 'axios';
+const serverUrl = "https://pdi-server.herokuapp.com";
 
+export default serverUrl;
