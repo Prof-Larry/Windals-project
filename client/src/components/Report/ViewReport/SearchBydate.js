@@ -3,6 +3,7 @@ import axios from "axios";
 import { Container, Button, Form, Row, Col, Table } from "react-bootstrap";
 import Navbar from "../../Navbar/NavbarAdmin";
 import { useHistory } from "react-router";
+import serverUrl from "../../../api/index";
 
 export default function SearchByDate() {
   const [showMaster, setShowMaster] = useState(false);
@@ -17,16 +18,13 @@ export default function SearchByDate() {
 
   const checkAuthorization = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:5050/report/reportAuthorization",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${serverUrl}/report/reportAuthorization`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
       const data = await response.json();
       data.designation === "M" ? setShowMaster(true) : setShowMaster(false);
 
@@ -49,7 +47,7 @@ export default function SearchByDate() {
   const handleClick = () => {
     axios
       .post(
-        "http://localhost:5050/report/viewReport",
+        `${serverUrl}/report/viewReport`,
         { from, to },
         {
           headers: {

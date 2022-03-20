@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import Logo from "../Logo/logo.png";
+import serverUrl from "../../api/index";
 
 export default function NavbarAdminHome() {
   const history = useHistory();
@@ -13,7 +14,7 @@ export default function NavbarAdminHome() {
 
   const logOut = async () => {
     try {
-      const response = await fetch("http://localhost:5050/adminlogout", {
+      const response = await fetch(`${serverUrl}/adminlogout`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

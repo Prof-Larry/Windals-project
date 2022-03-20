@@ -1,36 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { useLocation } from "react-router-dom";
-import {
-  Container,
-  Button,
-  Form,
-  Row,
-  Col,
-  Table,
-} from "react-bootstrap";
+import { Container, Button, Form, Row, Col, Table } from "react-bootstrap";
 import Navbar from "../../Navbar/NavbarAdmin";
 import axios from "axios";
+import serverUrl from "../../../api/index";
 
 export default function ShowReport() {
   const [completeReport, setCompleteReport] = useState("");
-  const [rew_defects, setRewDefects] = useState(JSON.parse(sessionStorage.getItem("rew_defects")));
-  const [rej_defects, setRejDefects] = useState(JSON.parse(sessionStorage.getItem("rej_defects")));
+  const [rew_defects, setRewDefects] = useState(
+    JSON.parse(sessionStorage.getItem("rew_defects"))
+  );
+  const [rej_defects, setRejDefects] = useState(
+    JSON.parse(sessionStorage.getItem("rej_defects"))
+  );
   const history = useHistory();
   const location = useLocation();
 
   const checkAuthorization = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:5050/report/reportAuthorization",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${serverUrl}/report/reportAuthorization`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
 
       const data = await response.json();
       if (response.status !== 200) {
@@ -45,7 +40,7 @@ export default function ShowReport() {
   const getReportData = () => {
     axios
       .post(
-        "http://localhost:5050/report/viewCompleteReport",
+        `${serverUrl}/report/viewCompleteReport`,
         { id: location.state.id },
         {
           headers: {
@@ -59,8 +54,10 @@ export default function ShowReport() {
         if (res.status == 401) {
           throw new Error();
         }
-        const d = new Date(`${res.data.report.report_date}`)
-        res.data.report.report_date = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+        const d = new Date(`${res.data.report.report_date}`);
+        res.data.report.report_date = `${d.getDate()}/${
+          d.getMonth() + 1
+        }/${d.getFullYear()}`;
         const { report, rework_defects, rejection_defects } = res.data;
         console.log(res.data);
         setCompleteReport(report);
@@ -104,7 +101,10 @@ export default function ShowReport() {
 
             <Col>
               <strong>
-                <Form.Label as={Row} className="justify-content-md-end text-dark">
+                <Form.Label
+                  as={Row}
+                  className="justify-content-md-end text-dark"
+                >
                   Date: {completeReport.report_date}
                 </Form.Label>
               </strong>
@@ -114,13 +114,19 @@ export default function ShowReport() {
           <Row className=" justify-content-md-start mt-1">
             <Col sm="4">
               <strong>
-                <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+                <Form.Label
+                  as={Row}
+                  className=" justify-content-md-start mt-1 text-dark"
+                >
                   Date of Inspection:
                 </Form.Label>
               </strong>
             </Col>
             <Col>
-              <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              <Form.Label
+                as={Row}
+                className=" justify-content-md-start mt-1 text-dark"
+              >
                 {completeReport.report_date}
               </Form.Label>
             </Col>
@@ -129,13 +135,19 @@ export default function ShowReport() {
           <Row className=" justify-content-md-start mt-1">
             <Col sm="4">
               <strong>
-                <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+                <Form.Label
+                  as={Row}
+                  className=" justify-content-md-start mt-1 text-dark"
+                >
                   Plant Code:
                 </Form.Label>
               </strong>
             </Col>
             <Col>
-              <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              <Form.Label
+                as={Row}
+                className=" justify-content-md-start mt-1 text-dark"
+              >
                 {completeReport.plant_code}
               </Form.Label>
             </Col>
@@ -144,13 +156,19 @@ export default function ShowReport() {
           <Row className=" justify-content-md-start mt-1">
             <Col sm="4">
               <strong>
-                <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+                <Form.Label
+                  as={Row}
+                  className=" justify-content-md-start mt-1 text-dark"
+                >
                   Production line:
                 </Form.Label>
               </strong>
             </Col>
             <Col>
-              <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              <Form.Label
+                as={Row}
+                className=" justify-content-md-start mt-1 text-dark"
+              >
                 {completeReport.production_line}
               </Form.Label>
             </Col>
@@ -159,13 +177,19 @@ export default function ShowReport() {
           <Row className=" justify-content-md-start mt-1">
             <Col sm="4">
               <strong>
-                <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+                <Form.Label
+                  as={Row}
+                  className=" justify-content-md-start mt-1 text-dark"
+                >
                   Product No:
                 </Form.Label>
               </strong>
             </Col>
             <Col>
-              <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              <Form.Label
+                as={Row}
+                className=" justify-content-md-start mt-1 text-dark"
+              >
                 {completeReport.product_number}
               </Form.Label>
             </Col>
@@ -174,26 +198,35 @@ export default function ShowReport() {
           <Row className=" justify-content-md-start mt-1">
             <Col sm="4">
               <strong>
-                <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+                <Form.Label
+                  as={Row}
+                  className=" justify-content-md-start mt-1 text-dark"
+                >
                   Product Name:
                 </Form.Label>
               </strong>
             </Col>
             <Col>
-              <Form.Label as={Row} className=" justify-content-md-start mt-1 text-dark">
+              <Form.Label
+                as={Row}
+                className=" justify-content-md-start mt-1 text-dark"
+              >
                 {completeReport.product_name}
               </Form.Label>
             </Col>
           </Row>
 
           <strong>
-            <Form.Label as={Row} className=" justify-content-md-start mt-4 text-dark">
+            <Form.Label
+              as={Row}
+              className=" justify-content-md-start mt-4 text-dark"
+            >
               * {completeReport.report_type} Rework
             </Form.Label>
           </strong>
 
           <Row className=" justify-content-md-center mt-1">
-            <Col >
+            <Col>
               <Table bordered className="mt-1">
                 <thead className="text-dark">
                   <tr className="text-dark">
@@ -206,8 +239,8 @@ export default function ShowReport() {
                     <th className="text-dark">Employee ID</th>
                   </tr>
                 </thead>
-                <tbody className="text-dark" >
-                  {rew_defects.map(def => {
+                <tbody className="text-dark">
+                  {rew_defects.map((def) => {
                     return (
                       <tr>
                         <td>{def.defect_id}</td>
@@ -218,7 +251,7 @@ export default function ShowReport() {
                         <td>{def.rework_rework_status}</td>
                         <td>{completeReport.admin_id}</td>
                       </tr>
-                    )
+                    );
                   })}
                 </tbody>
               </Table>
@@ -226,13 +259,16 @@ export default function ShowReport() {
           </Row>
 
           <strong>
-            <Form.Label as={Row} className=" justify-content-md-start mt-4 text-dark">
+            <Form.Label
+              as={Row}
+              className=" justify-content-md-start mt-4 text-dark"
+            >
               * REJECTION Rework
             </Form.Label>
           </strong>
 
           <Row className=" justify-content-md-center">
-            <Col >
+            <Col>
               <Table bordered className="mt-1">
                 <thead className="text-dark">
                   <tr className="text-dark">
@@ -245,8 +281,8 @@ export default function ShowReport() {
                     <th className="text-dark">Employee ID</th>
                   </tr>
                 </thead>
-                <tbody className="text-dark" >
-                  {rej_defects.map(def => {
+                <tbody className="text-dark">
+                  {rej_defects.map((def) => {
                     return (
                       <tr>
                         <td>{def.defect_id}</td>
@@ -257,7 +293,7 @@ export default function ShowReport() {
                         <td>{def.rejection_rework_status}</td>
                         <td>{completeReport.admin_id}</td>
                       </tr>
-                    )
+                    );
                   })}
                 </tbody>
               </Table>

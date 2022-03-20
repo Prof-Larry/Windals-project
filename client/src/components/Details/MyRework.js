@@ -3,6 +3,7 @@ import { Container, Form, Row, Col, Table, Button } from "react-bootstrap";
 import Navbar from "../Navbar/NavbarAdmin";
 import { useHistory } from "react-router";
 import axios from "axios";
+import serverUrl from "../../api/index";
 
 export default function MyRework() {
   const history = useHistory();
@@ -14,7 +15,7 @@ export default function MyRework() {
 
   const checkAuthorization = () => {
     axios
-      .get("http://localhost:5050/myrework", {
+      .get(`${serverUrl}/myrework`, {
         headers: {
           "Content-type": "application/json",
           Authorization: "JWT fefege...",

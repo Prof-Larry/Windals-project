@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import { Modal, Button } from "react-bootstrap";
 import Icon from "./Icon";
 import "./Login.css";
+import serverUrl from "../../../api/index";
 
 export default function AdminLogin() {
   const [admin, setUser] = useState({
@@ -23,8 +24,9 @@ export default function AdminLogin() {
   };
 
   const login = () => {
+    axios.defaults.withCredentials = true;
     axios
-      .post("http://localhost:5050/adminlogin", admin, {
+      .post(`${serverUrl}/adminlogin`, admin, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -49,16 +51,13 @@ export default function AdminLogin() {
 
   const checkAuthorization = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:5050/report/reportAuthorization",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${serverUrl}/report/reportAuthorization`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
 
       const data = await response.json();
       if (data.token) {

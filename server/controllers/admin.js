@@ -25,7 +25,6 @@ export const validateAdmin = (req, res) => {
                 {
                   expires: new Date(Date.now() + 86400000),
                   sameSite: "lax",
-                  httpOnly: true,
                 }
               );
               return res.send({

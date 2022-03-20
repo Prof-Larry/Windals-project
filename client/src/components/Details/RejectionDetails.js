@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { useHistory } from "react-router";
 import Navbar from "../Navbar/NavbarAdmin";
+import serverUrl from "../../api/index";
 
 export default function RejectionDetails(props) {
   const getCategoriesRejection = () => {
@@ -32,16 +33,13 @@ export default function RejectionDetails(props) {
 
   const checkAuthorization = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:5050/report/reportAuthorization",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${serverUrl}/report/reportAuthorization`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
 
       const data = await response.json();
       console.log(data);
@@ -57,7 +55,7 @@ export default function RejectionDetails(props) {
   const getProcesses = () => {
     axios
       .post(
-        "http://localhost:5050/report/inspectionDropDown",
+        `${serverUrl}/report/inspectionDropDown`,
         {
           plant_code: JSON.parse(sessionStorage.getItem("inspection"))
             .plant_code,
@@ -110,7 +108,7 @@ export default function RejectionDetails(props) {
     if (name == "rejection_name") {
       axios
         .post(
-          "http://localhost:5050/report/categoryDropDown",
+          `${serverUrl}/report/categoryDropDown`,
           { process: value },
           {
             headers: {
@@ -181,7 +179,7 @@ export default function RejectionDetails(props) {
     console.log(report);
 
     axios
-      .post("http://localhost:5050/report/submitReport", report, {
+      .post(`${serverUrl}/report/submitReport`, report, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "JWT fefege...",

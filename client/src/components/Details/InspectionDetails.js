@@ -3,6 +3,7 @@ import { Button, Container, Form, Row, Col, Nav } from "react-bootstrap";
 import { useHistory } from "react-router";
 import Navbar from "../Navbar/NavbarAdmin";
 import axios from "axios";
+import serverUrl from "../../api/index";
 
 export default function InspectionDetails(props) {
   const history = useHistory();
@@ -38,16 +39,13 @@ export default function InspectionDetails(props) {
 
   const checkAuthorization = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:5050/report/reportAuthorization",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${serverUrl}/report/reportAuthorization`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
 
       const data = await response.json();
       console.log(data);
@@ -62,7 +60,7 @@ export default function InspectionDetails(props) {
 
   const getPlantCode = async () => {
     try {
-      const response = await fetch("http://localhost:5050/report/plantcodes", {
+      const response = await fetch(`${serverUrl}/report/plantcodes`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -83,7 +81,7 @@ export default function InspectionDetails(props) {
     props.setInspection({ ...props.inspection, [name]: value });
     axios
       .post(
-        "http://localhost:5050/report/inspectionDropDown",
+        `${serverUrl}/report/inspectionDropDown`,
         { [name]: value },
         {
           headers: {
@@ -124,7 +122,7 @@ export default function InspectionDetails(props) {
     const { name, value } = e.target;
     axios
       .post(
-        "http://localhost:5050/report/getProducts",
+        `${serverUrl}/report/getProducts`,
         { production_line_name: value },
         {
           headers: {

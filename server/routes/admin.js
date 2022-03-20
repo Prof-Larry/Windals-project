@@ -10,13 +10,19 @@ import { ProDropDown } from "../models/prodd.js";
 import { InpDropDown } from "../models/inpdd.js";
 import { CategoryDropDown } from "../models/catdd.js";
 import { LineDropDown } from "../models/linedd.js";
+import db from "../Database/db.js";
 
 const router = express.Router();
 
 router.post("/adminlogin", validateAdmin);
 
 router.get("/test", (req, res) => {
-  res.send("Hello I am being deployed here u know deployed!!");
+  db.query("select * from admin where empid=?", ["e7"], (error, result) => {
+    if (error) {
+      res.send(error);
+    }
+    res.send(result);
+  });
 });
 
 router.get("/adminlogout", (req, res) => {

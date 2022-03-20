@@ -18,6 +18,7 @@ import ReportsTable from "./components/Report/ViewReport/Reportstable";
 import ShowReport from "./components/Report/ViewReport/ShowReport";
 import ReworkToDo from "./components/Details/ReworkToDo";
 import EditDropdown from "./components/DropDowns/editDropdown";
+import serverUrl from "./api/index";
 import axios from "axios";
 
 const getInspectionDetails = () => {
@@ -138,7 +139,7 @@ const getLocation = () => {
     "AW",
     "AX",
     "AY",
-    "AZ"
+    "AZ",
   ];
 };
 
@@ -173,7 +174,7 @@ function App() {
     if (name == "rework_category_defect") {
       axios
         .post(
-          "http://localhost:5050/report/getDefects",
+          `${serverUrl}/report/getDefects`,
           { category_name: value },
           {
             headers: {
@@ -195,7 +196,7 @@ function App() {
     // if (name == "rework_defect") {
     //   axios
     //     .post(
-    //       "http://localhost:5050/report/getLocation",
+    //       `${serverUrl}/report/getLocation`,
     //       { defect_name: value },
     //       {
     //         headers: {
@@ -225,7 +226,7 @@ function App() {
     if (name == "rejection_category_defect") {
       axios
         .post(
-          "http://localhost:5050/report/getDefects",
+          `${serverUrl}/report/getDefects`,
           { category_name: value },
           {
             headers: {
@@ -247,7 +248,7 @@ function App() {
     // if (name == "rejection_defect") {
     //   axios
     //     .post(
-    //       "http://localhost:5050/report/getLocation",
+    //       `${serverUrl}/report/getLocation`,
     //       { defect_name: value },
     //       {
     //         headers: {

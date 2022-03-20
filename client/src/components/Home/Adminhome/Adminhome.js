@@ -6,18 +6,16 @@ import { Button, Container, Row, Col } from "react-bootstrap";
 import NavbarAdmin from "../../Navbar/NavbarAdminHome";
 import NavbarMaster from "../../Navbar/NavbarMasterHome";
 import Dashboard from "../../Dashboard/Dashboard";
-
+import serverUrl from "../../../api/index";
 
 export default function Adminhome() {
-
   const [showAdmin, setShowAdmin] = useState(false);
   const [showMaster, setShowMaster] = useState(false);
-
 
   const history = useHistory();
   const checkAuthentication = async () => {
     try {
-      const response = await fetch("http://localhost:5050/adminhome", {
+      const response = await fetch(`${serverUrl}/adminhome`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -26,7 +24,7 @@ export default function Adminhome() {
       });
 
       const data = await response.json();
-      data.designation === "M" ? setShowMaster(true) : setShowAdmin(true)
+      data.designation === "M" ? setShowMaster(true) : setShowAdmin(true);
 
       console.log(data);
       if (response.status !== 200) {
@@ -38,19 +36,16 @@ export default function Adminhome() {
     }
   };
 
-
   useEffect(() => {
     checkAuthentication();
   }, []);
 
-
   return (
     <div className="adminHome">
-      {showAdmin ? (<NavbarAdmin />) : null}
-      {showMaster ? (<NavbarMaster />) : null}
+      {showAdmin ? <NavbarAdmin /> : null}
+      {showMaster ? <NavbarMaster /> : null}
       <br />
       <Dashboard />
-
     </div>
   );
 }

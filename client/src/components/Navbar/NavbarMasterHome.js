@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import Logo from "../Logo/logo.png";
 import Cookies from "universal-cookie";
+import serverUrl from "../../api/index";
 const cookie = new Cookies();
 
 export default function NavbarAdminHome() {
@@ -15,7 +16,7 @@ export default function NavbarAdminHome() {
 
   const logOut = async () => {
     try {
-      const response = await fetch("http://localhost:5050/adminlogout", {
+      const response = await fetch(`${serverUrl}/adminlogout`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

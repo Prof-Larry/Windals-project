@@ -3,6 +3,7 @@ import { Button, Container, Row, Col, Form, Nav, Card } from "react-bootstrap";
 import Navbar from "../Navbar/NavbarAdmin";
 import { useHistory } from "react-router";
 import axios from "axios";
+import serverUrl from "../../api/index";
 
 export default function ReworkDetails(props) {
   const getCatandDef = () => {
@@ -28,16 +29,13 @@ export default function ReworkDetails(props) {
 
   const checkAuthorization = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:5050/report/reportAuthorization",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${serverUrl}/report/reportAuthorization`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
 
       const data = await response.json();
       if (response.status !== 200) {
@@ -52,7 +50,7 @@ export default function ReworkDetails(props) {
   const getProcesses = () => {
     axios
       .post(
-        "http://localhost:5050/report/inspectionDropDown",
+        `${serverUrl}/report/inspectionDropDown`,
         {
           plant_code: JSON.parse(sessionStorage.getItem("inspection"))
             .plant_code,
@@ -99,7 +97,7 @@ export default function ReworkDetails(props) {
     if (name == "process_name") {
       axios
         .post(
-          "http://localhost:5050/report/categoryDropDown",
+          `${serverUrl}/report/categoryDropDown`,
           { process: value },
           {
             headers: {
