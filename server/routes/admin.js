@@ -16,7 +16,7 @@ const router = express.Router();
 router.post("/adminlogin", validateAdmin);
 
 router.get("/test", (req, res) => {
-  res.send("Hello I am deployed!!");
+  res.send("Hello I am currently being deployed!!");
 });
 
 router.get("/adminlogout", (req, res) => {
@@ -38,7 +38,6 @@ router.get("/adminhome", adminAuthenticate, (req, res) => {
 router.get("/myrework", adminAuthenticate, sendReworkDetails, (req, res) => {
   res.send({ ...req.complete_reworks, user: req.userID });
 });
-
 
 router.get("/getFromMongo", (req, res) => {
   // const newDef = new DefectDropDown({
@@ -106,7 +105,6 @@ router.get("/getFromMongo", (req, res) => {
   //   })
   // });
   // newCat.save();
-
 
   // const newLine = new LineDropDown({
   //   production_line: "TML",
