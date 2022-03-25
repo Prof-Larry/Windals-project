@@ -27,6 +27,7 @@ export const validateAdmin = (req, res) => {
                   sameSite: "lax",
                 }
               );
+              res.setHeader("Cache-Control", "private");
               return res.send({
                 ...results,
                 message: "Login Successful",

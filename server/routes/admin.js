@@ -62,9 +62,7 @@ router.get("/getFromMongo", (req, res) => {
   //     },
   //   ],
   // });
-
   // newDef.save();
-
   // const newInp = new InpDropDown({
   //   plant_code: "Pune",
   //   production_line: [
@@ -91,7 +89,6 @@ router.get("/getFromMongo", (req, res) => {
   //   ],
   // });
   // newInp.save();
-
   // const newDrop = new ProDropDown({
   //   process_name: "process1",
   //   process_categories: arr.map((a, index) => {
@@ -101,7 +98,6 @@ router.get("/getFromMongo", (req, res) => {
   //   })
   // });
   // newDrop.save();
-
   // const newCat = new CategoryDropDown({
   //   category: "Weld Defect",
   //   defects: arr.map(a => {
@@ -111,18 +107,17 @@ router.get("/getFromMongo", (req, res) => {
   //   })
   // });
   // newCat.save();
-
   // const newLine = new LineDropDown({
-  //   production_line: "TML",
+  //   production_line: "TMTL",
   //   product: arr.map((a, index) => {
   //     return {
   //       product_number: a,
-  //       product_name: names[index]
-  //     }
-  //   })
-  // })
+  //       product_name: names[index],
+  //     };
+  //   }),
+  // });
   // newLine.save();
-  res.send("success");
+  // res.send("success");
 });
 
 export default router;

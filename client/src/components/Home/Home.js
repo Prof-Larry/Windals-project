@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-      <button onClick={handleTest}>Test</button>
+      {/* <button onClick={handleTest}>Test</button> */}
     </div>
   );
 }

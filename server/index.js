@@ -24,8 +24,8 @@ const app = express();
 //   next();
 // });
 
-// const Url = "https://windals-precision.web.app";
-const Url = "http://localhost:3000";
+const Url = "https://windals-precision.web.app";
+// const Url = "http://localhost:3000";
 
 const corsOptions = {
   origin: Url,
@@ -51,8 +51,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/", loginRoutes);
 app.use("/report", reportRoutes);
 /*-----------------------------------------------------*/
-// const PORT = process.env.PORT || 5000;
-app.listen(5050, () => {
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
   console.log(`Server is Listening on the port 5050`);
 });
 /*-----------------------------------------------------*/
