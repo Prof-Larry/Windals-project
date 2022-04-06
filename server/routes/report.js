@@ -12,6 +12,7 @@ import {
   sendProcessDropDown,
   sendDefectDropDown,
   updateReport,
+  downloadReport, //excel
 } from "../controllers/report.js";
 import { adminAuthenticate } from "../middlewares/middleware.js";
 
@@ -28,6 +29,9 @@ router.post("/viewReport", adminAuthenticate, sendReport);
 router.post("/viewCompleteReport", adminAuthenticate, sendCompleteReport);
 
 router.put("/updateReport", adminAuthenticate, updateReport);
+
+router.post("/downloadExcelReport", adminAuthenticate, downloadReport); //excel
+
 
 router.get("/plantcodes", adminAuthenticate, sendPlantCodes);
 
