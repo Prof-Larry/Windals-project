@@ -227,7 +227,7 @@ export default function ShowReport() {
 
           <Row className=" justify-content-md-center mt-1">
             <Col>
-              <Table bordered className="mt-1">
+              <Table bordered className="mt-1" id="report-table">
                 <thead className="text-dark">
                   <tr className="text-dark">
                     <th className="text-dark">Sr. No</th>

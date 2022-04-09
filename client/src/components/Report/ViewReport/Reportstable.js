@@ -17,7 +17,7 @@ export default function ReportsTable() {
         </Row>
         <Row className=" justify-content-md-center">
           <Col sm="8">
-            <Table bordered className="mt-4">
+            <Table bordered className="mt-4" id="reports-table">
               <thead className="text-dark">
                 <tr className="text-dark">
                   <th className="text-dark">Sr.No</th>

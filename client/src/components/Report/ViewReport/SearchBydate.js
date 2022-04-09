@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Button, Form, Row, Col, Table } from "react-bootstrap";
 import Navbar from "../../Navbar/NavbarAdmin";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router"; //usehistory is dead should we use useNavigation?
 import serverUrl from "../../../api/index";
+
 
 export default function SearchByDate() {
   const [showMaster, setShowMaster] = useState(false);
@@ -43,6 +44,31 @@ export default function SearchByDate() {
       setShow(true);
     }
   }, []);
+
+  const handleDownload = () => {
+    axios
+      .post(
+        `${serverUrl}/report/downloadExcelReport`,
+        { from, to },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "JWT fefege...",
+          },
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        if (res.status === 401) {
+          throw new Error();
+        }
+        alert("Downloading");
+        console.log(res);
+      })
+      .catch((e) => {
+        alert("Can't Download, please try again later");
+      });
+  };
 
   const handleClick = () => {
     axios
@@ -123,15 +149,31 @@ export default function SearchByDate() {
               </Col>
             </Row>
           </Form.Group>
+          
           <center>
-            <Button
-              variant="danger"
-              size="lg"
-              className="mt-5"
-              onClick={handleClick}
-            >
-              Get Reports
-            </Button>
+            
+            
+          <div className="row mx-md-n1 mt-5">
+            <div className="col">
+              <Button
+                variant="danger"
+                size="lg"
+                onClick={handleClick}
+              >
+                Get Reports
+              </Button>
+          
+                {" "}
+                
+                <Button
+                  variant="primary"
+                  size="lg"
+                  onClick={handleDownload}
+                >
+                  Download⏬
+                </Button>
+            </div>
+          </div>
           </center>
         </Form>
       </Container>
@@ -139,7 +181,7 @@ export default function SearchByDate() {
         <Container>
           <Row className=" justify-content-md-center">
             <Col>
-              <Table bordered className="mt-4">
+              <Table bordered className="mt-4" id="report-table">
                 {show ? (
                   <thead className="text-dark">
                     <tr className="text-dark">

@@ -8,7 +8,8 @@ import { DefectDropDown } from "../models/defdd.js";
 import { CategoryDropDown } from "../models/catdd.js";
 import { LineDropDown } from "../models/linedd.js";
 const query = util.promisify(db.query).bind(db);
-
+import ExcelJS from "exceljs";
+//const ExcelJS = require('exceljs');
 export const saveReport = (req, res) => {
   console.log(req.body);
   try {
@@ -106,6 +107,60 @@ export const sendReport = async (req, res) => {
   res.send(results);
 };
 
+export const downloadReport = async (req, res) => {
+  const { from, to } = req.body;
+  const getReports = "select * from report where report_date BETWEEN ? AND ?";
+  const results = await query(getReports, [from, to]);
+  const jsonResult = JSON.parse(JSON.stringify(results));
+  //console.log(jsonResult);
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet("report");
+
+  // const d = new Date(`${jsonResult.report_date}`);
+  // console.log("json report date"+ jsonResult.report_date);
+  // console.log(d);
+  // const formatDate=d.getDate()-d.getMonth() + 1-d.getFullYear();
+  // console.log(formatDate+"formatDate");
+  worksheet.columns = [
+    { header: "Sr.No", key: "report_id", width: 10 },
+    { header: "Date", key: "report_date", width: 10 },
+    { header: "Report Type", key: "report_type", width: 12 },
+    { header: "Plant Code", key: "plant_code", width: 10 },
+    { header: "Production Line", key: "production_line", width: 15 },
+    { header: "Product Name", key: "product_name", width: 30 },
+    { header: "Rework Process", key: "rework_process", width: 14 },
+    { header: "Rejection Process", key: "rejection_process", width: 16 },
+    { header: "Admin", key: "admin_id", width: 12 },
+  ];
+
+  jsonResult.forEach((row) => {
+    
+    worksheet.addRow(row); // Add data in worksheet
+  });
+
+  worksheet.getRow(1).eachCell((cell) => {
+    cell.font = { bold: true };
+  });
+  const path = "./files";
+  try {
+    const data = await workbook.xlsx
+      .writeFile(`report.xlsx`) //try modifying file name here
+      .then(() => {
+        res.send({
+          status: "success",
+          message: "file successfully downloaded",
+          path: `${path}/report.xlsx`,
+        });
+
+      });
+  } catch (err) {
+    console.log(err);
+    res.send({
+      status: "error",
+      message: "Something went wrong",
+    });
+  }
+};
 export const sendCompleteReport = async (req, res) => {
   try {
     const { id } = req.body;
